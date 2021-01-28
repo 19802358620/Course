@@ -9,6 +9,8 @@
 <Card></Card>
 <!-- 装修流程 -->
 <Setp></Setp>
+<!-- 装修日记 -->
+<Diary></Diary>
 </div>
 
 </div>
@@ -19,13 +21,15 @@ import Center from '../views/Center'
 import Info from '../views/Information'
 import Card from '../views/Card'
 import Setp from '../views/Step'
+import Diary from '../views/Diary'
 export default {
     components:{
         Banner,
         Center,
         Info,
         Card,
-        Setp
+        Setp,
+        Diary
     },
     data(){
         return{

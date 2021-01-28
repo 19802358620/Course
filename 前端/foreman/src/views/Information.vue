@@ -2,7 +2,7 @@
   <div style="height:530px">
       <el-row type="flex" justify='start'>
           <el-col :span="8">
-              <div class="h2">装修 · 资讯</div>
+              <div class="h2">装修 · <em>效果</em></div>
           </el-col>
      </el-row>
           <el-row type="flex" justify='start' >
@@ -55,6 +55,9 @@ export default {
 </script>
 
 <style scoped>
+em{
+    color: red;
+}
 .act{
     width: 335px;
 }

@@ -7,6 +7,11 @@
                  <img src="../assets/imgs/服务流程.png" alt="" style="width:100%">
             </div>
           </el-col>
+          <el-col :span="18">
+              <div>
+                  <img src="../assets/imgs/opos_icico.jpg" alt="">
+              </div>
+          </el-col>
       </el-row>
       </div>
       

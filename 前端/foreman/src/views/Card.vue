@@ -2,7 +2,7 @@
   <div>
        <el-row type="flex" justify='start'>
           <el-col :span="8">
-              <div class="h2">重庆工长</div>
+              <div class="h2">重庆 · <em>工长</em></div>
           </el-col>
      </el-row>
      <div class="list">
@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+em{
+    color: red;
+}
 .item:hover span{
     display: block;
 }
