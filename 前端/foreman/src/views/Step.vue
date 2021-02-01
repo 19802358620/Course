@@ -76,6 +76,7 @@ a:hover{
 }
 h6{
   margin-top: -70px;
+  font-size: 14px;
 }
 ul{
   width: 300px;

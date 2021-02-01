@@ -1,8 +1,11 @@
 <template>
   <div style="height:530px">
-      <el-row type="flex" justify='start'>
+      <el-row type="flex" justify='start' class="p">
           <el-col :span="8">
               <div class="h2">装修 · <em>效果</em></div>
+          </el-col>
+            <el-col :span="16">
+              <a href="#" class="a">更多>></a>
           </el-col>
      </el-row>
           <el-row type="flex" justify='start' >
@@ -10,7 +13,7 @@
                     <div class="item" >
                         <el-carousel height="412px" style="width:320px;" indicator-position='none'>
                             <el-carousel-item v-for="item in 4" :key="item">
-                              <img src="../assets/imgs/lunbo/03.jpg"  alt="">
+                              <img src="../assets/imgs/qwe66.png"  alt="">
                             </el-carousel-item>
                         </el-carousel>
                     </div>
@@ -55,9 +58,21 @@ export default {
 </script>
 
 <style scoped>
-em{
+.a{
+    position: absolute;
+    top: -56px;
+    right: 16px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+}
+.a:hover{
     color: red;
 }
+.p{
+    position: relative;
+}
+
 .act{
     width: 335px;
 }
@@ -89,12 +104,7 @@ em{
  width: 100%;
  height: 100%;
 }
-.foter{
-    width: 1200px;
-    margin: 10px auto;
-    height: 35px;
-    background: url('../assets/imgs/lunbo/06.png') repeat-x center center;
-}
+
 .c .tit{
     padding-left: 20px;
     font-size: 18px;
@@ -167,13 +177,7 @@ em{
    justify-content: space-around;
    flex-wrap: wrap;
 }
-.h2{
-    float: left;
-    font-size: 30px;
-    line-height: 46px;
-    font-weight: bold;
-    color: #242424;
-}
+
 .item{
     width: 320px;
     height: 412px;

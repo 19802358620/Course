@@ -12,7 +12,7 @@
              <router-link :to="{name:'home'}"   class="a" >首页</router-link>
            </li>
            <li class="na">
-             <router-link :to="{name:'proc'}" class="a" @click="hand1">诚信工长</router-link>
+             <router-link :to="{name:'foremin'}" class="a">诚信工长</router-link>
            </li>
            <li class="na">
              <router-link :to="{name:'proc'}"  class="a">学装修</router-link>
@@ -54,9 +54,6 @@ export default {
     hand(){
       this.$router.push({ name: 'home'})
     }
-    ,hand1(){
-      this.$router.push({ name: 'proc'})
-    }
   }
 }
 </script>
@@ -66,7 +63,7 @@ position:fixed;
 top: 0px; 
 width: 100%;
 left:0;
-background-color:#fff;
+background-color:#F5F5F5;
 z-index: 9999;
 }
 .felx{

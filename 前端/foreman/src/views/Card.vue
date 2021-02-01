@@ -1,8 +1,11 @@
 <template>
   <div>
-       <el-row type="flex" justify='start'>
+       <el-row type="flex" justify='start' class="p">
           <el-col :span="8">
               <div class="h2">重庆 · <em>工长</em></div>
+          </el-col>
+          <el-col :span="16">
+              <router-link class="a" :to="{name:'foremin'}">更多>></router-link>
           </el-col>
      </el-row>
      <div class="list">
@@ -38,22 +41,32 @@
 
 <script>
 export default {
+    methods:{
+        hand(){
+            this.$router.push({name:'foremin'})
+        }
+    }
 
 }
 </script>
 
 <style scoped>
-em{
+.a{
+    position: absolute;
+    top: -56px;
+    right: 16px;
+    color: #aaa;
+    text-decoration: none;
+     font-size: 14px;
+}
+.a:hover{
     color: red;
+}
+.p{
+    position: relative;
 }
 .item:hover span{
     display: block;
-}
-.foter{
-    width: 1200px;
-    margin: 10px auto;
-    height: 35px;
-    background: url('../assets/imgs/lunbo/06.png') repeat-x center center;
 }
 .list{
     display: flex;
@@ -93,13 +106,6 @@ em{
     color: white;
     background: rgba(34,34,37,0.51);
     display: none;
-}
-.h2{
-    float: left;
-    font-size: 30px;
-    line-height: 46px;
-    font-weight: bold;
-    color: #242424;
 }
 
 </style>

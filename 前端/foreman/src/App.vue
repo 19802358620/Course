@@ -26,15 +26,20 @@
        <!-- 视图渲染 -->
        <router-view></router-view>
      </el-main>
-     <el-footer>Footer</el-footer>
+     <el-footer>
+       <!-- 页脚 -->
+       <Fotter></Fotter>
+     </el-footer>
   </el-container>
 </template>
 <script>
 import Nav from './views/Nav'
+import Fotter from './views/fotter'
 export default {
   name: 'App',
   components:{
-    Nav
+    Nav,
+    Fotter
   },
   data(){
     return{
@@ -51,11 +56,14 @@ export default {
     margin-bottom: 20px;
     height: 80px;
   }
-  .el-header, .el-footer {
+  .el-header{
   background-color: #F5F5F5;
   color: #333;
   text-align: center;
   line-height: 80px;
+  }
+  .el-footer{
+    padding: 0;
   }
   .el-main {
     background-color: #fff;

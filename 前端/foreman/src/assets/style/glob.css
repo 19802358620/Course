@@ -1,0 +1,16 @@
+em {
+  color: red;
+}
+.foter {
+  width: 1200px;
+  margin: 10px auto;
+  height: 35px;
+  background: url("../imgs/lunbo/06.png") repeat-x center center;
+}
+.h2 {
+  float: left;
+  font-size: 30px;
+  line-height: 46px;
+  font-weight: bold;
+  color: #242424;
+}

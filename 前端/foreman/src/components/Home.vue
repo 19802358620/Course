@@ -10,7 +10,11 @@
 <!-- 装修流程 -->
 <Setp></Setp>
 <!-- 装修日记 -->
-<Diary></Diary>
+<Day></Day>
+<!-- 招标 -->
+<Invitation></Invitation>
+<!-- 为什么选择 -->
+<back></back>
 </div>
 
 </div>
@@ -21,7 +25,9 @@ import Center from '../views/Center'
 import Info from '../views/Information'
 import Card from '../views/Card'
 import Setp from '../views/Step'
-import Diary from '../views/Diary'
+import Day from '../views/Day'
+import Invitation from '../views/Invitation'
+import back from '../views/back'
 export default {
     components:{
         Banner,
@@ -29,18 +35,24 @@ export default {
         Info,
         Card,
         Setp,
-        Diary
+        Day,
+        Invitation,
+        back,
     },
     data(){
         return{
             list:[
                 {
-                    url:require('../assets/imgs/lunbo/下载.png')
+                    url:require('../assets/imgs/lunbo/lunbo01.png')
                 },
                 {
-                  url:require('../assets/imgs/lunbo/01.png')
+                  url:require('../assets/imgs/lunbo/lunbo02.png')
+                },
+                {
+                  url:require('../assets/imgs/lunbo/lun03.png')
                 }
-            ]
+            ],
+            width:document.documentElement.clientWidth,
         }
     }
 }

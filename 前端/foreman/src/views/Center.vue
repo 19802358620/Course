@@ -1,15 +1,24 @@
 <template>
   <div class="m">
-      <el-row type="flex" justify='end'>
-          <el-col :span='6' style="border:1px solid red;">
+      <el-row type="flex" >
+          <el-col :span='6'>
               <div class="im">
                   <img src="../assets/imgs/服务流程.png" alt="装修流程" >
               </div>
           </el-col >
-          <el-col :span='18' style="border:1px solid;">
+          <el-col :span='18'>
               <div class="img">
-                  <div class="item">
-                  </div>
+                  <span class="item"></span>
+                  <span class="item1"></span>
+                  <span class="item2"></span>
+                   <span class="item1"></span>
+                  <span class="item3"></span>
+                  <span class="item1"></span>
+                  <span class="item4"></span>
+                  <span class="item1"></span>
+                  <span class="item5"></span>
+                  <span class="item1"></span>
+                  <span class="item6"></span>
               </div>
           </el-col>
       </el-row>
@@ -24,10 +33,75 @@ export default {
 <style scoped>
 .item{
     background: url('../assets/imgs/opos_icico.jpg') no-repeat;
-    background-size: 100%;
-    width: 110px;
+    width: 80px;
     height: 112px;
-    border: 1px solid;
+    background-position: 10px 7px;
+}
+.item1{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -394px;
+}
+.item2{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -60px 7px;
+}
+.item3{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -130px 7px;
+}
+.item4{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -196px 7px;
+}
+.item5{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -264px 7px;
+}
+.item6{
+    background: url('../assets/imgs/opos_icico.jpg') no-repeat;
+    width: 80px;
+    height: 112px;
+    background-position: -330px 7px;
+}
+.item::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
+}
+.item2::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
+}
+.item3::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
+}
+.item4::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
+}
+.item5::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
+}
+.item6::after{
+    content:"在线预约";
+    color:red;
+    font-weight:bold;
 }
 .m{
     width: 100%;
@@ -38,11 +112,11 @@ export default {
 .img{
     width: 100%;
     height: 112px;
-    background-color: #ffffff;
+    background-color: #F5F5F5;
     border-radius: 25px;
     margin: 0 auto;
-    border: 1px solid blue;
-    display: flex;justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
 }
 .im{
     width: 107px;
