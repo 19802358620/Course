@@ -9,7 +9,8 @@ const routes = [
   { path: '/foremin', name: 'foremin', component: () => import('../views/forman/forman.vue') },
   {
     path: '/shop/:id/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
-      { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), }
+      { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), },
+      { path: 'frominfo', name: 'frominfo', component: () => import('../views/forman/formainInfo.vue'), }
   ]},
 ]
 

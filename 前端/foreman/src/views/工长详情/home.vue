@@ -11,7 +11,7 @@
                       <div class="list">
                           <h1>明星工长：杨汤清</h1>
                           <i class="ic ic1"></i><span>已认证</span>
-                          <i class="ic ic2"></i><span>砖石工长</span>
+                          <i class="ic ic2"></i><span>钻石工长</span>
                       </div>
                       <div class="lis">
                           <p class="k">籍贯：重庆</p>
@@ -62,17 +62,182 @@
               <div class="e">
                   <h6 class="g">业主印象</h6>
                   <ul class="li">
-                  <li>建设好(1)</li>
-                  <li>建设好(1)</li>
-                  <li>建设好(1)</li>
+                  <li>效率高(1)</li>
+                  <li>专业性强(1)</li>
+                  <li>服务周到(1)</li>
+                  <li>参考好(1)</li>
+                  <li>效率高(1)</li>
                   </ul>
               </div>
               <div class="jian">
                   <h6 class="g">工长简介</h6>
-                  <p class="n">各位业主大家好，我是好工长网认证的钻石工长汤汉清，大家可以叫我汤工。本人从事装修行业十年，自己有长期稳定专业的施工团队！精通室内设计施工各个环节，本人诚实守信，为客户节约成本。设计施工一条龙服务。先做人后做事，用良心做工程。免费上门量房，出基础方案，做装修预算，解答装修常识。自觉做到重合同，守信用！
-</p>
+                  <p class="n">各位业主大家好，我是好工长网认证的钻石工长汤汉清，大家可以叫我汤工。本人从事装修行业十年，自己有长期稳定专业的施工团队！精通室内设计施工各个环节，本人诚实守信，为客户节约成本。设计施工一条龙服务。先做人后做事，用良心做工程。免费上门量房，出基础方案，做装修预算，解答装修常识。自觉做到重合同，守信用！</p>
               </div>
           </div>
+      </div>
+      <div class="as">
+          <div class="le">
+              <div class="ti01">
+                  <h2 class="tii">预约我的业主</h2>
+                  <span class="tiii">共<i class="i">66</i>人</span>
+              </div>
+              <ul style="padding: 10px 0;margin-left: -10px;">
+                  <li class="kjj">
+                      <div style="width: 60px;float: left;">陈先生</div>
+                      <div class="div1">理工雅苑</div>
+                      <div class="date">2021-2-2</div>
+                  </li>
+                  <li class="kjj">
+                      <div style="width: 60px;float: left;">陈先生</div>
+                      <div class="div1">理工雅苑</div>
+                      <div class="date">2021-2-2</div>
+                  </li>
+                  <li class="kjj">
+                      <div style="width: 60px;float: left;">陈先生</div>
+                      <div class="div1">理工雅苑</div>
+                      <div class="date">2021-2-2</div>
+                  </li>
+                  <li class="kjj">
+                      <div style="width: 60px;float: left;">陈先生</div>
+                      <div class="div1">理工雅苑</div>
+                      <div class="date">2021-2-2</div>
+                  </li>
+              </ul>
+          </div>
+          <div class="lef">
+              <div class="ti01">
+                  <h2 class="tii">业主评价</h2>
+                  <span class="tiii">共<i class="i">1</i>人</span>
+              </div>
+          </div>
+          <ul>
+              <li>Lorem, ipsum.</li>
+          </ul>
+      </div>
+      
+
+
+
+
+
+
+
+
+
+
+      <div class="r">
+          <div class="itm">
+              <h2>我的最新订单</h2>
+              <router-link class="a" to="/" style="float: right;margin-right: 10px;font-size: 14px;color: #505050;">更多>></router-link>
+          </div>
+          <dl>
+              <dt style="width:186px">业主</dt>
+              <dt style="width:186px">小区</dt>
+              <dt style="width:186px">面积</dt>
+              <dt style="width:186px">户型</dt>
+              <dt style="width:186px">报价</dt>
+              <dd style="width:186px">贾先生</dd>
+              <dd style="width:186px">蓝谷</dd>
+              <dd style="width:186px">200</dd>
+              <dd style="width:186px">3室两厅</dd>
+              <dd style="width:186px">20万</dd>
+          </dl>
+      </div>
+      <div class="r1">
+          <div class="itm">
+              <h2>工地案例</h2>
+              <router-link class="a" to="/" style="float: right;margin-right: 10px;font-size: 14px;color: #505050;">更多>></router-link>
+          </div>
+          <div class="w">
+              <a class="img">
+                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
+              </a>
+              <div class="cl">
+                  <a href="#" class="bb">
+                     星海虹城
+                  </a>
+                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
+                  <div class="li_w">
+                    <ul class="ul_w">
+                        <li><i></i>水电阶段</li>
+                        <li><i></i>泥木阶段</li>
+                        <li><i></i>油漆阶段</li>
+                        <li><i></i>完美竣工</li>
+                    </ul>
+                  </div>
+                  <div class="btn_w">
+                    <a href="#" class="ww">查看工地详情</a>
+                    <a href="#" class="ww01">申请参观工地</a>
+                    <span class="btn3">
+                        已有<em>466</em>查看
+                    </span>
+                  </div>
+              </div>
+              
+          </div>
+          <div class="w">
+              <a class="img">
+                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
+              </a>
+              <div class="cl">
+                  <a href="#" class="bb">
+                     星海虹城
+                  </a>
+                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
+                  <div class="li_w">
+                    <ul class="ul_w">
+                        <li><i></i>水电阶段</li>
+                        <li><i></i>泥木阶段</li>
+                        <li><i></i>油漆阶段</li>
+                        <li><i></i>完美竣工</li>
+                    </ul>
+                  </div>
+                  <div class="btn_w">
+                    <a href="#" class="ww">查看工地详情</a>
+                    <a href="#" class="ww01">申请参观工地</a>
+                    <span class="btn3">
+                        已有<em>466</em>查看
+                    </span>
+                  </div>
+              </div>
+              
+          </div>
+          <div class="w">
+              <a class="img">
+                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
+              </a>
+              <div class="cl">
+                  <a href="#" class="bb">
+                     星海虹城
+                  </a>
+                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
+                  <div class="li_w">
+                    <ul class="ul_w">
+                        <li><i></i>水电阶段</li>
+                        <li><i></i>泥木阶段</li>
+                        <li><i></i>油漆阶段</li>
+                        <li><i></i>完美竣工</li>
+                    </ul>
+                  </div>
+                  <div class="btn_w">
+                    <a href="#" class="ww">查看工地详情</a>
+                    <a href="#" class="ww01">申请参观工地</a>
+                    <span class="btn3">
+                        已有<em>466</em>查看
+                    </span>
+                  </div>
+              </div>
+              
+          </div>
+          <div style="height: 46px;margin-top: 10px;">
+            <el-pagination
+           background
+           layout="prev, pager, next"
+           :total="1000"
+           >
+            </el-pagination>
+          </div>
+          
       </div>
   </div>
 </template>
@@ -84,6 +249,257 @@ export default {
 </script>
 
 <style scoped>
+.date{
+    width: 50px;
+    float: right;
+    text-align: right;
+    margin-right: 20px;
+}
+.div1{
+   width: 70px;
+   float: left;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+}
+.kjj{
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    color: #505050;
+    margin-left: 10px;
+}
+.tiii{
+    float: right;
+    font-size: 12px;
+    color: #505050;
+}
+.tiii .i{
+    font-style: normal;
+    color: #01af63;
+}
+.le .ti01{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #bbbbbb;
+}
+.le .ti01 .tii{
+    color: #01af63;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.lef .ti01{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #bbbbbb;
+}
+.lef .ti01 .tii{
+    color: #01af63;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.as{
+     width: 250px;
+     height: 600px;
+     float: left;
+}
+.le{
+    width: 250px;
+    height: 292px;
+    float: left;
+    position: relative;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+.lef{
+    width: 250px;
+    height: 292px;
+    float: left;
+    position: relative;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+.btn_w .btn3 .em{
+    color: #ff4400;
+    padding: 0 5px;
+    font-style: normal
+}
+.btn_w .btn3{
+    width: 142px;
+    float: left;
+    text-align: center;
+    display: block;
+    background: #f8f8f8;
+    color: #999;
+    font-size: 12px;
+}
+.btn_w .ww{
+    background: #01af63;
+    color: #FFF;
+    width: 142px;
+    float: left;
+    text-align: center;
+    display: block;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.btn_w .ww01{
+    width: 142px;
+    background: #fff;
+    color: #01af63;
+    border: 1px solid #01af63;
+    font-size: 12px;
+}
+.btn_w{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 22px;
+    position: absolute;
+    top: 100px;
+    display: flex;
+    justify-content: start;
+}
+.ul_w{
+    width: 400px;
+    border-top: 2px solid #eee;
+    margin: 10px auto;
+    margin-left: 10px;
+}
+.ul_w li{
+    color: #8e8e8e;
+    width: 50px;
+    text-align: center;
+    line-height: 16px;
+    float: left;
+    margin-left: 40px;
+    font-size: 12px;
+    color: #01af63;
+}
+.ul_w li i{
+    width: 15px;
+    height: 15px;
+    margin: 0 auto;
+    display: block;
+    background: url('../../assets/imgs/小图标/ico.png') no-repeat -85px -22px;
+    top: -7px;
+    position: relative;
+    background-position: -67px -20px;
+}
+.li_w{
+    width: 100%;
+    height: 45px;
+    position: absolute;
+    top: 70px;
+}
+.w .cl{
+    width: 690px;
+    height: 165px;
+    border: 1px solid #eee;
+    float: right;
+    position: relative;
+}
+.w .cl .bb{
+    position: absolute;
+    top: -60px;
+    left: -300px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    width: 100%;
+}
+.w .cl p{
+    color: #8e8e8e;
+    font-size: 12px;
+    position: absolute;
+    top: -30px;
+    left: 10px;
+}
+.img{
+    width: 220px;
+    float: left;
+    height: 165px;
+}
+.img img{
+    width: 100%;
+    height: 165px;
+    margin-left: 10px;
+}
+.w{
+    width: 100%;
+    height: 165px;
+    border-bottom: 1px dotted #a0a0a0;
+    padding: 30px 0;
+}
+.a:hover{
+    color: red;
+}
+dd{
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    border-top: 1px dotted #dbdbdb;
+    font-size: 12px;
+    padding-top: 10px;
+}
+dl{
+    color: #4f4f4f;
+    text-align: center;
+}
+dt{
+    float: left;
+    height: 42px;
+    line-height: 42px;
+    font-weight: bold;
+    font-size: 12px;
+}
+.r .itm{
+    width: 100%;
+    height: 49px;
+    line-height: 49px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.r .itm h2{
+    float: left;
+    color: #01af63;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.r{
+    width: 930px;
+    height: 145px;
+    float: right;
+    position: relative;
+    border: 1px solid #d6d6d6;
+    margin-top: 10px;
+}
+.r1{
+    width: 930px;
+    height: auto;
+    float: right;
+    position: relative;
+    border: 1px solid #d6d6d6;
+    margin-top: 10px;
+}
+.r1 .itm{
+    width: 100%;
+    height: 49px;
+    line-height: 49px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.r1 .itm h2{
+    float: left;
+    color: #01af63;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
 .n{
     line-height: 22px;
     padding-right: 20px;
@@ -103,7 +519,7 @@ export default {
     position: absolute;
     top: 35px;
 }
-ul li{
+.li li{
     height: 26px;
     line-height: 26px;
     padding: 0 10px;

@@ -3,7 +3,7 @@
       <div class="head">
           <img src="../../assets/imgs/好工长png.png" alt="">
       </div>
-      <div class="right"></div>
+      <div class="right">待设计</div>
       <div class="b">
           <div class="item">
               <a class="login">
@@ -270,8 +270,8 @@
               :total="1000">
             </el-pagination>
           </div>
-          
       </div>
+      <div class="rh">待设计</div>
   </div>
 </template>
 
@@ -291,6 +291,13 @@ export default {
 </script>
 
 <style scoped>
+.rh{
+    width: 250px;
+    float: right;
+    height: 600px;
+    border: 1px solid;
+    margin-top: -60px;
+}
 h4{
     position: absolute;
     top: 70px;
@@ -458,6 +465,7 @@ span{
     margin: 10px auto;
     border: 1px solid;
     height: 1825px;
+    overflow: hidden;
 }
 .head{
     width: 940px;
