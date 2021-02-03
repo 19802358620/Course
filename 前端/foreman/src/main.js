@@ -9,7 +9,11 @@ import './assets/style/glob.css'
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-
+//页面跳转后回到顶部
+router.afterEach((to,from,next) => {
+  window.scrollTo(0, 0);
+  next();
+});
 new Vue({
   router,
   store,

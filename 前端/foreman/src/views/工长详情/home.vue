@@ -111,7 +111,7 @@
               </div>
           </div>
           <ul>
-              <li>Lorem, ipsum.</li>
+              <li> </li>
           </ul>
       </div>
       

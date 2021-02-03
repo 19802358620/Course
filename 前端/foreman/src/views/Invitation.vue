@@ -8,41 +8,41 @@
                          <h5>业主最新招标</h5>
                          <a href="#" class="it">更多>></a>
                      </div>
-                     <div class="cont">
-                         <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                     <div class="cont" @click="hand">
+                         <div class="ie" >
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                          <div class="ie">
-                             <a href="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
+                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, quod?</a>
                              <span>01.10</span>
                          </div>
                      </div>
@@ -147,6 +147,12 @@
 
 <script>
 export default {
+    methods:{
+        hand(){
+            console.log(65848454);
+            this.$router.push({name:'bidding'})
+        }
+    }
 
 }
 </script>

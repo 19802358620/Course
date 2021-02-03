@@ -8,7 +8,7 @@
               <router-link class="a" :to="{name:'foremin'}">更多>></router-link>
           </el-col>
      </el-row>
-     <div class="list">
+     <div class="list" @click="hand">
          <a class="item">
              <img src="../assets/imgs/index/人物.png" alt="">
              <span>简介</span>
@@ -43,7 +43,7 @@
 export default {
     methods:{
         hand(){
-            this.$router.push({name:'foremin'})
+            this.$router.push({name:'index'})
         }
     }
 

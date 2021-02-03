@@ -15,7 +15,7 @@
              <router-link :to="{name:'foremin'}" class="a">诚信工长</router-link>
            </li>
            <li class="na">
-             <router-link :to="{name:'proc'}"  class="a">学装修</router-link>
+             <router-link :to="{name:'learn'}"  class="a">学装修</router-link>
            </li>
            <li class="na">
              <router-link :to="{name:'proc'}" class="a">效果图</router-link>
