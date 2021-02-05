@@ -18,10 +18,14 @@
              <router-link :to="{name:'learn'}"  class="a">学装修</router-link>
            </li>
            <li class="na">
-             <router-link :to="{name:'proc'}" class="a">效果图</router-link>
+             <router-link :to="{name:'effect'}" class="a">效果图</router-link>
            </li>
            <li class="na">
-             <router-link :to="{name:'proc'}" class="a">装修问答</router-link>
+             <p :to="{name:'QA'}" class="a b">同城装修</p>
+             <div class="dis">
+               <router-link :to="{name:'community'}" class="disc">我的小区</router-link>
+               <router-link to=""  class="disc">装修设计</router-link>
+             </div>
            </li>
           </ul>
          </el-col>
@@ -42,9 +46,6 @@
 </template>
 
 <script>
-
-
-
 export default {
   name: 'Home',
   components: {
@@ -58,6 +59,30 @@ export default {
 }
 </script>
 <style scoped>
+p:hover{
+  cursor: default;
+}
+.na:hover .dis{
+  display: block;
+}
+.dis{
+  display: none;
+  position: absolute;
+  top: 55px;
+}
+.disc{
+  transition: .2s;
+  width: 100%;
+  font-size: 14px;
+  margin: 0 auto;
+  display: block;
+  float: left;
+  text-align: center;
+  line-height: 32px;
+}
+.disc:hover{
+  color: #ff7d44;
+}
 .user{
 position:fixed; 
 top: 0px; 
@@ -80,6 +105,7 @@ z-index: 9999;
 .na{
   float: left;
   list-style: none;
+  position: relative;
 }
 .na li{
   transition: all 0.4s ease;

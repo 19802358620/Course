@@ -36,6 +36,7 @@ export default {
     width: 80px;
     height: 112px;
     background-position: 10px 7px;
+    font-size: 14px;
 }
 .item1{
     background: url('../assets/imgs/opos_icico.jpg') no-repeat;
@@ -75,33 +76,45 @@ export default {
 }
 .item::after{
     content:"在线预约";
-    color:red;
-    font-weight:bold;
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .item2::after{
-    content:"在线预约";
-    color:red;
-    font-weight:bold;
+    content:"工长致电";
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .item3::after{
-    content:"在线预约";
-    color:red;
-    font-weight:bold;
+    content:"匹配工长";
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .item4::after{
-    content:"在线预约";
-    color:red;
-    font-weight:bold;
+    content:"免费量房";
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .item5::after{
-    content:"在线预约";
-    color:red;
-    font-weight:bold;
+    content:"对比方案";
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .item6::after{
-    content:"在线预约";
-    color:red;
-    font-weight:bold;
+    content:"签订合同";
+    color: #484848;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center
 }
 .m{
     width: 100%;

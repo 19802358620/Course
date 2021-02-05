@@ -10,6 +10,12 @@ const routes = [
   { path: '/bidding', name: 'bidding', component: () => import('../views/forman/Bidding.vue') },
   // 学装修
   { path: '/learn', name: 'learn', component: () => import('../views/学装修/Learn.vue') },
+  // 效果图
+  { path: '/effect', name: 'effect', component: () => import('../views/forman/effect.vue') },
+  //  装修问答
+  { path: '/QA', name: 'QA', component: () => import('../views/forman/QA.vue') },
+  // 同城装修
+  { path: '/community', name: 'community', component: () => import('../views/同城装修/Community.vue') },
   {
     path: '/shop/:id/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
       { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), },
