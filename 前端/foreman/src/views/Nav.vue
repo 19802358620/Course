@@ -59,6 +59,9 @@ export default {
 }
 </script>
 <style scoped>
+.Noprint {
+     DISPLAY: none
+ }
 p:hover{
   cursor: default;
 }

@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style scoped>
+.Noprint {
+     DISPLAY: none
+ }
 .fotter{
     background: #303030;
     width: 100%;
