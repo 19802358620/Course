@@ -27,19 +27,16 @@
                <router-link :to="{name:'design'}"  class="disc">装修设计</router-link>
              </div>
            </li>
+           <li class="li">
+             <router-link class="j"  to="">登录</router-link>
+             <router-link class="j"  to="">注册</router-link>
+           </li>
           </ul>
          </el-col>
          <!-- 搜索框 -->
          <el-col :span="6">
            <div class="serch">
-             <!-- <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-                  <el-select v-model="select" slot="prepend" placeholder="请选择">
-                    <el-option label="餐厅名" value="1"></el-option>
-                    <el-option label="订单号" value="2"></el-option>
-                    <el-option label="用户电话" value="3"></el-option>
-                  </el-select>
-                  <el-button slot="append" icon="el-icon-search"></el-button>
-              </el-input> -->
+            
            </div>
          </el-col>
        </el-row>
@@ -59,6 +56,14 @@ export default {
 }
 </script>
 <style scoped>
+.j{
+  margin: 0 10px;
+  color: #666;
+}
+.li{
+  font-size: 12px;
+ 
+}
 .Noprint {
      DISPLAY: none
  }
