@@ -36,7 +36,7 @@
           <li id='1' class="er"><router-link  :to='{name:"ind"}'>首页</router-link></li>
           <li id='2' > <router-link  :to='{name:"type"}'>户型图</router-link></li>
           <li id='3' ><router-link  to='/'>样板间</router-link></li>
-          <li id='4' ><router-link  to='/'>楼盘概况</router-link></li>
+          <li id='4' ><router-link  :to='{name:"overview"}'>楼盘概况</router-link></li>
       </div>
       <div class="p_main">
           <router-view></router-view>

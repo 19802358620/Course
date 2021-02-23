@@ -5,13 +5,29 @@
     </div>
     <div class="content">
         <div class="item">
-           <a href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
-           <span><a href="#">东方蓝海中心户型图</a></span>
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
         </div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
+        <div class="item">
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
+        </div>
+        <div class="item">
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
+        </div>
+        <div class="item">
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
+        </div>
+        <div class="item">
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
+        </div>
+        <div class="item">
+           <a class="aa" href="#"> <img src="../../assets/imgs/户型图/户型图01.jpg" alt=""></a>
+           <span class="sp"><a class="a" href="#">东方蓝海中心户型图</a></span>
+        </div>
     </div>
   </div>
 </template>
@@ -23,9 +39,25 @@ export default {
 </script>
 
 <style scoped>
+.sp{
+    display: block;
+    height: 30px;
+    position: absolute;
+    top: 235px;
+    width: 100%;
+}
+.a{
+    font-size: 14px;
+    color: inherit;
+    text-align: center;
+}
 img{
     width: 100%;
     height: 100%;
+}
+.item .aa{
+    display: block;
+    height: 300px;
 }
 .content{
     display: flex;
@@ -33,10 +65,11 @@ img{
     flex-wrap: wrap;
 }
 .content .item{
-    width: 380px;
-    height: 300px;
-    border: 1px solid red;
+    width: 280px;
+    height: 330px;
+    border: 1px solid rgb(248, 160, 160);
     margin: 10px 8px;
+    position: relative;
 }
 .ty{
     width: 100%;

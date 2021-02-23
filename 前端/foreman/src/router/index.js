@@ -37,6 +37,8 @@ const routes = [
       { path: '/inedx', name: 'ind', component: () => import('../views/同城装修/index.vue') },
       //户型图
       { path: '/Untype', name: 'type', component: () => import('../views/同城装修/Untype.vue') },
+      //楼盘概况
+      { path: '/overview', name: 'overview', component: () => import('../views/同城装修/Overview.vue') },
       
   ]}
 ]
