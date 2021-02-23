@@ -40,7 +40,11 @@ const routes = [
       //楼盘概况
       { path: '/overview', name: 'overview', component: () => import('../views/同城装修/Overview.vue') },
       
-  ]}
+  ]},
+  //登录
+  { path: 'login', name: 'login', component: () => import('../../src/views/登录注册/login.vue') },
+  //注册
+   { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
 ]
 
 const router = new VueRouter({

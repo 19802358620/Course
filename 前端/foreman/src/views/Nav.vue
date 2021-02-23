@@ -28,8 +28,8 @@
              </div>
            </li>
            <li class="li">
-             <router-link class="j"  to="">登录</router-link>
-             <router-link class="j"  to="">注册</router-link>
+             <router-link class="j dc" :to="{name:'login'}">登录</router-link>
+             <router-link class="j dc"  :to="{name:'reg'}">注册</router-link>
            </li>
           </ul>
          </el-col>
@@ -56,6 +56,9 @@ export default {
 }
 </script>
 <style scoped>
+.dc:hover{
+  color: #ff7d44;
+}
 .j{
   margin: 0 10px;
   color: #666;
