@@ -24,7 +24,7 @@
              <p :to="{name:'QA'}" class="a b">同城装修</p>
              <div class="dis">
                <router-link :to="{name:'community'}" class="disc">我的小区</router-link>
-               <router-link to=""  class="disc">装修设计</router-link>
+               <router-link :to="{name:'design'}"  class="disc">装修设计</router-link>
              </div>
            </li>
           </ul>

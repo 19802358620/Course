@@ -37,7 +37,7 @@
                   <a href="#">东方蓝海中心</a>
               </div>
               <div class="li">
-                  <button class="btn">查看方案</button>
+                  <button class="btn" @click="hand">查看方案</button>
               </div>
                <div class="li">
                  <span>开发商：</span>
@@ -198,6 +198,11 @@ export default {
             height:document.documentElement.clientHeight,
         }
     },
+    methods:{
+        hand(){
+           this.$router.push({ name: 'paogram', params: { paogramId: '123' }})
+        }
+    }
 }
 </script>
 <style scoped>
@@ -374,13 +379,6 @@ img{
     padding: 0 30px 0 30px;
     position: absolute;
     top: 0;
-}
-.m{
-    width: 1200px;
-    margin: 10px auto;
-    border: 1px solid red;
-    height: 100%;
-    overflow: hidden;
 }
 .tilte{
     width: 100%;

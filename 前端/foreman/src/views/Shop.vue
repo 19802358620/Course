@@ -19,14 +19,14 @@ export default {
         return{
             index:'',
         }
+    },
+    created(){
+        this.$router.push({name:'index'})
     }
 }
 </script>
 <style scoped>
-.m{
-    margin: 10px 0;
-    height: 800px;
-}
+
 .body{
     width: 1200px;
     height: 1300px;

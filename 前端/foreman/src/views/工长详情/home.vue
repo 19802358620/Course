@@ -114,17 +114,6 @@
               <li> </li>
           </ul>
       </div>
-      
-
-
-
-
-
-
-
-
-
-
       <div class="r">
           <div class="itm">
               <h2>我的最新订单</h2>
@@ -173,7 +162,6 @@
                     </span>
                   </div>
               </div>
-              
           </div>
           <div class="w">
               <a class="img">
@@ -200,7 +188,6 @@
                     </span>
                   </div>
               </div>
-              
           </div>
           <div class="w">
               <a class="img">
@@ -227,7 +214,6 @@
                     </span>
                   </div>
               </div>
-              
           </div>
           <div style="height: 46px;margin-top: 10px;">
             <el-pagination
@@ -237,13 +223,14 @@
            >
             </el-pagination>
           </div>
-          
       </div>
   </div>
 </template>
 
 <script>
 export default {
+    components:{
+    }
 
 }
 </script>

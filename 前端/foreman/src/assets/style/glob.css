@@ -14,3 +14,10 @@ em {
   font-weight: bold;
   color: #242424;
 }
+.m {
+  width: 1200px;
+  margin: 10px auto;
+  border: 1px solid red;
+  height: 100%;
+  overflow: hidden;
+}

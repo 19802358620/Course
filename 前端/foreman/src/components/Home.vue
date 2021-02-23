@@ -50,7 +50,10 @@ export default {
                 },
                 {
                   url:require('../assets/imgs/lunbo/lun03.png')
-                }
+                },
+                {
+                  url:require('../assets/imgs/lunbo/banle_1022.jpg')
+                },
             ],
             width:document.documentElement.clientWidth,
         }
