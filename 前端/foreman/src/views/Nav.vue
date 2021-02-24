@@ -29,7 +29,7 @@
            </li>
            <li class="li">
              <router-link class="j dc" :to="{name:'login'}">登录</router-link>
-             <router-link class="j dc"  :to="{name:'reg'}">注册</router-link>
+             <router-link class="j dc" :to="{name:'reg'}">注册</router-link>
            </li>
           </ul>
          </el-col>

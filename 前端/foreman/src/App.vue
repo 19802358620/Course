@@ -1,4 +1,5 @@
 <template>
+<div>
 <el-container>
      <!-- <el-header class='nav' height='80px'>
        <el-row type="flex" class="row-bg" >
@@ -32,6 +33,8 @@
        <Fotter></Fotter>
      </el-footer>
   </el-container>
+  <router-view name="login"></router-view>
+</div>
 </template>
 <script>
 import Nav from './views/Nav'
