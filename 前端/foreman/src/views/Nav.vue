@@ -3,7 +3,8 @@
          <el-col :span="6" type="flex" class="row-bg" >
            <div>
              <!-- <img src="" alt=""> -->
-             545444212
+             42342
+             <!-- <VDistpicker ></VDistpicker> -->
            </div>
          </el-col>
          <el-col :span="12" type="flex">
@@ -36,17 +37,17 @@
          <!-- 搜索框 -->
          <el-col :span="6">
            <div class="serch">
-            
            </div>
          </el-col>
        </el-row>
 </template>
 
 <script>
+// import VDistpicker from 'v-distpicker'
 export default {
   name: 'Home',
   components: {
-
+    // VDistpicker
   },
   methods:{
     hand(){

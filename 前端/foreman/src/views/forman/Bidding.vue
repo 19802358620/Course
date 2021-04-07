@@ -107,7 +107,7 @@ span{
 }
 .m{
     width: 1200px;
-    border: 1px solid red;
+    border: 1px solid #f5f5f5;
     margin: 20px auto;
     overflow: hidden;
     position: relative;
@@ -115,7 +115,7 @@ span{
 .m .left{
     width: 940px;
     float: left;
-    border: 1px solid;
+    border: 1px solid #f5f5f5;
     height: 781px;
 }
 .left .tab{

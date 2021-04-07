@@ -6,6 +6,9 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/style/reset.css'
 import './assets/style/glob.css'
+import VDistpicker from 'v-distpicker'
+
+Vue.component('v-distpicker', VDistpicker)
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false

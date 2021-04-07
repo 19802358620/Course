@@ -138,17 +138,17 @@ ul li a span{
     color: #242424;
 }
 .item{
-  border: 1px solid;
+  border: 1px solid #f5f5f5;
   height: 380px;
   margin: 5px;
 }
 .item1{
-border: 1px solid;
+border: 1px solid #f5f5f5;
 height: 380px;
 margin: 5px;
 }
 .item2{
-border: 1px solid;
+border: 1px solid #f5f5f5;
 height: 380px;
 margin: 5px;
 }

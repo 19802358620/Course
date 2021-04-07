@@ -169,7 +169,7 @@ export default {
    width: 845px;
    overflow: hidden;
    float: left;
-   border: 1px solid red;
+   border: 1px solid #f5f5f5;
    height: 412px;
    margin-top: 20px;
    margin-left: -60px;

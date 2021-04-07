@@ -1,6 +1,6 @@
 <template>
   <div class="fotter">
-      <div style="width:1200px;height:50px;"></div>
+      <div style="width:1200px;height:40px;"></div>
       <div class="part">
           <div class="left">
               待设计
@@ -28,7 +28,7 @@ export default {
 .fotter{
     background: #303030;
     width: 100%;
-    height: 320px;
+    height: 310px;
 }
 .fotter .part{
     width: 1200px;

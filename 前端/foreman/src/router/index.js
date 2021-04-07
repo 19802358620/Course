@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import login from '../views/登录注册/login.vue'
 
 Vue.use(VueRouter)
 
@@ -43,8 +42,8 @@ const routes = [
       
   ]},
   //登录
-  // { path: 'login', name: 'login', component: () => import('../../src/views/登录注册/login.vue') },
-  { path: '/login',name:'login',components: {login: login}},
+  { path: 'login', name: 'login', component: () => import('../../src/views/登录注册/login.vue') },
+  // { path: '/login',name:'login',components: {login: login}},
   //注册
    { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
 ]

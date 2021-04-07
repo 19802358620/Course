@@ -463,7 +463,7 @@ span{
 .content{
     width: 1200px;
     margin: 10px auto;
-    border: 1px solid;
+    border: 1px solid #f5f5f5;
     height: 1825px;
     overflow: hidden;
 }
@@ -484,7 +484,7 @@ span{
 .b{
     width: 940px;
     float: left;
-    border: 1px solid red;
+    /* border: 1px solid #f5f5f5; */
     height: auto;
     margin-top: -60px;
 }
