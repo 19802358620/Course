@@ -127,9 +127,87 @@
                       高级工长
                   </p>
               </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
+               <li>
+                  <div class="item">
+                      <img src="../../assets/imgs/工长/工长01.jpg" alt="">
+                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                  </div>
+                  <h4>
+                      <a href="">张三三</a>
+                  </h4>
+                  <p>
+                      <i class="icon"></i>
+                      高级工长
+                  </p>
+              </li>
           </ul>
       </div>
-      
+      <div class="foter foters"></div>
   </div>
 </template>
 
@@ -154,8 +232,13 @@ export default {
 </script>
 
 <style scoped>
+.foters{
+    position: absolute;
+    top: 705px;
+}
 .mm{
     border: none;
+    position: relative;
 }
 .warp{
     text-align: center;
@@ -168,7 +251,7 @@ export default {
     margin-bottom: 10px;
     color: black;
 }
-.title .sp_t{
+.warp .sp_t{
     font-size: 14px;
     color: #717171;
     padding-bottom: 40px;
@@ -236,6 +319,7 @@ ul li{
     float: right;
     background-color: #f6f6f6;
     margin-top: -30px;
+    margin-bottom: 45px;
 }
 
 img{

@@ -26,7 +26,10 @@ const routes = [
     path: '/shop/:id/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
       //工长详情
       { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), },
-      { path: 'frominfo', name: 'frominfo', component: () => import('../views/forman/formainInfo.vue'), }
+      //工长简介
+      { path: 'Details', name: 'Details', component: () => import('../views/工长详情/Details.vue'), },
+      //在建工地
+      { path: 'frominfo', name: 'frominfo', component: () => import('../views/工长详情/Details.vue') }
     ]
   },
   //查看方案

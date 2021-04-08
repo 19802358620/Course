@@ -3,6 +3,7 @@
    <div class="nav">
        <router-link :to="{name:'index'}" class="item active">工长主页</router-link>
        <router-link :to="{name:'frominfo'}" class="item active">工长简介</router-link>
+       <router-link :to="{name:'frominfo'}" class="item active">工地案例</router-link>
        <router-link to="#" class="item active">最新订单</router-link>
        <router-link to="#" class="item active">业主评价</router-link>
    </div>
