@@ -1,10 +1,14 @@
 <template>
   <el-row class="user">
          <el-col :span="6" type="flex" class="row-bg" >
-           <div>
-             <!-- <img src="" alt=""> -->
-             42342
-             <!-- <VDistpicker ></VDistpicker> -->
+           <div class="city">
+             当前城市：
+             <i class="img"></i>
+             {{city}}
+             <span style="color: #02ae62;cursor: pointer;">[切换]</span>
+             <!-- <div class="area">
+               <v-region type="city" blank=false ></v-region>
+             </div> -->
            </div>
          </el-col>
          <el-col :span="12" type="flex">
@@ -37,6 +41,9 @@
          <!-- 搜索框 -->
          <el-col :span="6">
            <div class="serch">
+              <el-input placeholder="请输入想要查找的工长" v-model="input3" class="input-with-select" clearable=true>
+              <el-button slot="append" icon="el-icon-search" class="btn" style="background-color: #b90000"></el-button>
+           </el-input>
            </div>
          </el-col>
        </el-row>
@@ -44,10 +51,19 @@
 
 <script>
 // import VDistpicker from 'v-distpicker'
+// import vgerion from 'v-region'
 export default {
   name: 'Home',
   components: {
     // VDistpicker
+    // vgerion
+  },
+  data(){
+    return{
+      input3:'',
+      city:'重庆',
+
+    }
   },
   methods:{
     hand(){
@@ -57,16 +73,40 @@ export default {
 }
 </script>
 <style scoped>
+.area{
+  width: 32%;
+  border: 1px solid;
+  top: 50px;
+  left: 163px;
+  position: absolute;
+}
+.city .img{
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  background: url('../assets/imgs/工长/ico-bg.png') no-repeat;
+  margin-right: 5px;
+  background-position: -200px -110px !important;
+}
+.city{
+  color: white;
+  font-size: 12px;
+  position: relative;
+}
+.input-with-select{
+  width: 65%;
+}
 .dc:hover{
   color: #ff7d44;
 }
 .j{
   margin: 0 10px;
-  color: #666;
+  color:white;
 }
 .li{
   font-size: 12px;
- 
 }
 .Noprint {
      DISPLAY: none
@@ -91,16 +131,17 @@ p:hover{
   float: left;
   text-align: center;
   line-height: 32px;
+  color: black;
 }
 .disc:hover{
   color: #ff7d44;
-}
+} 
 .user{
 position:fixed; 
 top: 0px; 
 width: 100%;
 left:0;
-background-color:#F5F5F5;
+background-color:#b90000;
 z-index: 9999;
 }
 .felx{
@@ -112,7 +153,7 @@ z-index: 9999;
 .a{
    text-decoration:none;
    font-size: 20px;
-   color: black;
+   color: white;
 }
 .na{
   float: left;

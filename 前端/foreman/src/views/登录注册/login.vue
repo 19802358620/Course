@@ -24,7 +24,7 @@
                 <el-input placeholder="请输入密码"></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" type="button" name="" id="" value="登录">
+                  <input class="sub" @click="hand" type="button" name="" id="" value="登录">
                 </div>
                 <div>
                   <a class="p">免费注册</a>
@@ -102,6 +102,9 @@ export default {
     reg(){
       console.log(111)
       this.isreg= true
+    },
+    hand(){
+      this.$router.push({name:"tenderadd"})
     }
    
   }
@@ -110,6 +113,9 @@ export default {
 </script>
 
 <style scoped>
+.btn .sub{
+  cursor:pointer;
+}
  .divwrap{
     height: 400px;
     overflow-y: auto;

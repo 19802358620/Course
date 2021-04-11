@@ -4,7 +4,7 @@
           <p class="title">装修在建工地</p>
           <div class="sp_t">
               已为<span style="color: #ff4400;">165151</span>位业主提供装修服务
-              <a @click="more" style="color: #ff4400;">查看更多案例</a>
+              <a  style="color: #ff4400;">查看更多案例</a>
           </div>
       </div>
       <div class="home">
@@ -32,7 +32,7 @@
               </li>
               <li>
                   <div class="pice">
-                      <a href="">
+                      <a  @click="hand">
                           <img src="../assets/imgs/在建工地/在建工地01.jpg" alt="银翔翡翠谷7-2-1-1">
                           <div class="pice_title"></div>
                       </a>
@@ -229,7 +229,12 @@
 
 <script>
 export default {
-
+  methods:{
+        hand(){
+            console.log(1111)
+            // this.$router.push({name:'sitedetails'})
+        }
+    }
 }
 </script>
 

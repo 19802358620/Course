@@ -26,10 +26,16 @@ const routes = [
     path: '/shop/:id/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
       //工长详情
       { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), },
-      //工长简介
-      { path: 'Details', name: 'Details', component: () => import('../views/工长详情/Details.vue'), },
       //在建工地
-      { path: 'frominfo', name: 'frominfo', component: () => import('../views/工长详情/Details.vue') }
+      { path: 'study', name: 'study', component: () => import('../views/工长详情/study.vue'), },
+      //工长简介
+      { path: 'frominfo', name: 'frominfo', component: () => import('../views/工长详情/Details.vue') },
+      //最新订单
+      { path: 'order', name: 'order', component: () => import('../views/工长详情/Order.vue') },
+      //业主评价
+      { path: 'evaluation', name: 'evaluation', component: () => import('../views/工长详情/Evaluation.vue') },
+      //查看工地详情
+      { path: 'sitedetails', name: 'sitedetails', component: () => import('../views/工长详情/Sitedetails.vue') },
     ]
   },
   //查看方案
@@ -48,7 +54,17 @@ const routes = [
   { path: 'login', name: 'login', component: () => import('../../src/views/登录注册/login.vue') },
   // { path: '/login',name:'login',components: {login: login}},
   //注册
-   { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
+  { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
+  //业主首页
+  {
+    path: 'tenderadd/', name: 'tenderadd', component: () => import('../../src/views/业主中心/tenderadd.vue'),
+    children: [
+      //业主基本资料
+      { path: 'member', name: 'member', component: () => import('../views/业主中心/member.vue') },
+      //发布装修招标
+      { path: 'bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
+    ]
+  },
 ]
 
 const router = new VueRouter({
