@@ -15,7 +15,7 @@
         <div class="titname">我的装修需求</div>
         <router-link :to="{name:'bidd'}">发布装修招标</router-link>
         <a href="">管理装修招标</a>
-        <a href="">参与项目工长</a>
+        <router-link :to="{name:'visit'}">参与项目工长</router-link>
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">
@@ -24,7 +24,7 @@
       </div>
       <div class="item">
         <div class="titname">账号管理</div>
-        <a href="">修改密码</a>
+        <router-link :to="{name:'changpwd'}">修改密码</router-link>
       </div>
     </div>
     <div class="right">
@@ -57,7 +57,7 @@ export default {
   width: 370px;
   height: 90px;
   float: left;
-  background: url('../../assets/imgs/工长/ico-bg.png') 0 -284px no-repeat;
+  background: url('../../assets/imgs/工长/雪碧图.jpg') 0 -284px no-repeat;
   margin-top: 20px;
   overflow: hidden
 }

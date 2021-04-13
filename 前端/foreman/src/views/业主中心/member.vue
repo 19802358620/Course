@@ -79,7 +79,7 @@
               <div class="center">
                   <div class="msg">
                       <i class="megi"></i>
-                      您还没有绑定装修信息哦~
+                      您还没有发布装修信息哦~
                   </div>
                   <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在发布装修招标信息，免费获得1-3位工长提供的设计和报价方案服务</div>
                   <div class="btn">

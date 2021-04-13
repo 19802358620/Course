@@ -63,6 +63,10 @@ const routes = [
       { path: 'member', name: 'member', component: () => import('../views/业主中心/member.vue') },
       //发布装修招标
       { path: 'bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
+      //参与项目工长
+      { path: 'visit', name: 'visit', component: () => import('../views/业主中心/Visit.vue') },
+      //修改密码
+      { path: 'changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
     ]
   },
 ]

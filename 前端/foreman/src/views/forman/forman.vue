@@ -1,7 +1,7 @@
 <template>
   <div  class="content">
       <div class="head">
-          <img src="../../assets/imgs/好工长png.png" alt="">
+          <img src="../../assets/imgs/好工长2.jpg" alt="">
       </div>
       <div class="right">待设计</div>
       <div class="b">

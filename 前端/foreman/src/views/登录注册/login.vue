@@ -1,10 +1,14 @@
 <template>
   <div class="maincenter">
+    <div class="login">
+      <a href="" class="log"></a>
+      <div class="tit">登录中心</div>
+    </div>
     <div class="denlu">
        <div class="main860">
          <div class="denlulist">
            <div class="open"></div>
-           <img src="../../assets/imgs/登录/login.jpg" alt="">
+           <img src="../../assets/imgs/登录/login1.jpg" alt="">
          </div>
          <div class="denlulister" v-if='!isreg'>
            <div class="denlul_li ">
@@ -55,26 +59,6 @@
                <a>工长注册</a>
              </span>
            </div>
-            <!-- <el-form status-icon :rules="rules" ref="ruleForm" label-width="5px" class="demo-ruleForm">
-              <el-form-item>
-                <el-input placeholder="用户名"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input placeholder="密码"></el-input>
-              </el-form-item>
-               <el-form-item>
-                <el-input placeholder="确认密码"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <VDistpicker></VDistpicker>
-              </el-form-item>
-                <div class="btn">
-                  <input class="sub" type="button" name="" id="" value="注册">
-                </div>
-                <div>
-                  <a class="p">免费注册</a>
-                </div>
-            </el-form> -->
          </div>
     </div>
     </div>
@@ -113,6 +97,31 @@ export default {
 </script>
 
 <style scoped>
+.login{
+  width: 1200px;
+  height: 150px;
+  margin: 0 auto;
+}
+.login .tit{
+  width: 100px;
+  height: 28px;
+  line-height: 28px;
+  float: left;
+  margin-left: 15px;
+  margin-top: 51px;
+  text-align: center;
+  font-size: 18px;
+  color: #000;
+  border-left: 1px solid #cbcbcb
+}
+.login .log{
+   width: 370px;
+   height: 90px;
+   float: left;
+   background: url('../../assets/imgs/工长/雪碧图.jpg') 0 -284px no-repeat;
+   margin-top: 20px;
+   overflow: hidden
+}
 .btn .sub{
   cursor:pointer;
 }

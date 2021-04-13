@@ -3,42 +3,42 @@
     <div class="title">
         <img src="../../assets/imgs/学装修/zxlc_1.jpg" alt="">
     </div>
-    <div class="left">
+    <div class="left" @click="hand">
         <div class="im">装修流程</div>
-        <div class="malcont">
-            <span><a href="">装修施工</a></span>
-            <span><a href="">装修验收</a></span>
-            <span><a href="">装修前的准备工作</a></span>
-            <span><a href="">装修设计方案选择</a></span>
-            <span><a href="">装修材料选购</a></span>
+        <div class="malcont"  >
+            <span><a>装修施工</a></span>
+            <span><a>装修验收</a></span>
+            <span><a>装修前的准备工作</a></span>
+            <span><a>装修设计方案选择</a></span>
+            <span><a>装修材料选购</a></span>
         </div>
         <div class="im">家居装修</div>
         <div class="malcont">
-            <span><a href="">客厅装修</a></span>
-            <span><a href="">厨房装修</a></span>
-            <span><a href="">卧室装修</a></span>
-            <span><a href="">卫生间装修</a></span>
-            <span><a href="">小户型装修</a></span>
+            <span><a>客厅装修</a></span>
+            <span><a>厨房装修</a></span>
+            <span><a>卧室装修</a></span>
+            <span><a>卫生间装修</a></span>
+            <span><a>小户型装修</a></span>
         </div>
         <div class="im">建材家具</div>
         <div class="malcont">
-            <span><a href="">石材</a></span>
-            <span><a href="">吊顶</a></span>
-            <span><a href="">地板</a></span>
-            <span><a href="">卫浴</a></span>
-            <span><a href="">涂料</a></span>
-            <span><a href="">灯饰</a></span>
-            <span><a href="">门窗</a></span>
-            <span><a href="">壁纸</a></span>
+            <span><a>石材</a></span>
+            <span><a>吊顶</a></span>
+            <span><a>地板</a></span>
+            <span><a>卫浴</a></span>
+            <span><a>涂料</a></span>
+            <span><a>灯饰</a></span>
+            <span><a>门窗</a></span>
+            <span><a>壁纸</a></span>
         </div>
         <div class="im">装修风格</div>
         <div class="malcont">
-            <span><a href="">地中海风格</a></span>
-            <span><a href="">田园风格</a></span>
-            <span><a href="">欧式风格</a></span>
-            <span><a href="">现代简约风格</a></span>
-            <span><a href="">中式风格</a></span>
-            <span><a href="">东南亚风格</a></span>
+            <span><a>地中海风格</a></span>
+            <span><a>田园风格</a></span>
+            <span><a>欧式风格</a></span>
+            <span><a>现代简约风格</a></span>
+            <span><a>中式风格</a></span>
+            <span><a>东南亚风格</a></span>
         </div>
         
     </div>
@@ -144,6 +144,16 @@
 
 <script>
 export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        hand(e){
+            console.log(e.target.innerText)
+        }
+    }
 
 }
 </script>

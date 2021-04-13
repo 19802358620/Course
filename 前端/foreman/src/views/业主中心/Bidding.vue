@@ -185,6 +185,9 @@ data(){
     cursor: pointer;
     font-size: 14px;
 }
+input:focus{
+  outline: none;
+}
 .colbtn{
     height: 36px;
     line-height: 36px;

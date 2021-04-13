@@ -4,7 +4,52 @@
           <div class="title">
             <p class="p">装修案例</p>
           </div>
-          <div slot="waterfall-head">筛选条件</div>
+          <div slot="waterfall-head">
+              <div class="header">
+                  <div class="title ">
+           <div class="huo">
+             <span class="sp">户型</span>
+             <div class="li">
+               <a class="a"  href="">全部</a>
+               <a class="a"  href="">小户型</a>
+               <a class="a"  href="">二居</a>
+               <a class="a"  href="">三居</a>
+               <a class="a"  href="">四居</a>
+             </div>
+           </div>
+           <div class="huo">
+             <span class="sp">面积</span>
+             <div class="li">
+               <a class="a" href="">全部</a>
+               <a class="a" href="">40㎡以下</a>
+               <a class="a" href="">41-60㎡</a>
+               <a class="a" href="">61-90㎡</a>
+               <a class="a" href="">91-120㎡ </a>
+             </div>
+           </div>
+           <div class="huo">
+             <span class="sp">风格</span>
+             <div class="li">
+               <a class="a"   href="">全部</a>
+               <a class="a"   href="">中式</a>
+               <a class="a"   href="">欧式</a>
+               <a class="a"   href="">美式</a>
+               <a class="a"   href="">现代</a>
+             </div>
+           </div>
+           <div class="huo">
+             <span class="sp">总价</span>
+             <div class="li">
+               <a class="a" href="">全部</a>
+               <a class="a" href="">1-5万</a>
+               <a class="a" href="">5-10万</a>
+               <a class="a" href="">10-20万</a>
+               <a class="a" href="">20-30万</a>
+             </div>
+           </div>
+         </div>
+              </div>
+          </div>
            <div slot="waterfall-over">waterfall-over</div>
       </vimg>
   </div>
@@ -62,6 +107,52 @@ export default {
 </script>
 
 <style scoped>
+.a{
+  color: inherit;
+  line-height: 47px;
+  padding: 5px;
+  margin: 2px;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 6px;
+font-size: 14px;
+}
+.li{
+  position: absolute;
+  top: 0;
+  left: 45px;
+}
+.li a:hover{
+  background: #ff552e;
+  color: white;
+  text-decoration: none;
+}
+.title{
+  margin: 15px 0;
+  background-color: #fff;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-top: -20px;
+}
+.title .huo{
+  font-size: 14px;
+  line-height: 50px;
+  cursor: default;
+  color: #888888;
+  position: relative;
+}
+.huo .sp{
+  font-size: 14px;
+  color: #444444;
+  display: block;
+  text-align: left;
+  width: 30px;
+
+}
+.header{
+    width: 100%;
+    height: 220px;
+}
 vimg:hover{
     text-decoration: none;
 }
@@ -75,12 +166,12 @@ vimg:hover{
 }
 .title{
     height: 27px;
-    position: relative;
+    position: relative; 
 }
 .mm{
     width: 1200px;
     margin: 10px auto;
-    border: 1px solid red;
+    border: 1px solid #eee;
     overflow-y: hidden;
 }
 </style>
