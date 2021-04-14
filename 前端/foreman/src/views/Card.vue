@@ -2,7 +2,7 @@
   <div>
        <el-row type="flex" justify='start' class="p">
           <el-col :span="8">
-              <div class="h2">重庆 · <em>工长</em></div>
+              <div class="h2">重庆 · <em>设计师</em></div>
           </el-col>
           <el-col :span="16">
               <router-link class="a" :to="{name:'foremin'}">更多>></router-link>

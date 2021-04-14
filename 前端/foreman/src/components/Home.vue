@@ -10,7 +10,7 @@
 <!-- 效果图-->
 <Info></Info>
 <!-- 工长介绍 -->
-<!-- <Card></Card> -->
+<Card></Card>
 <!-- 装修日记 -->
 <!-- <Day></Day> -->
 <!-- 在建工地 -->
@@ -27,7 +27,7 @@
 import Banner from '../views/Banner'
 import Center from '../views/Center'
 import Info from '../views/Information'
-// import Card from '../views/Card'
+import Card from '../views/Card'
 import Setp from '../views/Step'
 // import Day from '../views/Day'
 import Invitation from '../views/Invitation'
@@ -39,7 +39,7 @@ export default {
         Banner,
         Center,
         Info,
-        // Card,
+        Card,
         Setp,
         // Day,
         Invitation,
