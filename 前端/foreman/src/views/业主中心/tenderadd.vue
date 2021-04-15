@@ -9,7 +9,7 @@
       <div class="tit">个人中心</div>
       <div class="item">
         <div class="titname">业主信息</div>
-        <router-link :to="{name:'member'}">业主基本资料</router-link>
+        <a @click="member">业主基本资料</a>
       </div>
       <div class="item">
         <div class="titname">我的装修需求</div>
@@ -38,6 +38,24 @@
 
 <script>
 export default {
+  data(){
+    return{
+      user:'',
+    }
+  },
+  methods:{
+    //业主基本资料
+    member(){
+       this.$router.push({name:"member",params:this.user})
+    },
+    getuser(){
+      this.user= this.$route.params;
+      console.log(this.user)
+    }
+  },
+  created(){
+    this.getuser()
+  }
 
 }
 </script>

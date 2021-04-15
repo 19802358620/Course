@@ -20,22 +20,22 @@
              </span>
            </div>
            <!-- 业主登录 -->
-           <el-form v-show="cur==0" status-icon :rules="rules" ref="ruleForm" label-width="5px" class="demo-ruleForm">
-              <el-form-item>
-                <el-input placeholder="请输入用户名"></el-input>
+           <el-form  :model="user"  ref="ruleForm" label-width="5px" class="demo-ruleForm">
+              <el-form-item  prop="name"> 
+                <el-input v-model="user.name" placeholder="请输入用户名"></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input placeholder="请输入密码"></el-input>
+              <el-form-item prop="password">
+                <el-input type="password" v-model="user.password" placeholder="请输入密码"></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="hand" type="button" name="" id="" value="登录">
+                  <input class="sub" @click="userlogin" type="button"  value="登录">
                 </div>
                 <div>
                   <a class="p">免费注册</a>
                 </div>
             </el-form>  
             <!-- 工长登录 -->
-             <el-form v-show="cur==1" status-icon :rules="rules" ref="ruleForm" label-width="5px" class="demo-ruleForm">
+             <!-- <el-form v-show="cur==1" status-icon  ref="ruleForm" label-width="5px" class="demo-ruleForm">
               <el-form-item>
                 <el-input placeholder="请输入用户名"></el-input>
               </el-form-item>
@@ -48,7 +48,7 @@
                 <div>
                   <a  class="p" @click="reg">免费注册</a>
                 </div>
-            </el-form> 
+            </el-form>  -->
          </div>
          <div class="denlulister" v-if="isreg">
            <div class="denlul_li ">
@@ -76,7 +76,11 @@ export default {
       cur:0,
       islogin:true,//业主登录判断
       isforma:false,
-      activeName: 'second'
+      activeName: 'second',
+      user:{
+        name:'',
+        password:''
+      },
     }
   },
   methods:{
@@ -87,13 +91,33 @@ export default {
       console.log(111)
       this.isreg= true
     },
-    hand(){
-      this.$router.push({name:"tenderadd"})
-    }
-   
+    userlogin(){
+      console.log(this.user)
+      if(!this.user.name||!this.user.password){
+        this.$message.error('用户名、密码不能为空')
+        this.user.name='';
+        this.user.password=''
+      }else{
+       this.$Axios({
+         url:'/users/login',
+         method:'POST',
+         data:this.user,
+         success:(result)=>{
+           console.log(result)
+           if(result.length==0){
+            this.$message.error('用户名或密码输入错误')
+             this.user.name=''
+             this.user.password=''
+           }else{
+             window.localStorage.setItem('token',result.jwt_token)
+             this.$router.push({name:"tenderadd",params:result[0]})
+           }
+       }
+       })
+      }
+    },
   }
-
-}
+  }
 </script>
 
 <style scoped>
@@ -124,6 +148,10 @@ export default {
 }
 .btn .sub{
   cursor:pointer;
+  outline: none;
+}
+.btn .sub:hover{
+  opacity: 0.7;
 }
  .divwrap{
     height: 400px;

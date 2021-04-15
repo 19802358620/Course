@@ -52,23 +52,23 @@ const routes = [
   ]},
   //登录
   { path: 'login', name: 'login', component: () => import('../../src/views/登录注册/login.vue') },
-  // { path: '/login',name:'login',components: {login: login}},
   //注册
   { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
   //业主首页
-  {
-    path: 'tenderadd/', name: 'tenderadd', component: () => import('../../src/views/业主中心/tenderadd.vue'),
+  
+  { path: 'tenderadd', name: 'tenderadd', component: () => import('../../src/views/业主中心/tenderadd.vue'),
     children: [
       //业主基本资料
-      { path: 'member', name: 'member', component: () => import('../views/业主中心/member.vue') },
+      { path: '/member', name: 'member', component: () => import('../views/业主中心/member.vue') },
       //发布装修招标
-      { path: 'bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
+      { path: '/bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
       //参与项目工长
-      { path: 'visit', name: 'visit', component: () => import('../views/业主中心/Visit.vue') },
+      { path: '/visit', name: 'visit', component: () => import('../views/业主中心/Visit.vue') },
       //修改密码
-      { path: 'changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
+      { path: '/changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
     ]
-  },
+  }
+  
 ]
 
 const router = new VueRouter({

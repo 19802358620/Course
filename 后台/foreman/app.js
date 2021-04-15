@@ -8,6 +8,21 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+/**
+ * 全系统允许跨域处理 这段配置要再new出express实例的时候就要设置了，放在所有的api前面，不然没有效果
+ */
+app.all("*", function (req, res, next) {
+  //设置允许跨域的域名，*代表允许任意域名跨域
+  res.header("Access-Control-Allow-Origin", "*");
+  //允许的header类型
+  res.header("Access-Control-Allow-Headers", "*");
+  //跨域允许的请求方式
+  res.header("Access-Control-Allow-Methods", "*");
+  if (req.method.toLowerCase() == 'options')
+    res.send(200);  //让options尝试请求快速结束
+  else
+    next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

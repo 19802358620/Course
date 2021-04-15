@@ -29,40 +29,34 @@
                              <tr>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">用户名：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">用户名：<span class="col">{{user.name}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">性别：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">性别：<span  class="col">{{user.sex}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">电话：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">电话：<span  class="col">{{user.phone}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">邮箱：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">邮箱：<span  class="col">{{user.email}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">微信：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">微信：<span  class="col">{{user.wei}}</span></span>
                                      </div>
                                  </td>
                              </tr>
                              <tr>
                                   <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">所在地区：</span>
-                                         cqut
+                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{user.adder}}</span></span>
                                      </div>
                                  </td>
                              </tr>
@@ -83,7 +77,7 @@
                   </div>
                   <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在发布装修招标信息，免费获得1-3位工长提供的设计和报价方案服务</div>
                   <div class="btn">
-                      <a href="">免费发布装修需求</a>
+                      <a @click="hand">免费发布装修需求</a>
                   </div>
               </div>
           </div>
@@ -93,11 +87,30 @@
 
 <script>
 export default {
-
+    data(){
+        return{
+            user:'',
+        }
+    },
+    methods:{
+        getuser(){
+            this.user = this.$route.params;
+        },
+        hand(){
+            console.log(this.user)
+        }
+    },
+    created(){
+        this.getuser();
+    }
 }
 </script>
 
 <style scoped>
+.col{
+   color: #01af63;
+   font-weight: bold;
+}
 .three .btn a{
     display: inline-block;
     height: 36px;
