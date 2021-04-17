@@ -8,6 +8,7 @@ import './assets/style/reset.css'
 import './assets/style/glob.css'
 import VDistpicker from 'v-distpicker'
 import vRegion from 'v-region'
+import axios from 'axios'
 
 
 Vue.use(vRegion)
@@ -27,7 +28,6 @@ new Vue({
 }).$mount('#app')
 
 Vue.prototype.basePath="http://localhost:3000";
-import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000';
 /**
  * 封装axios方法
@@ -64,7 +64,9 @@ let Axios=(options)=>{
         data: options.data,
         params: options.data
     }).then(result=>{
-        if (options.success)  options.success(result.data)
+      if (options.success) {
+           options.success(result.data)
+        }
     }).catch(err=>{
         let msg = err.response ? err.response.data:'请求异常'
         if (options.error){

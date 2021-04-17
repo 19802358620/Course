@@ -1,11 +1,11 @@
 <template>
 <div class="body">
    <div class="nav">
-       <router-link :to="{name:'index'}" class="item active">店铺首页</router-link>
-       <router-link :to="{name:'frominfo'}" class="item active">工长简介</router-link>
-       <router-link :to="{name:'study'}" class="item active">工地案例</router-link>
-       <router-link :to="{name:'order'}" class="item active">最新订单</router-link>
-       <router-link :to="{name:'evaluation'}" class="item active">业主评价</router-link>
+       <a  class="item " :class="{active:id==1}" @click="home">店铺首页</a>
+       <a  class="item " :class="{active:id==2}" @click="frominfo">工长简介</a>
+       <a  class="item " :class="{active:id==3}" @click="study">工地案例</a>
+       <a  class="item " :class="{active:id==4}" @click="order">最新订单</a>
+       <a class="item "  :class="{active:id==5}" @click="evaluation">业主评价</a>
    </div>
    <div class="m">
        <!-- 嵌套视图 -->
@@ -19,10 +19,34 @@ export default {
     data(){
         return{
             index:'',
+            id:1
         }
     },
     created(){
         this.$router.push({name:'index'})
+    },
+    methods:{
+        home(){
+            this.id=1
+             this.$router.push({name:"index"})
+        },
+        frominfo(){
+            this.id=2
+             this.$router.push({name:"frominfo"})
+        },
+        study(){
+             this.id=3
+             this.$router.push({name:"study"})
+        },
+        order(){
+            this.id=4
+            this.$router.push({name:"order"})
+        },
+        evaluation(){
+            this.id=5
+            this.$router.push({name:"evaluation"})
+        }
+
     }
 }
 </script>
@@ -52,6 +76,8 @@ export default {
 }
 .active{
      background: #2d2d2d;
+     color: #01af63;
+     font-weight: bold;
 }
 .item:hover{
     background: #2d2d2d;

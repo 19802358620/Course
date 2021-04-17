@@ -60,6 +60,8 @@ const routes = [
     children: [
       //业主基本资料
       { path: '/member', name: 'member', component: () => import('../views/业主中心/member.vue') },
+      //完善和修改个人信息
+      { path: '/perfectinfo', name: 'perfectinfo', component: () => import('../views/业主中心//perfectinfo.vue') },
       //发布装修招标
       { path: '/bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
       //参与项目工长

@@ -116,6 +116,7 @@ p:hover{
 }
 .na:hover .dis{
   display: block;
+  
 }
 .dis{
   display: none;
@@ -134,7 +135,9 @@ p:hover{
   color: black;
 }
 .disc:hover{
-  color: #ff7d44;
+  color: #9c0c0c;
+  font-weight: bold;
+  background-color: #9c0c0c;
 } 
 .user{
 position:fixed; 

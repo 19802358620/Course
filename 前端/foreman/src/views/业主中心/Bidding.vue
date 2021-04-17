@@ -13,11 +13,23 @@
       </div>
       <div class="content">
           <div>
-          <el-form ref="form" :model="form" label-width="70px" :rules="rules" style="padding: 10px 3px;">
+          <el-form ref="form" :model="demand" label-width="70px" :rules="rules"  style="padding: 10px 3px;">
+            <el-row >
+              <el-col :span="12">
+                <el-form-item label="标题" prop="title">
+                        <el-input v-model="demand.title" placeholder="标题"></el-input>
+                  </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="量房时间" prop="ltitme" label-width='80px'>
+                      <el-input v-model="demand.ltitme" placeholder="输入量房时间段"></el-input>
+                  </el-form-item>
+              </el-col>
+            </el-row>
               <el-row :gutter="5">
                  <el-col :span="6">
-                    <el-form-item label="房屋类别">
-                        <el-select v-model="value" placeholder="请选择">
+                    <el-form-item label="房屋类别" prop='type' label-width='80px'>
+                        <el-select v-model="demand.type" placeholder="选择房屋类别" >
                              <el-option
                                v-for="item in options"
                                :key="item.value"
@@ -28,111 +40,124 @@
                   </el-form-item>
                 </el-col>
                  <el-col :span="6">
-                     <el-form-item label="住宅空间">
-                        <el-input  placeholder="住宅空间"></el-input>
+                     <el-form-item label="住宅空间" prop='space' label-width='80px'>
+                        <el-input v-model="demand.space" placeholder="住宅空间"></el-input>
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="房屋现状">
-                        <el-select v-model="form.region" placeholder="当前房屋现状">
-                         <el-option
-                               v-for="item in options"
-                               :key="item.value"
-                               :label="item.label"
-                               :value="item.value">
-                             </el-option>
+                     <el-form-item label="房屋现状" prop='statusquo' label-width='80px'>
+                        <el-select v-model="demand.statusquo"  placeholder="当前房屋现状">
+                          <el-option label="新房" value="新房"></el-option>
+                          <el-option label="二手" value="二手"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="面积">
-                        <el-input  placeholder="房屋面积"></el-input>
+                     <el-form-item label="面积" prop='area'>
+                        <el-input v-model="demand.area" placeholder="房屋面积"></el-input>
                   </el-form-item>
                  </el-col>
               </el-row>
               <el-row :gutter="5">
                  <el-col :span="6">
-                    <el-form-item label="房屋结构">
-                        <el-select v-model="form.region" placeholder="请选择房屋结构">
-                          <el-option label="新房" value="shanghai"></el-option>
-                          <el-option label="翻修" value="beijing"></el-option>
+                    <el-form-item label="房屋结构" prop='structure' label-width='80px'>
+                        <el-select v-model="demand.structure" placeholder="请选择房屋结构">
+                          <el-option label="单层" value="单层"></el-option>
+                          <el-option label="复式" value="复式"></el-option>
                         </el-select>
                   </el-form-item>
                 </el-col>
                  <el-col :span="6">
-                     <el-form-item label="装修风格">
-                        <el-select v-model="form.region" placeholder="装修风格">
-                          <el-option label="新房" value="shanghai"></el-option>
-                          <el-option label="翻修" value="beijing"></el-option>
+                     <el-form-item label="装修风格" prop='style' label-width='80px'>
+                        <el-select v-model="demand.style" placeholder="装修风格">
+                          <el-option label="现代" value="现代"></el-option>
+                          <el-option label="复古" value="复古"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="房屋用途">
-                        <el-select v-model="form.region" placeholder="请选择房屋用途">
-                          <el-option label="新房" value="shanghai"></el-option>
-                          <el-option label="翻修" value="beijing"></el-option>
+                     <el-form-item label="房屋用途" prop='use' label-width='80px'>
+                        <el-select v-model="demand.use" placeholder="请选择房屋用途">
+                          <el-option label="租赁" value="租赁"></el-option>
+                          <el-option label="住宅" value="住宅"></el-option>
+                          <el-option label="店铺" value="店铺"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="承包方式">
-                        <el-select v-model="form.region" placeholder="承包方式">
-                          <el-option label="新房" value="shanghai"></el-option>
-                          <el-option label="翻修" value="beijing"></el-option>
+                     <el-form-item label="承包方式" prop='contract' label-width='80px'>
+                        <el-select v-model="demand.contract" placeholder="承包方式">
+                          <el-option label="全包" value="全包"></el-option>
+                          <el-option label="半包" value="半包"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
               </el-row>
               <el-row :gutter="5">
                  <el-col :span="6">
-                    <el-form-item label="所在地区">
-                       <el-input placeholder="装修地点"></el-input>
+                    <el-form-item label="所在地区" prop='suoarea' label-width='80px'>
+                       <el-input v-model="demand.suoarea" placeholder="装修地点"></el-input>
                   </el-form-item>
                 </el-col>
                  <el-col :span="6">
-                     <el-form-item label="装修预算">
-                        <el-select v-model="form.region" placeholder="填写装修预算">
-                          <el-option label="新房" value="shanghai"></el-option>
-                          <el-option label="翻修" value="beijing"></el-option>
+                     <el-form-item label="装修预算" prop='budget' label-width='80px'>
+                        <el-select v-model="demand.budget" placeholder="填写装修预算">
+                          <el-option label="10万以下" value="10万以下"></el-option>
+                          <el-option label="10到20万" value="10到20万"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="量房日期">
-                      <el-input placeholder="输入量房时间段"></el-input>
-                  </el-form-item>
+                    <el-form-item label="动工日期" prop='dotime' label-width='80px'>
+                      <el-date-picker
+                         v-model="demand.dotime"
+                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="yyyy-MM-dd"
+                        placeholder="选择动工日期"
+                        >
+                         
+                      </el-date-picker>
+                    </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="备注">
-                        <el-input  placeholder="备注"></el-input>
+                     <el-form-item label="备注" label-width='90px'>
+                        <el-input v-model="demand.remarks" placeholder="备注"></el-input>
                   </el-form-item>
                  </el-col>
               </el-row>
               <el-row :gutter="5">
                   <el-col :span='24'>
                         <el-form-item label="要求">
-                        <el-input type="textarea" :rows="2"  placeholder="要求"></el-input>
+                        <el-input v-model="demand.content" type="textarea" :rows="2"  placeholder="要求"></el-input>
                   </el-form-item>
                   </el-col>
               </el-row>
                <el-row :gutter="5">
                   <el-col :span='24'>
                         <el-form-item label="工长要求">
-                        <el-input type="textarea" :rows="2"  placeholder="您对投标工长的要求"></el-input>
+                        <el-input v-model="demand.claim" type="textarea" :rows="2"  placeholder="您对投标工长的要求"></el-input>
                   </el-form-item>
                   </el-col>
               </el-row>
               <el-row :gutter="5">
                   <el-col>
-                      <div class="colbtn">
-                          <input type="button" name="" id="" value="发布需求">
+                      <div class="colbtn"  
+                      v-loading.fullscreen.lock="isloading"
+                       element-loading-text="拼命加载中"
+                      element-loading-spinner="el-icon-loading"
+                      element-loading-background="rgba(0, 0, 0, 0.8)"
+                      >
+                      <el-button @click="hand">默认按钮</el-button>
+                          <!-- <input type="button" @click="hand" value="发布需求"> -->
                       </div>
                   </el-col>
               </el-row>
         </el-form>
         </div>
+        
       </div>
+      
   </div>
 </template>
 
@@ -140,34 +165,133 @@
 export default {
 data(){
     return{
-        form:{},
+      //加载中
+      isloading:false,
+      //招标信息
+        demand:{
+          title:'',
+          titme:'',
+          status:'招标中',
+          contract:'',
+          type:'',
+          space:'',
+          statusquo:'',
+          area:'',
+          structure:'',
+          style:'',
+          use:'',
+          budget:'',
+          suoarea:'',
+          ltitme:'',
+          dotime:'',
+          remarks:'',
+          content:'',
+          claim:'',
+          userid:'',
+          communityid:''
+        },
         value:'',
         //表单验证规则
-        rules:{
-
+        rules: {
+          title: [
+            { required: true, message: '标题必须输入', trigger: 'blur' },
+          ],
+          ltitme:[
+            { required: true, message: '输入想要预约量房的时间', trigger: 'blur' },
+          ],
+          type:[
+             { required: true, message: '输入想要预约量房的时间', trigger: 'blur' },
+          ],
+          space:[
+             { required: true, message: '输入想要预约量房的时间', trigger: 'blur' },
+          ],
+          statusquo:[
+            { required: true, message: '输入房屋现状', trigger: 'blur' },
+          ],
+          area:[
+             { required: true, message: '房屋面积', trigger: 'blur' },
+          ],
+          structure:[
+            { required: true, message: '房屋结构', trigger: 'blur' },
+          ],
+          style:[
+            { required: true, message: '装修风格必须填写', trigger: 'blur' },
+          ],
+          use:[
+             { required: true, message: '房屋用途需要说明', trigger: 'blur' },
+          ],
+          contract:[
+             { required: true, message: '需要说明承包方式', trigger: 'blur' },
+          ],
+          suoarea:[
+            { required: true, message: '地点需要填写', trigger: 'blur' },
+          ],
+          budget:[
+            { required: true, message: '预算需要说明', trigger: 'blur' },
+          ],
+          dotime:[
+            { required: true, message: '动工日期需要填写', trigger: 'blur' },
+          ]
         },
+        //房屋类别
         options: [{
-          value: '选项1',
-          label: '毛呸'
+          value: '毛坯房',
+          label: '毛坯房'
         }, {
-          value: '选项2',
+          value: '简装',
           label: '简装'
         }, {
-          value: '选项3',
+          value: '精装',
           label: '精装'
         }, {
-          value: '选项4',
+          value: '翻修',
           label: '翻修'
         }, {
-          value: '选项5',
+          value: '商品房',
           label: '商品房'
         },
         {
-          value: '选项5',
+          value: '二手',
           label: '二手'
         },
         ],
     }
+},
+methods:{
+  //发布招标需求
+  submit(){
+    //获取当前时间
+    this.isloading=true
+    var d = new Date();
+    var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+    this.demand.userid=1;
+    this.demand.communityid=2;
+    this.demand.titme = str;
+    this.$Axios({
+         url:'/users/bidd',
+         method:'POST',
+         data:this.demand,
+         success:(result)=>{
+          //  this.isloading=false
+           if(result==true){
+             this.$message.success('发布成功！')
+           }else{
+             this.$message.error('发布失败')
+           }
+       }
+       })
+  },
+  hand(){
+    this.$message.success('1212')
+  },
+  open(){
+    this.$message({
+         message: '居中的文字',
+         center: true,
+         offset:60
+       });
+  }
+    
 }
 }
 </script>
@@ -191,6 +315,9 @@ input:focus{
 .colbtn{
     height: 36px;
     line-height: 36px;
+}
+.colbtn:hover{
+  opacity: 0.7;
 }
 .warp .content{
     width: 100%;

@@ -31,7 +31,7 @@
                   <input class="sub" @click="userlogin" type="button"  value="登录">
                 </div>
                 <div>
-                  <a class="p">免费注册</a>
+                  <a class="p" @click="regist">免费注册</a>
                 </div>
             </el-form>  
             <!-- 工长登录 -->
@@ -84,6 +84,9 @@ export default {
     }
   },
   methods:{
+    regist(){
+      this.$router.push({name:"reg"})
+    },
     submit(){
       console.log(1111)
     },
@@ -92,7 +95,6 @@ export default {
       this.isreg= true
     },
     userlogin(){
-      console.log(this.user)
       if(!this.user.name||!this.user.password){
         this.$message.error('用户名、密码不能为空')
         this.user.name='';
@@ -103,7 +105,6 @@ export default {
          method:'POST',
          data:this.user,
          success:(result)=>{
-           console.log(result)
            if(result.length==0){
             this.$message.error('用户名或密码输入错误')
              this.user.name=''

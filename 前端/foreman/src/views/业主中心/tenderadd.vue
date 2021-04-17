@@ -9,13 +9,14 @@
       <div class="tit">个人中心</div>
       <div class="item">
         <div class="titname">业主信息</div>
-        <a @click="member">业主基本资料</a>
+        <a @click="member" :class="{clactive:id==1}">业主基本资料</a>
+        <a @click="perfectinfo"  :class="{clactive:id==3}" > 修改/完善个人资料</a>
       </div>
       <div class="item">
-        <div class="titname">我的装修需求</div>
-        <router-link :to="{name:'bidd'}">发布装修招标</router-link>
+        <div class="titname" >我的装修需求</div>
+        <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
         <a href="">管理装修招标</a>
-        <router-link :to="{name:'visit'}">参与项目工长</router-link>
+        <!-- <router-link :to="{name:'visit'}">参与项目工长</router-link> -->
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">
@@ -41,26 +42,42 @@ export default {
   data(){
     return{
       user:'',
+      id:1,
     }
   },
   methods:{
     //业主基本资料
     member(){
+      this.id=1
        this.$router.push({name:"member",params:this.user})
+    },
+    //发布装修需求
+    bidd(){
+      this.id=2
+      this.$router.push({name:"bidd",params:this.user})
     },
     getuser(){
       this.user= this.$route.params;
       console.log(this.user)
+    },
+    perfectinfo(){
+       this.id=3
+      this.$router.push({name:"perfectinfo",params:this.user})
     }
   },
   created(){
     this.getuser()
+    this.member()
   }
-
 }
 </script>
 
 <style scoped>
+.clactive{
+  color: white!important;
+  font-weight: bold; 
+  background-color: #01af63;
+}
 .content .right{
   width: 1030px;
   float: right;
