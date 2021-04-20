@@ -52,5 +52,82 @@ module.exports = class  Model{
         }
         return array
     }
+
+    static MySubString(str) {
+        return str.substring(0, str.length - 1);
+    }
+    static Geshi(type, tablename, params, where) {
+        let sql = "";
+        if (type == "select") {
+            sql += "select ";
+            if (params == "*") {
+                sql += " * ";
+            }
+            else {
+                for (let key in params) {
+                    sql += key + ",";
+                }
+            }
+
+            sql = this.MySubString(sql);
+            sql += " from " + "`" + tablename + "`" + " ";
+            let count = 0;
+            for (let key in where) {
+                count += 1;
+                if (count == 1) {
+                    sql += " where " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+                else {
+                    sql += " and " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+            }
+        }
+        if (type == "insert") {
+            sql += "insert into " + "`" + tablename + "` (";
+            for (let key in params) {
+                sql += "" + key + "" + ",";
+            }
+            sql = this.MySubString(sql);
+            sql += ") values(";
+            let values = "";
+            for (let key in params) {
+                values += "'" + params[key] + "'" + ","
+            }
+            values = MySubString(values);
+            sql += values + ")";
+        }
+        if (type == "update") {
+            sql += "update " + "`" + tablename + "`" + " set ";
+            for (let key in params) {
+                sql += "`" + key + "` =" + "'" + params[key] + "'" + ",";
+            }
+            sql = this.MySubString(sql);
+            let count = 0;
+            for (let key in where) {
+                count += 1;
+                if (count == 1) {
+                    sql += " where " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+                else {
+                    sql += " and " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+            }
+        }
+        if (type == "delete") {
+            sql += "delete from " + "`" + tablename + "`";
+            let count = 0;
+            for (let key in where) {
+                count += 1;
+                if (count == 1) {
+                    sql += " where " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+                else {
+                    sql += " and " + "`" + key + "` =" + "'" + where[key] + "'";
+                }
+            }
+        }
+        return sql;
+    }
+
 }
 

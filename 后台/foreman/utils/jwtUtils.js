@@ -39,7 +39,7 @@ function sign (load,secretkey,expiresIn) {
  * @param secretkey
  * @returns {Promise<any>}
  */
- function   verifysync (token,secretkey){
+function   verifysync (token,secretkey){
     return   new Promise((resolve,reject)=>{
         jwt.verify(token,secretkey,function(err,decode){
             if (err) {

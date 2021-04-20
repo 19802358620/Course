@@ -15,7 +15,7 @@
       <div class="item">
         <div class="titname" >我的装修需求</div>
         <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
-        <a href="">管理装修招标</a>
+        <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
         <!-- <router-link :to="{name:'visit'}">参与项目工长</router-link> -->
         <a href="">已申请参观工地</a>
       </div>
@@ -25,7 +25,7 @@
       </div>
       <div class="item">
         <div class="titname">账号管理</div>
-        <router-link :to="{name:'changpwd'}">修改密码</router-link>
+        <a @click='changpwd' :class="{clactive:id==5}">修改密码</a>
       </div>
     </div>
     <div class="right">
@@ -60,9 +60,20 @@ export default {
       this.user= this.$route.params;
       console.log(this.user)
     },
+    //完善个人资料
     perfectinfo(){
        this.id=3
       this.$router.push({name:"perfectinfo",params:this.user})
+    },
+    //管理需求招标
+    manage(){
+      this.id=4
+      this.$router.push({name:"manage",params:this.user})
+    },
+    //修改密码
+    changpwd(){
+      this.id=5
+      this.$router.push({name:"changpwd",params:this.user})
     }
   },
   created(){

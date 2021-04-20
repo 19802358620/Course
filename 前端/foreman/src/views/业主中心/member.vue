@@ -70,7 +70,7 @@
           <div class="ziliao">我的装修需求</div>
           <div class="lin"></div>
           <div class="thr">
-              <div class="center">
+              <div class="center" v-if="isShow">
                   <div class="msg">
                       <i class="megi"></i>
                       您还没有发布装修信息哦~
@@ -80,6 +80,34 @@
                       <a @click="hand">免费发布装修需求</a>
                   </div>
               </div>
+              <table class="table" v-else>
+              <tbody>
+                  <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
+                      <th>序号</th>
+                      <th>发布时间</th>
+                      <th>招标状态</th>
+                      <th>承包方式</th>
+                      <th>房屋现状</th>
+                      <th>装修预算</th>
+                      <th>游览量</th>
+                      <th>操作</th>
+                  </tr>
+                  <tr 
+                  v-for="(item,i) in demandlist" :key="i"
+                  style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
+                      <td>{{i+1}}</td>
+                      <td>{{item.titme}}</td>
+                      <td style="color:red">{{item.status}}</td>
+                      <td>{{item.contract}}</td>
+                      <td>{{item.statusquo}}</td>
+                      <td>{{item.budget}}</td>
+                      <td style="color:red">200次</td>
+                      <td style="width: 140px;">
+                          <a class="btn" @click.stop="Details(item)">查看详情</a>
+                      </td>
+                  </tr>
+              </tbody>
+             </table>
           </div>
      </div>
   </div>
@@ -90,23 +118,60 @@ export default {
     data(){
         return{
             user:'',
+            demandlist:[],//需求列表
+            isShow:false
         }
     },
     methods:{
+        //查看需求详情
+        Details(item){
+            console.log(item)
+            this.$router.push({name:"bidding",params:item})
+        },
         getuser(){
             this.user = this.$route.params;
         },
         hand(){
             console.log(this.user)
-        }
+        },
+        //获取业主的装修需求
+      getdemandlist(){
+        // let userid= this.user.id
+        this.$Axios({
+            url:'/users/meang',
+            method:'GET',
+            data:{userid:this.user.id},
+            success:(result)=>{
+                if(result.length===0){
+                    this.isShow=true
+                }else{
+                    this.demandlist = result
+                    this.isShow=false
+                }
+            }
+        })
+    }
     },
     created(){
         this.getuser();
-    }
+        this.getdemandlist();
+    },
+    
 }
 </script>
 
 <style scoped>
+.table{
+    width: 100%;
+    font-size: 12px;
+    
+}
+.table tr td{
+    text-align: center;
+}
+.title .tr{
+    line-height: 90px;
+}
 .col{
    color: #01af63;
    font-weight: bold;
@@ -148,7 +213,7 @@ export default {
     height: 100px;
 }
 .three .thr{
-    width: 100%;
+    width: 98%;
     height: 300px;
     margin-top: 5px;
 }

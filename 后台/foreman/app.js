@@ -34,6 +34,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// const jwtUtil=require('./utils/jwtUtils')
+global.globalKey="123456"
+// app.use(async function (req,res,next){
+//   let path = req.path;
+//   let token = "";
+//   if(req.body.token){
+//     token = req.body.token
+//   }else{
+//     token = req.query.token
+//   }
+//   console.log("------------------------")
+//   if(path.startsWith('/users')){
+//     if(path.startsWith("/users/login")){
+//       next()
+//       return
+//     }
+//     console.log('拦截users')
+//     let result = await jwtUtil.verifysync(token,globalKey)
+//     if(result.err){
+//
+//     }
+//
+//   }
+//
+// })
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

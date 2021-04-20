@@ -142,14 +142,8 @@
               </el-row>
               <el-row :gutter="5">
                   <el-col>
-                      <div class="colbtn"  
-                      v-loading.fullscreen.lock="isloading"
-                       element-loading-text="拼命加载中"
-                      element-loading-spinner="el-icon-loading"
-                      element-loading-background="rgba(0, 0, 0, 0.8)"
-                      >
-                      <el-button @click="hand">默认按钮</el-button>
-                          <!-- <input type="button" @click="hand" value="发布需求"> -->
+                      <div class="colbtn" >
+                          <input type="button" @click="submit('form')" value="发布需求">
                       </div>
                   </el-col>
               </el-row>
@@ -166,6 +160,7 @@ export default {
 data(){
     return{
       //加载中
+      user:'',
       isloading:false,
       //招标信息
         demand:{
@@ -257,41 +252,51 @@ data(){
         ],
     }
 },
+created(){
+  this.getuser()
+},
 methods:{
   //发布招标需求
-  submit(){
+  submit(from){
+    console.log(this.user)
     //获取当前时间
     this.isloading=true
     var d = new Date();
     var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-    this.demand.userid=1;
+    this.demand.userid=this.user.id;
     this.demand.communityid=2;
     this.demand.titme = str;
-    this.$Axios({
-         url:'/users/bidd',
-         method:'POST',
-         data:this.demand,
-         success:(result)=>{
-          //  this.isloading=false
-           if(result==true){
-             this.$message.success('发布成功！')
-           }else{
-             this.$message.error('发布失败')
+     this.$refs[from].validate((valid) => {
+          if (valid) {
+             this.$Axios({
+             url:'/users/bidd',
+             method:'POST',
+             data:this.demand,
+             success:(result)=>{
+               if(result){
+                 this.open3()
+               }else{
+                 this.open3()
+               }
            }
-       }
-       })
+           })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
   },
-  hand(){
-    this.$message.success('1212')
-  },
-  open(){
-    this.$message({
-         message: '居中的文字',
-         center: true,
-         offset:60
-       });
-  }
-    
+  open3() {
+        this.$notify({
+          title: '发布成功',
+          position: 'top-right',
+          offset: 100,
+          type: 'success'
+        });
+      },
+    getuser(){
+        this.user = this.$route.params;
+    },
 }
 }
 </script>

@@ -5,30 +5,31 @@
       </div>
       <div class="content">
           <div class="username">用户名：
-              <span style="font-weight: bold;">{{name}}</span>
+              <span style="font-weight: bold;">{{user.name}}</span>
               </div>
-          <el-form ref="form" :model="form" label-width="90px">
+          <el-form ref="ruleForm" :model="ruleForm" :rules="rules" status-icon label-width="100px" >
           <el-row>
                <el-col :span="10" :offset="6">
                    <el-form-item label="输入旧密码">
-                       <el-input ></el-input>
+                       <el-input v-model="ruleForm.pwd" @blur='chang'  autocomplete="off"
+                        ></el-input>
                   </el-form-item>
                </el-col>
                <el-col :span="10" :offset="6">
-                   <el-form-item label="输入新密码">
-                       <el-input ></el-input>
+                   <el-form-item label="输入新密码" prop="pass">
+                       <el-input v-model="ruleForm.pass"></el-input>
                   </el-form-item>
                </el-col>
                <el-col :span="10" :offset="6">
-                   <el-form-item label="输入新密码">
-                       <el-input ></el-input>
+                   <el-form-item label="再次输入密码" prop="checkPass">
+                       <el-input v-model="ruleForm.checkPass"></el-input>
                   </el-form-item>
                </el-col>
         </el-row>
         <el-row>
             <el-col :span="10" :offset="2">
                 <div class="btn">
-                    <input class="in" type="button" name="" id="" value="确定">
+                    <input class="in" type="button" value="确定" @click="changpwd('ruleForm')">
                 </div>
 
             </el-col>
@@ -41,11 +42,90 @@
 <script>
 export default {
     data(){
-        return{
-            from:{},
-            name:'张三三'
+         var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
         }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+        return{
+            ruleForm:{
+                pwd:'',
+                pass:'',
+                checkPass:'',
+                //表单验证规
+            },
+            user:'',
+            rules: {
+                    pass: [
+                       { validator: validatePass, trigger: 'blur' }
+                    ],
+                    checkPass: [
+                        { validator: validatePass2, trigger: 'blur' }
+                    ],
+                }
+        }
+    },
+    methods:{
+        //旧密码效验
+        chang(e){
+            let str = e.target.value
+            let pwd = this.user.password
+          if(str== pwd){
+              return true
+          }else{
+              this.open()
+              this.form.pwd=''
+          }
+        },
+        //修改密码
+        changpwd(form){
+            console.log(form)
+        this.$refs[form].validate((valid) => {
+          if (valid) {
+            //    this.$Axios({
+            //     url:'/users/updatapwd',
+            //     method:'POST',
+            //     data:{id:this.user.id,pwd:this.from.pwd},
+            //     success:(result=>{
+            //         console.log(result)
+            //     })
+            // })
+            console.log(valid)
+          } else {
+            return false;
+          }
+        });
+        },
+     getuser(){
+        this.user = this.$route.params;
+        console.log(this.name)
+      },
+      open() {
+        this.$notify({
+          title: '输入的旧密码与原密码不符',
+          type: 'error',
+          offset:100,
+        });
+      },
+    },
+    created(){
+        this.getuser()
     }
+   
 
 }
 </script>

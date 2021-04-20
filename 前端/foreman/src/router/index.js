@@ -68,6 +68,8 @@ const routes = [
       { path: '/visit', name: 'visit', component: () => import('../views/业主中心/Visit.vue') },
       //修改密码
       { path: '/changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
+      //管理需求招标
+      { path: '/manage', name: 'manage', component: () => import('../views/业主中心/management.vue') },
     ]
   }
   

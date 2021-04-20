@@ -1,4 +1,5 @@
 const  jwtUtil = require('../utils/jwtUtils');
+
  // const redisUtils = require('../utils/redisUtils');
 module.exports = class user_dao extends require('../model/user_mode'){
     /**
@@ -11,26 +12,27 @@ module.exports = class user_dao extends require('../model/user_mode'){
     static async Login(req,res){
         let body = req.body;
         let loginData = await this.loginUser(body.name,body.password)
-        res.send(loginData)
-        // if(loginData.length!=0){
-        //     let jwt_token = jwtUtil.sign({
-        //         id:loginData[0].id,
-        //         name:loginData[0].name,
-        //         password:loginData[0].password,
-        //         adder:loginData[0].adder,
-        //         phone:loginData[0].phone,
-        //         header:loginData[0].header,
-        //         token:loginData[0].token,
-        //         modftime:loginData[0].modftime,
-        //         email:loginData[0].email,
-        //         wei:loginData[0].wei,
-        //         sex:loginData[0].sex,
-        //         communityid:loginData[0].communityid
-        //     },global.globalkey,3600)
-        //     res.send({loginData,jwt_token})
-        // }else{
-        //     res.status(500).send('用户名或者账号输入错误')
-        // }
+        // res.send(loginData)
+        if(loginData.length!=0){
+            let jwt_token = jwtUtil.sign({
+                id:loginData[0].id,
+                name:loginData[0].name,
+                password:loginData[0].password,
+                adder:loginData[0].adder,
+                phone:loginData[0].phone,
+                header:loginData[0].header,
+                token:loginData[0].token,
+                modftime:loginData[0].modftime,
+                email:loginData[0].email,
+                wei:loginData[0].wei,
+                sex:loginData[0].sex,
+                communityid:loginData[0].communityid
+            },global.globalkey,3600)
+            res.send({loginData,jwt_token})
+        }else{
+            res.status(500).send('用户名或者账号输入错误')
+        }
+
     }
 
     /**
@@ -76,4 +78,81 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let result = await this.userReg(name,password);
         res.send(result)
     }
+
+    /**
+     * 完善个人信息接口
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async perfect(req,res){
+        let phone = req.body.phone;
+        let sex = req.body.sex;
+        let adder = req.body.adder;
+        let communityname = req.body.communityname;
+        let wei = req.body.wei;
+        let email = req.body.email;
+        let userid = req.body.userid;
+        let result = await this.perfectInfo(phone,sex,adder,communityname,wei,email,userid)
+        res.send(result)
+    }
+
+    /**
+     *获取该用户所有招标信息
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async meang(req,res){
+        console.log(req.query)
+        let userid = req.query.userid;
+        let result = await this.management(userid)
+        res.send(result)
+    }
+
+    /**
+     * 用户上传头像接口
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async upimg(req,res){
+        let userid= 1;
+        if(req.file.size===0){
+            res.send('error',{message:"上传文件不能为空"})
+        }else{
+            let file = req.file;
+            console.log(file)
+            let imgUrl = 'http://localhost:3000/public/images/'+file.originalname;
+            let result = await this.img(imgUrl,userid)
+            res.send(result)
+        }
+    }
+
+    /**
+     * 业主删除招标记录
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async deledemand(req,res){
+         let id = req.body.id;
+        console.log(req.body.id)
+        let result = await  this.demand(id)
+        res.send(result)
+    }
+
+    /**
+     * 业主修改密码
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async updatapwd(req,res){
+        let pwd = req.body.password
+        let id= req.body.id
+        let result = await this.updatauserpwd(pwd,id)
+        res.send(result)
+    }
+
 }

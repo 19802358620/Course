@@ -1,55 +1,50 @@
 <template>
-  <div class="m" :style="{height:`${height}px`}">
+  <div class="m">
       <div class="left">
           <table class="tab">
               <tbody>
                   <tr>
-                      <td colspan="5"><h1>重庆市</h1></td>
+                      <td colspan="5"><h1>{{list.suoarea}}</h1></td>
                   </tr>
                   <tr>
-                      <td>投标编号：123456</td>
-                      <td>发布时间：2021-2-3</td>
-                      <td>订单状态：<span>招标中</span></td>
-                      <td>承包方式：</td>
+                      <td>投标编号：123</td>
+                      <td>发布时间：{{list.titme}}</td>
+                      <td>订单状态：<span>{{list.status}}</span></td>
+                      <td>承包方式：{{list.contract}}</td>
                   </tr>
                   <tr>
-                      <td>房屋类别：家装</td>
-                      <td>房屋空间：住宅公寓</td>
-                      <td>房屋现状：毛坯房</td>
-                      <td>装修面积：30（平米）</td>
+                      <td>房屋类别：{{list.type}}</td>
+                      <td>房屋空间：{{list.space}}</td>
+                      <td>房屋现状：{{list.statusquo}}</td>
+                      <td>装修面积：{{list.area}}</td>
                   </tr>
                   <tr>
-                      <td>户型结构：其他结构</td>
-                      <td>装修风格：现代轻奢</td>
-                      <td>房屋用途：出租</td>
-                      <td> 	装修预算：面议</td>
+                      <td>户型结构：{{list.structure}}</td>
+                      <td>装修风格：{{list.style}}</td>
+                      <td>房屋用途：{{list.use}}</td>
+                      <td> 	装修预算：{{list.budget}}</td>
                   </tr>
                   <tr>
-                      <td colspan="2">所在地区：云龙区</td>
-                      <td colspan="2">街道/小区：万达</td>
+                      <td colspan="2">所在地区：{{list.suoarea}}</td>
+                      <td colspan="2">街道/小区：{{list.communityid}}</td>
                   </tr>
                   <tr>
-                      <td colspan="2">量房时间：请工长提前电话联系业主沟通，本周周五，或下周二，三可以约量房。</td>
-                      <td colspan="2">动工时间：2021-02-20</td>
+                      <td colspan="2">量房时间：{{list.ltitme}}</td>
+                      <td colspan="2">动工时间：{{list.dotime}}</td>
                   </tr>
                   <tr>
                       <td colspan="4">
-                          业主要求：公寓，毛坯房，已经交房了，装修风格喜欢现代，轻奢，装修用于对外出租，做民宿<br>
-                          全屋整装，要求拎包入住<br>
-                          如果有合适的工长，计划尽快动工装修<br>
-                          请工长提前电话联系业主沟通，（手机号也是微信号）本周周五，或下周二，三可以约量房。<br>
-                          工长联系业主时请说明是诚信工长网站推荐的<br>
+                          业主要求：{{list.claim}}
                       </td>
                   </tr>
                   <tr>
-                      <td colspan="4">备注：百度搜索无异常,微信搜索无异常,已告知保险服务</td>
+                      <td colspan="4">备注：{{list.remarks}}</td>
                   </tr>
                   <tr>
                       <td colspan="4">
                           投标公司要求：<br>
                           <font style="color: #F15517;font-weight: bold">
-                              1、经工商注册的正规本地公司<br>
-                              2、已通过装信通认证的无业主投诉与差评的精品装修公司
+                              {{list.content}}
                           </font>
                       </td>
                   </tr>
@@ -68,7 +63,6 @@
           待设计
       </div>
       <div class="fot">
-          待设计
       </div>
   </div>
 </template>
@@ -78,7 +72,19 @@ export default {
     data(){
         return{
             height:document.documentElement.clientHeight,
+            list:{}//招标详细信息，
         }
+    },
+    methods:{
+        getlist(){
+            this.list = this.$route.params;
+        },
+        hnad(){
+            console.log(this.list)
+        }
+    },
+    created(){
+        this.getlist()
     }
 }
 </script>
@@ -93,7 +99,7 @@ export default {
 }
 .right{
     width: 250px;
-    height: 781px;
+    height: 612px;
     border: 1px solid blue;
     float: right;
 }
@@ -116,7 +122,7 @@ span{
     width: 940px;
     float: left;
     border: 1px solid #f5f5f5;
-    height: 781px;
+    height: 612px;
 }
 .left .tab{
     margin: 0 auto;

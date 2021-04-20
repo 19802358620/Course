@@ -20,15 +20,23 @@
              </span>
            </div>
            <!-- 业主登录 -->
-           <el-form  :model="user"  ref="ruleForm" label-width="5px" class="demo-ruleForm">
-              <el-form-item  prop="name"> 
-                <el-input v-model="user.name" placeholder="请输入用户名"></el-input>
+           <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
+              <el-form-item  prop="name"
+              :rules="[
+                { required: true, message: '用户名不能为空'},
+              ]"
+              > 
+                <el-input v-model="user.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
-              <el-form-item prop="password">
-                <el-input type="password" v-model="user.password" placeholder="请输入密码"></el-input>
+              <el-form-item prop="password"
+              :rules="[
+                { required: true, message: '密码不能为空'},
+              ]"
+              >
+                <el-input type="password" v-model="user.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="userlogin" type="button"  value="登录">
+                  <input class="sub" @click="userlogin('ruleForm')" type="button"  value="登录">
                 </div>
                 <div>
                   <a class="p" @click="regist">免费注册</a>
@@ -79,7 +87,8 @@ export default {
       activeName: 'second',
       user:{
         name:'',
-        password:''
+        password:'',
+        modftime:''
       },
     }
   },
@@ -94,29 +103,48 @@ export default {
       console.log(111)
       this.isreg= true
     },
-    userlogin(){
-      if(!this.user.name||!this.user.password){
-        this.$message.error('用户名、密码不能为空')
-        this.user.name='';
-        this.user.password=''
-      }else{
-       this.$Axios({
-         url:'/users/login',
-         method:'POST',
-         data:this.user,
-         success:(result)=>{
-           if(result.length==0){
-            this.$message.error('用户名或密码输入错误')
-             this.user.name=''
-             this.user.password=''
-           }else{
-             window.localStorage.setItem('token',result.jwt_token)
-             this.$router.push({name:"tenderadd",params:result[0]})
-           }
-       }
-       })
-      }
+    userlogin(ruleForm){
+      var d = new Date();
+      var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      this.user.modftime = str;
+      this.$refs[ruleForm].validate((valid) => {
+          if (valid) {
+            this.$Axios({
+             url:'/users/login',
+             method:'POST',
+             data:this.user,
+             success:(result)=>{
+               console.log(result)
+              if(result.length==0){
+               this.open()
+                this.user.name=''
+                this.user.password=''
+              }else{
+                this.open1()
+                window.localStorage.setItem("token",result.jwt_token)
+                this.$router.push({name:"tenderadd",params:result[0]})
+              }
+          }
+          })
+          } else {
+            return false;
+          }
+        });
     },
+    open1() {
+        this.$notify({
+          title: '登录成功',
+          type: 'success',
+          offset:100,
+        });
+      },
+       open() {
+        this.$notify({
+          title: '用户名或密码输入错误',
+          type: 'error',
+          offset:100,
+        });
+      },
   }
   }
 </script>
