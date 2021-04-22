@@ -38,15 +38,15 @@
                 </div>
             </el-form>   -->
             <!-- 工长注册 -->
-              <el-form  :model="foremain"  ref="ruleForm" :rules="rules" label-width="5px" class="demo-ruleForm" >
+              <el-form  :model="foreman"  ref="ruleForm" :rules="rules" label-width="5px" class="demo-ruleForm" >
               <el-form-item  prop="name"> 
-                <el-input v-model="foremain.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
+                <el-input v-model="foreman.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
               <el-form-item prop="pass">
-                <el-input type="password" v-model="foremain.pass" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
+                <el-input type="password" v-model="foreman.pass" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
               <el-form-item prop="checkPass">
-                <el-input type="password" v-model="foremain.checkPass" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
+                <el-input type="password" v-model="foreman.checkPass" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
                   <input class="sub" @click="foremanReg('ruleForm')" type="button"  value="注册">
@@ -81,7 +81,7 @@ export default {
         if (value === '') {
           callback(new Error('请输入密码'));
         } else {
-          if (this.foremain.checkPass !== '') {
+          if (this.foreman.checkPass !== '') {
             this.$refs.ruleForm.validateField('checkPass');
           }
           callback();
@@ -90,7 +90,7 @@ export default {
       var validatePass2 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.foremain.pass) {
+        } else if (value !== this.foreman.pass) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -107,7 +107,7 @@ export default {
         password:'',
         passwords:''
       },
-      foremain:{
+      foreman:{
         name:'',
         pass:'',
         checkPass:''
@@ -139,12 +139,16 @@ export default {
     },
     //工长注册
     foremanReg(ruleForm){
+      var d = new Date();
+      var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      this.foreman.createtime = str;
+      console.log(this.foreman)
       this.$refs[ruleForm].validate((valid) => {
           if (valid) {
             this.$Axios({
               url:'/foreman/foremanReg',
               method:'POST',
-              data:this.foremain,
+              data:this.foreman,
               success:(result=>{
                 if(result){
                   this.open()

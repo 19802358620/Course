@@ -5,7 +5,7 @@
       </div>
       <div class="content">
           
-          <el-form ref="form" :model="user" label-width="90px" :rules="rules" class="form">
+          <el-form ref="form" :model="foreman" label-width="90px" :rules="rules" class="form">
               <el-row>
                 <el-col :span="24">
                     <span class="shang">上传头像：</span>
@@ -23,7 +23,7 @@
                    <span class="yao">仅支持JPG、GIF、PNG图片文件，且文件小于2M</span>
                 </el-col>
               </el-row>
-              <el-row>
+              <el-row style="margin-bottom: -50px;">
                   <el-col :span="4">
                       <div class="wann">
                           <span>资料完整度：</span>
@@ -36,17 +36,19 @@
                 </el-col>
               </el-row>
               <el-row>
-                  <el-col :span="24">
-                      <div class="username">
-                          用户名：<span style=" font-weight: bold;color:#01af63">{{users.name}}</span>
+                  <el-col :span="10" style="margin-left: -135px;">
+                      <div>
+                    <el-form-item label="用户名:" style="font-size: 12px;" prop="phone">
+                        <el-input v-model="foreman.name" placeholder="您的姓名"></el-input>
+                    </el-form-item>
                       </div>
                   </el-col>
               </el-row>
               <el-row>
                 <el-col :span="10">
-                    <div class="in">
+                    <div class="">
                     <el-form-item label="联系电话:" style="font-size: 12px;" prop="phone">
-                        <el-input v-model="user.phone" placeholder="输入联系方式"></el-input>
+                        <el-input v-model="foreman.phone" placeholder="您的联系方式"></el-input>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -55,7 +57,7 @@
                 <el-col :span="10">
                     <div class="to">
                     <el-form-item label="性别:" style="font-size: 12px;" label-width="90px" prop="sex">
-                         <el-select v-model="user.sex"  placeholder="性别">
+                         <el-select v-model="foreman.sex"  placeholder="性别">
                           <el-option label="男" value="男"></el-option>
                           <el-option label="女" value="女"></el-option>
                         </el-select>
@@ -66,17 +68,30 @@
                <el-row>
                 <el-col :span="124">
                     <div class="">
-                    <el-form-item label="所在地区:" style="font-size: 12px;" prop="adder">
-                        <VDistpicker v-model="user.adder" @selected="onSelected"></VDistpicker>
+                    <el-form-item label="我的地址:" style="font-size: 12px;" prop="adder">
+                        <VDistpicker  @selected="onSelected"></VDistpicker>
+                    </el-form-item>
+                    </div>
+                </el-col>
+              </el-row>
+               <el-row>
+                <el-col :span="124">
+                    <div class="">
+                    <el-form-item label="接单区域:" style="font-size: 12px;" prop="adder">
+                        <VDistpicker  hide-area @selected="onarea"></VDistpicker>
                     </el-form-item>
                     </div>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="10">
-                    <div class="">
-                    <el-form-item label="小区名称:" style="font-size: 12px;" >
-                        <el-input v-model="user.communityname" placeholder="输入您的小区名称"></el-input>
+                    <div class="to">
+                    <el-form-item label="风格:" style="font-size: 12px;" label-width="90px" prop="style">
+                        <el-select v-model="foreman.style"  placeholder="选择您擅长的装修风格">
+                          <el-option label="现代" value="现代"></el-option>
+                          <el-option label="复古" value="复古"></el-option>
+                        </el-select>
+                       
                     </el-form-item>
                     </div>
                 </el-col>
@@ -85,7 +100,7 @@
                 <el-col :span="10">
                     <div class="">
                     <el-form-item label="微信:" style="font-size: 12px;" prop="wei">
-                        <el-input v-model="user.wei" placeholder="您的微信号"></el-input>
+                        <el-input v-model="foreman.wei" placeholder="您的微信号"></el-input>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -94,7 +109,16 @@
                 <el-col :span="10">
                     <div class="">
                     <el-form-item label="邮箱:" style="font-size: 12px;" prop="email">
-                        <el-input v-model="user.email" placeholder="您的邮箱"></el-input>
+                        <el-input v-model="foreman.email" placeholder="您的邮箱"></el-input>
+                    </el-form-item>
+                    </div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="16">
+                    <div class="">
+                    <el-form-item label="个人简介:" style="font-size: 12px;" prop="Introduction">
+                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="个人简介（50-100字）" v-model="foreman.Introduction"></el-input>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -106,6 +130,7 @@
                       </div>
                 </el-col>
               </el-row>
+              
           </el-form>
       </div>
   </div>
@@ -120,16 +145,19 @@ export default {
     },
     data(){
         return{
-            user:{
+            foreman:{
                 name:'',
                 phone:'',
                 sex:'',
                 adder:'',
-                communityname:'',
+                Introduction:'',
                 wei:'',
                 email:'',
-                modftime:''
+                experience:'',
+                servicearea:'',
+                style:''
             },
+            foremans:'',
             users:'',
             imageUrl:'',
             //表单验证规则
@@ -143,20 +171,23 @@ export default {
             adder:[
                 { required: true, message: '地区必须选择', trigger: 'blur' },
             ],
-            // com:[
-            //      { required: true, message: '小区名称必须输入', trigger: 'blur' },
-            // ],
+            style:[
+                 { required: true, message: '风格必须输入', trigger: 'blur' },
+            ],
             wei:[
                  { required: true, message: '微信号必填', trigger: 'blur' },
             ],
             email:[
                  { required: true, message: '邮箱不许为空', trigger: 'blur' },
+            ],
+            Introduction:[
+                 { required: true, message: '简介不许为空', trigger: 'blur' },
             ]
         }
         }
     },
     created(){
-        this.getuser()
+        this.getforeman();
     },
     methods:{
         //用户头像
@@ -167,7 +198,6 @@ export default {
        beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
         }
@@ -176,25 +206,22 @@ export default {
         }
         return isJPG && isLt2M;
        },
-
         //提交修改
         hand(form){
             this.$refs[form].validate((valid) => {
           if (valid) {
-            var d = new Date();
-            var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-            this.user.modftime = str;
-            this.user.userid = this.users.id;
+            this.foreman.id = this.foremans.id
+            console.log(this.foreman)
             this.$Axios({
-                url:'/users/perfectInfo',
+                url:'/foreman/foremaninfo',
                 method:'POST',
-                data:this.user,
+                data:this.foreman,
                 success:(result)=>{
                     console.log(result)
                   if(result){
                       this.open()
                   }else{
-                    this.$message.error('提交失败')
+                    this.open()
                   }
             }
           })
@@ -203,12 +230,18 @@ export default {
           }
         });
         },
-         getuser(){
-            this.users = this.$route.params;
+         getforeman(){
+            this.foreman = this.$route.params;
+            this.foremans = this.$route.params;
         },
         //获取用户地区
         onSelected(data){
-            this.user.adder = data.province.value+'/'+data.city.value+'/'+data.area.value
+            this.foreman.adder = data.province.value+'/'+data.city.value+'/'+data.area.value
+        },
+        //获取用户接单区域
+        onarea(data){
+            console.log(data)
+            this.foreman.servicearea = data.province.value+'/'+data.city.value
         },
        open() {
         this.$notify({
@@ -298,7 +331,7 @@ input:focus{
 }
 .content{
     width: 98%;
-    height: 800px;
+    height: 920px;
     border: 1px solid #eee;
     margin: 10px 0;
 }

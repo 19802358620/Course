@@ -10,14 +10,14 @@
       <div class="item">
         <div class="titname">工长信息</div>
         <a @click="formanber" :class="{clactive:id==1}">工长基本资料</a>
-        <a @click="perfectinfo"  :class="{clactive:id==3}" > 修改/完善个人资料</a>
+        <a @click="foremaninfo"  :class="{clactive:id==3}" > 修改/完善个人资料</a>
       </div>
       <div class="item">
-        <div class="titname" >我的装修需求</div>
-        <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
-        <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
+        <div class="titname" >我的订单</div>
+        <!-- <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a> -->
+        <a @click="manage" :class="{clactive:id==4}">管理订单</a>
         <!-- <router-link :to="{name:'visit'}">参与项目工长</router-link> -->
-        <a href="">已申请参观工地</a>
+        <a href="">预约我的</a>
       </div>
       <div class="item">
         <div class="titname">评价管理</div>
@@ -41,7 +41,7 @@
 export default {
   data(){
     return{
-      user:'',
+      foreman:'',
       id:1,
     }
   },
@@ -49,21 +49,21 @@ export default {
     //业主基本资料
     formanber(){
       this.id=1
-       this.$router.push({name:"formanber"})
+       this.$router.push({name:"formanber",params:this.foreman})
     },
     //发布装修需求
     bidd(){
       this.id=2
       this.$router.push({name:"bidd",params:this.user})
     },
-    getuser(){
-      this.user= this.$route.params;
-      console.log(this.user)
+    getforeman(){
+      this.foreman= this.$route.params;
+      console.log(this.foreman)
     },
     //完善个人资料
-    perfectinfo(){
+    foremaninfo(){
        this.id=3
-      this.$router.push({name:"perfectinfo",params:this.user})
+      this.$router.push({name:"foremaninfo",params:this.foreman})
     },
     //管理需求招标
     manage(){
@@ -77,7 +77,7 @@ export default {
     }
   },
   created(){
-    this.getuser()
+    this.getforeman()
     // this.member()
   }
 }

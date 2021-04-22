@@ -118,7 +118,6 @@ export default {
     },
     //业主登录
     userlogin(ruleForm){
-     
       var d = new Date();
       var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
       this.user.modftime = str;
@@ -156,9 +155,10 @@ export default {
               method:'POST',
               data:this.foreman,
               success:(result=>{
+                console.log(result)
                 if(result.length!=0){
                   this.open1();
-                  this.$router.push({name:'foremanindex',params:result})
+                  this.$router.push({name:'foremanindex',params:result[0]})
                 }else{
                   this.open()
                 }

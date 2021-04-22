@@ -67,7 +67,8 @@ let Axios=(options)=>{
       if (options.success) {
            options.success(result.data)
         }
-    }).catch(err=>{
+    }).catch(err => {
+      console.log(err)
         let msg = err.response ? err.response.data:'请求异常'
         if (options.error){
             options.error(msg)

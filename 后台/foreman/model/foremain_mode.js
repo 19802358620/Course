@@ -4,11 +4,11 @@ module.exports = class user_mod extends require('./model'){
      * @param name
      * @param pwd
      */
-    static foremanReg(name,pwd){
+    static foremanReg(name,pwd,createtime){
         return new Promise((resolve,reject)=>{
-            let sql = "insert into `foreman` (name,password) values (?,?)"
+            let sql = "insert into `foreman` (name,password,createtime) values (?,?,?)"
             console.log(sql)
-            this.query(sql,this.formatParams(name,pwd)).then((result)=>{
+            this.query(sql,this.formatParams(name,pwd,createtime)).then((result)=>{
                 resolve('true')
             }).catch(err=>{
                 reject('false')
@@ -29,6 +29,30 @@ module.exports = class user_mod extends require('./model'){
                 resolve(result)
             }).catch(err=>{
                 reject(err)
+            })
+        })
+    }
+
+    /**
+     * 工长完善个人信息
+     * @param phone
+     * @param sex
+     * @param adder
+     * @param wei
+     * @param email
+     * @param experience
+     * @param servicearea
+     * @param style
+     * @param Introduction
+     */
+    static foremanInfo(phone,sex,adder,email,experience,servicearea,style,Introduction,wei,id){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `foreman` set `phone` = "+"'"+phone+"'"+", `sex`="+"'"+sex+"'"+",`adder`="+"'"+adder+"'"+",`email`="+"'"+email+"'"+",`experience`="+"'"+experience+"'"+",`servicearea`="+"'"+servicearea+"'"+",`style`="+"'"+style+"'"+",`Introduction`="+"'"+Introduction+"'"+",`wei`="+"'"+wei+"'"+"  where `id` = "+"'"+id+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
             })
         })
 

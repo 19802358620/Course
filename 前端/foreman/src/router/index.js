@@ -77,6 +77,8 @@ const routes = [
     children: [
       //户主首页
       { path: '/formanber', name: 'formanber', component: () => import('../views/工长中心/formanber.vue') },
+      //完善个人信息
+      { path: '/foremaninfo', name: 'foremaninfo', component: () => import('../views/工长中心/foremaninfo.vue') },
     ]
   }
   

@@ -40,7 +40,6 @@ module.exports = class  Model{
             })
         })
     }
-
     /**
      * 数据类型转换函数
      * @returns {[]}

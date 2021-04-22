@@ -29,39 +29,54 @@
                              <tr>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">姓名：<span class="col">{{user.name}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">姓名：<span class="col">{{foreman.name}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">性别：<span  class="col">{{user.sex}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">性别：<span  class="col">{{foreman.sex}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">电话：<span  class="col">{{user.phone}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">电话：<span  class="col">{{foreman.phone}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">邮箱：<span  class="col">{{user.email}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">邮箱：<span  class="col">{{foreman.email}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">微信：<span  class="col">{{user.wei}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">微信：<span  class="col">{{foreman.wei}}</span></span>
                                      </div>
                                  </td>
                              </tr>
                              <tr>
                                   <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{user.adder}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{foreman.adder}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">擅长风格：<span  class="col">{{user.communityname}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">入驻时间：<span  class="col">{{foreman.createtime}}</span></span>
+                                     </div>
+                                 </td>
+                                 <td>
+                                     <div class="elicep">
+                                         <span style="color:#767676;font-size: 12px;">我的风格：<span  class="col">{{foreman.style}}</span></span>
+                                     </div>
+                                 </td>
+                                 <td>
+                                     <div class="elicep">
+                                         <span style="color:#767676;font-size: 12px;">工作经验：<span  class="col">{{foreman.experience}}</span></span>
+                                     </div>
+                                 </td>
+                                  <td>
+                                     <div class="elicep">
+                                         <span style="color:#767676;font-size: 12px;">我的级别：<span  class="col">{{foreman.level}}</span></span>
                                      </div>
                                  </td>
                              </tr>
@@ -78,11 +93,11 @@
               <div class="center" v-if="isShow">
                   <div class="msg">
                       <i class="megi"></i>
-                      您还没有发布装修信息哦~
+                      您暂时还没有订单信息哦~
                   </div>
-                  <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在发布装修招标信息，免费获得1-3位工长提供的设计和报价方案服务</div>
+                  <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在发去投标，即可获得您想要的订单</div>
                   <div class="btn">
-                      <a @click="hand">免费发布装修需求</a>
+                      <a @click="hand">我要投标</a>
                   </div>
               </div>
               <table class="table" v-else>
@@ -122,7 +137,7 @@
 export default {
     data(){
         return{
-            user:'',
+            foreman:'',
             demandlist:[],//需求列表
             isShow:false
         }
@@ -130,11 +145,11 @@ export default {
     methods:{
         //查看需求详情
         Details(item){
-            console.log(item)
             this.$router.push({name:"bidding",params:item})
         },
-        getuser(){
-            this.user = this.$route.params;
+        getfroeman(){
+            this.foreman = this.$route.params;
+            console.log(this.foreman)
         },
         hand(){
             console.log(this.user)
@@ -158,7 +173,7 @@ export default {
     }
     },
     created(){
-        this.getuser();
+        this.getfroeman();
         this.getdemandlist();
     },
     

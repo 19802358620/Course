@@ -65,6 +65,7 @@ module.exports = class user_mod extends require('./model'){
     static perfectInfo(phone,sex,adder,communityname,wei,email,userid){
         return new Promise((resolve,reject)=>{
             let sql = "update  `user` set `phone` = "+"'"+phone+"'"+", `sex`="+"'"+sex+"'"+",`adder`="+"'"+adder+"'"+",`communityname`="+"'"+communityname+"'"+",`wei`="+"'"+wei+"'"+",`email`="+"'"+email+"'"+" where `id` = "+"'"+userid+"'"+"";
+            console.log(sql)
             this.query(sql,).then((result)=>{
                 resolve('true')
             }).catch(err=>{
