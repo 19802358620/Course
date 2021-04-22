@@ -99,7 +99,7 @@ export default {
 }
 .right{
     width: 250px;
-    height: 612px;
+    height: 635px;
     border: 1px solid blue;
     float: right;
 }
@@ -122,7 +122,7 @@ span{
     width: 940px;
     float: left;
     border: 1px solid #f5f5f5;
-    height: 612px;
+    height: 635px;
 }
 .left .tab{
     margin: 0 auto;

@@ -20,7 +20,7 @@
              </span>
            </div>
            <!-- 业主登录 -->
-           <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
+           <!-- <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
               <el-form-item  prop="name"
               :rules="[
                 { required: true, message: '用户名不能为空'},
@@ -41,22 +41,30 @@
                 <div>
                   <a class="p" @click="regist">免费注册</a>
                 </div>
-            </el-form>  
+            </el-form>   -->
             <!-- 工长登录 -->
-             <!-- <el-form v-show="cur==1" status-icon  ref="ruleForm" label-width="5px" class="demo-ruleForm">
-              <el-form-item>
-                <el-input placeholder="请输入用户名"></el-input>
+            <el-form  :model="foreman"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
+              <el-form-item  prop="name"
+              :rules="[
+                { required: true, message: '用户名不能为空'},
+              ]"
+              > 
+                <el-input v-model="foreman.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input placeholder="请输入密码"></el-input>
+              <el-form-item prop="password"
+              :rules="[
+                { required: true, message: '密码不能为空'},
+              ]"
+              >
+                <el-input type="password" v-model="foreman.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
-                <div class="btn" >
-                  <input class="sub" type="button" name="login" id="btn" value="登录" @click="submit">
+                <div class="btn">
+                  <input class="sub" @click="formanLogin('ruleForm')" type="button"  value="登录">
                 </div>
                 <div>
-                  <a  class="p" @click="reg">免费注册</a>
+                  <a class="p" @click="regist">免费注册</a>
                 </div>
-            </el-form>  -->
+            </el-form>  
          </div>
          <div class="denlulister" v-if="isreg">
            <div class="denlul_li ">
@@ -90,6 +98,11 @@ export default {
         password:'',
         modftime:''
       },
+      foreman:{
+        name:'',
+        password:'',
+        // modftime:''
+      }
     }
   },
   methods:{
@@ -103,7 +116,9 @@ export default {
       console.log(111)
       this.isreg= true
     },
+    //业主登录
     userlogin(ruleForm){
+     
       var d = new Date();
       var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
       this.user.modftime = str;
@@ -121,7 +136,7 @@ export default {
                 this.user.password=''
               }else{
                 this.open1()
-                window.localStorage.setItem("token",result.jwt_token)
+                // window.localStorage.setItem("token",result.jwt_token)
                 this.$router.push({name:"tenderadd",params:result[0]})
               }
           }
@@ -130,6 +145,31 @@ export default {
             return false;
           }
         });
+    },
+    //工长登录
+    formanLogin(ruleForm){
+       console.log(1111)
+      this.$refs[ruleForm].validate((valid) => {
+          if (valid) {
+            this.$Axios({
+              url:'/foreman/foremanlogin',
+              method:'POST',
+              data:this.foreman,
+              success:(result=>{
+                if(result.length!=0){
+                  this.open1();
+                  this.$router.push({name:'foremanindex',params:result})
+                }else{
+                  this.open()
+                }
+              })
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
     },
     open1() {
         this.$notify({

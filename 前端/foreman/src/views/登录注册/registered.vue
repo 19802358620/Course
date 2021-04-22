@@ -19,39 +19,42 @@
                <a>工长注册</a>
              </span>
            </div>
-           <!-- 业主登录 -->
-           <el-form  :model="user"  ref="ruleForm" label-width="5px" class="demo-ruleForm">
+           <!-- 业主注册 -->
+           <!-- <el-form  :model="user"  ref="ruleForm" label-width="5px" class="demo-ruleForm" >
               <el-form-item  prop="name"> 
-                <el-input v-model="user.name" placeholder="请输入用户名"></el-input>
+                <el-input v-model="user.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
               <el-form-item prop="password">
-                <el-input type="password" v-model="user.password" placeholder="请输入密码"></el-input>
+                <el-input type="password" v-model="user.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
               <el-form-item prop="password">
-                <el-input type="password" v-model="user.passwords" placeholder="请再次输入密码"></el-input>
+                <el-input type="password" v-model="user.passwords" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
                   <input class="sub" @click="userreg" type="button"  value="注册">
                 </div>
                 <div>
-                  <a class="p" @click="regist">免费注册</a>
+                  <a class="p" @click="regist">已有账号去登录</a>
                 </div>
-            </el-form>  
-            <!-- 工长登录 -->
-             <!-- <el-form v-show="cur==1" status-icon  ref="ruleForm" label-width="5px" class="demo-ruleForm">
-              <el-form-item>
-                <el-input placeholder="请输入用户名"></el-input>
+            </el-form>   -->
+            <!-- 工长注册 -->
+              <el-form  :model="foremain"  ref="ruleForm" :rules="rules" label-width="5px" class="demo-ruleForm" >
+              <el-form-item  prop="name"> 
+                <el-input v-model="foremain.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input placeholder="请输入密码"></el-input>
+              <el-form-item prop="pass">
+                <el-input type="password" v-model="foremain.pass" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
-                <div class="btn" >
-                  <input class="sub" type="button" name="login" id="btn" value="登录" @click="submit">
+              <el-form-item prop="checkPass">
+                <el-input type="password" v-model="foremain.checkPass" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
+              </el-form-item>
+                <div class="btn">
+                  <input class="sub" @click="foremanReg('ruleForm')" type="button"  value="注册">
                 </div>
                 <div>
-                  <a  class="p" @click="reg">免费注册</a>
+                  <a class="p" @click="regist">已有账号去登录</a>
                 </div>
-            </el-form>  -->
+            </el-form>   
          </div>
          <div class="denlulister" v-if="isreg">
            <div class="denlul_li ">
@@ -74,6 +77,25 @@ export default {
     // VDistpicker
   },
   data(){
+     var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.foremain.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.foremain.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
     return{
       isreg:false,
       cur:0,
@@ -85,11 +107,28 @@ export default {
         password:'',
         passwords:''
       },
+      foremain:{
+        name:'',
+        pass:'',
+        checkPass:''
+      },
+      //表单验证规则
+      rules: {
+          pass: [
+             { validator: validatePass, trigger: 'blur' }
+          ],
+          checkPass: [
+              { validator: validatePass2, trigger: 'blur' }
+          ],
+          name:[
+            { required: true, message: '账号必填', trigger: 'blur' },
+          ]
+      }
     }
   },
   methods:{
     regist(){
-      this.$router.push({name:"reg"})
+      this.$router.push({name:"login"})
     },
     submit(){
       console.log(1111)
@@ -98,9 +137,30 @@ export default {
       console.log(111)
       this.isreg= true
     },
+    //工长注册
+    foremanReg(ruleForm){
+      this.$refs[ruleForm].validate((valid) => {
+          if (valid) {
+            this.$Axios({
+              url:'/foreman/foremanReg',
+              method:'POST',
+              data:this.foremain,
+              success:(result=>{
+                if(result){
+                  this.open()
+                  this.$router.push({name:'login'})
+                }
+              })
+            })
+          } else {
+            return false;
+          }
+        });
+    },
+    //业主注册
     userreg(){
       if(!this.user.name||!this.user.password || !this.user.passwords){
-        this.$message.error('用户名、密码不能为空')
+         this.open2()
         this.user.name='';
         this.user.password='';
         this.user.passwords=''
@@ -111,16 +171,39 @@ export default {
          data:this.user,
          success:(result)=>{
            console.log(result)
-           if(result==true){
-             this.$message.success('注册成功！')
+           if(result){
+             this.open()
+            //  this.$message.success('注册成功！')
              setTimeout( this.$router.push({name:"login"}),2000)
            }else{
-             this.$message.error('注册失败')
+             this.open1()
+            //  this.$message.error('注册失败')
            }
        }
        })
       }
     },
+      open() {
+        this.$notify({
+          title: '注册成功',
+          type: 'success',
+          offset:100,
+        });
+      },
+      open1() {
+        this.$notify({
+          title: '注册失败',
+          type: 'error',
+          offset:100,
+        });
+      },
+      open2() {
+        this.$notify({
+          title: '用户名密码不能为空',
+          type: 'error',
+          offset:100,
+        });
+      },
   }
   }
 </script>

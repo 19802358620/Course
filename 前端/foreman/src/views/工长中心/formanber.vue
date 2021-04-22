@@ -10,7 +10,7 @@
                  <div class="line1"><span>欢迎来到诚信工长</span></div>
                  <div class="line3">
                      预约信息(<span>0</span>)
-                     对工长评价(<span>0</span>)
+                     业主评价(<span>0</span>)
                      全部消息(<span>0</span>)
                  </div>
              </div>
@@ -20,7 +20,7 @@
      </div>
      <div class="send">
          <div class="user">
-             <div class="ziliao">业主基本资料</div>
+             <div class="ziliao">我的资料</div>
              <div class="lin"></div>
              <div class="user-w">
                  <div class="info">
@@ -29,7 +29,7 @@
                              <tr>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">用户名：<span class="col">{{user.name}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">姓名：<span class="col">{{user.name}}</span></span>
                                      </div>
                                  </td>
                                  <td>
@@ -61,7 +61,7 @@
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">小区名称：<span  class="col">{{user.communityname}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">擅长风格：<span  class="col">{{user.communityname}}</span></span>
                                      </div>
                                  </td>
                              </tr>
@@ -72,7 +72,7 @@
          </div>
      </div>
      <div class="three">
-          <div class="ziliao">我的装修需求</div>
+          <div class="ziliao">我的订单</div>
           <div class="lin"></div>
           <div class="thr">
               <div class="center" v-if="isShow">

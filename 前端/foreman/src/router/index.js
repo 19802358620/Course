@@ -55,7 +55,6 @@ const routes = [
   //注册
   { path: 'reg', name: 'reg', component: () => import('../../src/views/登录注册/registered.vue') },
   //业主首页
-  
   { path: 'tenderadd', name: 'tenderadd', component: () => import('../../src/views/业主中心/tenderadd.vue'),
     children: [
       //业主基本资料
@@ -70,6 +69,14 @@ const routes = [
       { path: '/changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
       //管理需求招标
       { path: '/manage', name: 'manage', component: () => import('../views/业主中心/management.vue') },
+    ]
+  },
+  //工长首页
+  {
+    path: 'foremanindex', name: 'foremanindex', component: () => import('../views/工长中心/foremanindex.vue'),
+    children: [
+      //户主首页
+      { path: '/formanber', name: 'formanber', component: () => import('../views/工长中心/formanber.vue') },
     ]
   }
   
