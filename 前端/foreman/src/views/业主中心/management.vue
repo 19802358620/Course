@@ -31,7 +31,7 @@
                       <td style="color:red">200次</td>
                       <td style="width: 140px;">
                           <a class="btn" @click.stop="Details(item)">详情/</a>
-                          <a class="btn">修改/</a>
+                          <a class="btn" @click="modify(item)">修改/</a>
                           <el-popconfirm
                              title="您确定要删除这条招标需求吗？"
                              @confirm="deletelist(item)"
@@ -92,6 +92,11 @@ export default {
         Details(item){
             console.log(item)
             this.$router.push({name:"bidding",params:item})
+        },
+        //修改招标信息
+        modify(item){
+            console.log(item)
+            this.$router.push({name:"bidd",params:item})
         },
         getuser(){
             this.user = this.$route.params;

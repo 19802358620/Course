@@ -48,4 +48,21 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         let result = await this.foremanInfo(phone,sex,adder,email,experience,servicearea,style,Introduction,wei,foremanid)
         res.send(result)
     }
+
+    /**
+     * 工长投标接口
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async tender(req,res){
+        let foremanid = req.body.foremanid;
+        let userid = req.body.userid;
+        let ltime = req.body.ltime;
+        let price = req.body.price;
+        let content = req.body.content;
+        let demandid = req.body.demandid
+        let result = await  this.foremantender(foremanid,userid,ltime,price,content,demandid)
+        res.send(result)
+    }
 }

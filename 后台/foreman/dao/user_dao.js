@@ -1,4 +1,5 @@
 const  jwtUtil = require('../utils/jwtUtils');
+let fs = require('fs')
 
  // const redisUtils = require('../utils/redisUtils');
 module.exports = class user_dao extends require('../model/user_mode'){
@@ -60,8 +61,10 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let content = req.body.content;
         let claim = req.body.claim;
         let userid = req.body.userid;
+        let user = req.body.user
         let communityid = req.body.communityid;
-        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,communityid)
+        console.log(req.body)
+        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid)
         res.send(result)
     }
 
@@ -117,18 +120,22 @@ module.exports = class user_dao extends require('../model/user_mode'){
      * @returns {Promise<void>}
      */
     static  async upimg(req,res){
-        let userid= 1;
+        let userid = req.body.userid
+       console.log(userid)
         if(req.file.size===0){
             res.send('error',{message:"上传文件不能为空"})
         }else{
             let file = req.file;
             console.log(file)
-            let imgUrl = 'http://localhost:3000/public/images/'+file.originalname;
+            fs.renameSync('public/images/userinfo/'+file.filename,'public/images/userinfo/'+file.originalname);
+            res.set({
+                'content-type':'application/JSON; charset=utf-8'
+            })
+            let imgUrl = 'http://localhost:3000/public/images/userinfo/'+file.originalname;
             let result = await this.img(imgUrl,userid)
             res.send(result)
         }
     }
-
     /**
      * 业主删除招标记录
      * @param req
@@ -152,6 +159,34 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let pwd = req.body.password
         let id= req.body.id
         let result = await this.updatauserpwd(pwd,id)
+        res.send(result)
+    }
+
+    /**
+     * 业主修改自己的招标需求接口
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async modifyde(req,res){
+        let title = req.body.title;;
+        let contract = req.body.contract;
+        let type = req.body.type;
+        let space = req.body.space;
+        let statusquo = req.body.statusquo;
+        let area = req.body.area;
+        let structure= req.body.structure;
+        let style = req.body.style;
+        let budget = req.body.budget;
+        let suoarea = req.body.suoarea;
+        let ltitme = req.body.ltitme;
+        let dotime = req.body.dotime;
+        let remarks = req.body.remarks;
+        let content = req.body.content;
+        let claim = req.body.claim;
+        let communityid = req.body.communityid;
+        let id= req.body.id
+        let result = await this.modifydemand(title,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,communityid,id)
         res.send(result)
     }
 

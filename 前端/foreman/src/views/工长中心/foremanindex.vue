@@ -34,6 +34,7 @@
     </div>
     <div class="clear"></div>
   </div>
+  <div>{{f}}</div>
 </div>
 </template>
 
@@ -46,7 +47,7 @@ export default {
     }
   },
   methods:{
-    //业主基本资料
+    //工长基本资料
     formanber(){
       this.id=1
        this.$router.push({name:"formanber",params:this.foreman})
@@ -78,6 +79,7 @@ export default {
   },
   created(){
     this.getforeman()
+    this.formanber()
     // this.member()
   }
 }

@@ -15,7 +15,9 @@
                         action="http://localhost:3000/users/img"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
+                        :before-upload="beforeAvatarUpload"
+                        :data="{userid:this.users.id}"
+                        >
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
@@ -108,7 +110,6 @@
               </el-row>
           </el-form>
       </div>
-      <button @click="a">按钮</button>
   </div>
 </template>
 
@@ -129,7 +130,8 @@ export default {
                 communityname:'',
                 wei:'',
                 email:'',
-                modftime:''
+                modftime:'',
+                userpic:''
             },
             users:'',
             imageUrl:'',
@@ -206,6 +208,7 @@ export default {
         },
          getuser(){
             this.users = this.$route.params;
+            this.user = this.users
         },
         //获取用户地区
         onSelected(data){
@@ -273,7 +276,7 @@ input:focus{
 .yao{
     position: absolute;
     left: 80px;
-    top: 119px;
+    top: 130px;
     font-size: 12px;
 }
 .shang{
@@ -291,11 +294,17 @@ input:focus{
 }
 .img{
     border: 1px dashed red;
-    width: 160px;
+    width: 178px;
     position: absolute;
     left: 82px;
     top: 15px;
     z-index: 9999;
+    height: 178px;
+}
+.img .avatar{
+    width: 178px;
+    height: 178px;
+    display: block;
 }
 .content{
     width: 98%;

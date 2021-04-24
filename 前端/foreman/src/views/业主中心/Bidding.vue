@@ -76,8 +76,8 @@
                   </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="房屋用途" prop='use' label-width='80px'>
-                        <el-select v-model="demand.use" placeholder="请选择房屋用途">
+                     <el-form-item label="房屋用途" prop='user' label-width='80px'>
+                        <el-select v-model="demand.user" placeholder="请选择房屋用途">
                           <el-option label="租赁" value="租赁"></el-option>
                           <el-option label="住宅" value="住宅"></el-option>
                           <el-option label="店铺" value="店铺"></el-option>
@@ -143,7 +143,7 @@
               <el-row :gutter="5">
                   <el-col>
                       <div class="colbtn" >
-                          <input type="button" @click="submit('form')" value="发布需求">
+                          <input type="button" @click="submit('form')" :value="isedit?'发布需求':'提交修改'">
                       </div>
                   </el-col>
               </el-row>
@@ -160,13 +160,13 @@ export default {
 data(){
     return{
       //加载中
+      isedit:false,
       user:'',
       isloading:false,
       //招标信息
         demand:{
           title:'',
           titme:'',
-          status:'招标中',
           contract:'',
           type:'',
           space:'',
@@ -174,7 +174,7 @@ data(){
           area:'',
           structure:'',
           style:'',
-          use:'',
+          user:'',
           budget:'',
           suoarea:'',
           ltitme:'',
@@ -212,7 +212,7 @@ data(){
           style:[
             { required: true, message: '装修风格必须填写', trigger: 'blur' },
           ],
-          use:[
+          user:[
              { required: true, message: '房屋用途需要说明', trigger: 'blur' },
           ],
           contract:[
@@ -250,6 +250,7 @@ data(){
           label: '二手'
         },
         ],
+        demands:{}
     }
 },
 created(){
@@ -258,14 +259,15 @@ created(){
 methods:{
   //发布招标需求
   submit(from){
-    console.log(this.user)
     //获取当前时间
     this.isloading=true
     var d = new Date();
     var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-    this.demand.userid=this.user.id;
+    this.demand.userid=this.$store.state.user.id;
     this.demand.communityid=2;
     this.demand.titme = str;
+    this.demand.status= '招标中'
+    console.log(this.demand)
      this.$refs[from].validate((valid) => {
           if (valid) {
              this.$Axios({
@@ -295,7 +297,8 @@ methods:{
         });
       },
     getuser(){
-        this.user = this.$route.params;
+        this.demands = this.$route.params;
+        this.demand = this.demands;
     },
 }
 }

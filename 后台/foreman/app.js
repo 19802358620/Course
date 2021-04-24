@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // const jwtUtil=require('./utils/jwtUtils')
-global.globalKey="123456"
+global.globalKey="123456";
 // app.use(async function (req,res,next){
 //   let path = req.path;
 //   let token = "";
@@ -66,11 +66,11 @@ app.use('/users', usersRouter);
 app.use('/foreman',foremanRouter);
 
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

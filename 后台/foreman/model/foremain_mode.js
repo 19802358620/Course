@@ -55,7 +55,28 @@ module.exports = class user_mod extends require('./model'){
                 reject('false')
             })
         })
+    }
 
+    /**
+     * 工长投标
+     * @param foremanid
+     * @param userid
+     * @param ltime
+     * @param price
+     * @param content
+     * @param demandid
+     * @returns {Promise<unknown>}
+     */
+    static foremantender(foremanid,userid,ltime,price,content,demandid){
+        return new Promise((resolve,reject)=>{
+            let sql ="insert into `pmstender` (foremanid,userid,ltime,price,content,demandid) values (?,?,?,?,?,?)"
+            console.log(sql)
+            this.query(sql,this.formatParams(foremanid,userid,ltime,price,content,demandid)).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
 
     }
 }

@@ -3,8 +3,7 @@
      <div class="header">
          <div class="userinfo">
              <a href="" class="userimg">
-                 <img src="" alt="">
-                 <div class="txt">修改资料</div>
+                 <img :src="user.userpic" alt="">
              </a>
              <div class="infow">
                  <div class="line1"><span>欢迎来到诚信工长</span></div>
@@ -135,6 +134,7 @@ export default {
         },
         getuser(){
             this.user = this.$route.params;
+            console.log(this.user)
         },
         hand(){
             console.log(this.user)

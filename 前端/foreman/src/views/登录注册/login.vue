@@ -20,7 +20,7 @@
              </span>
            </div>
            <!-- 业主登录 -->
-           <!-- <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
+           <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true v-show="cur===0">
               <el-form-item  prop="name"
               :rules="[
                 { required: true, message: '用户名不能为空'},
@@ -36,14 +36,14 @@
                 <el-input type="password" v-model="user.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="userlogin('ruleForm')" type="button"  value="登录">
+                  <input class="sub" @click="userlogin('ruleForm')" type="button"  value="业主登录">
                 </div>
                 <div>
                   <a class="p" @click="regist">免费注册</a>
                 </div>
-            </el-form>   -->
+            </el-form>  
             <!-- 工长登录 -->
-            <el-form  :model="foreman"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true>
+            <el-form  :model="foreman"  ref="ruleForm1"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true v-show="cur===1">
               <el-form-item  prop="name"
               :rules="[
                 { required: true, message: '用户名不能为空'},
@@ -59,7 +59,7 @@
                 <el-input type="password" v-model="foreman.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="formanLogin('ruleForm')" type="button"  value="登录">
+                  <input class="sub" @click="formanLogin('ruleForm1')" type="button"  value="工长登录">
                 </div>
                 <div>
                   <a class="p" @click="regist">免费注册</a>
@@ -88,7 +88,8 @@ export default {
   },
   data(){
     return{
-      isreg:false,
+      isforeman:false,
+      isuser:true,
       cur:0,
       islogin:true,//业主登录判断
       isforma:false,
@@ -102,7 +103,8 @@ export default {
         name:'',
         password:'',
         // modftime:''
-      }
+      },
+      foremans:''
     }
   },
   methods:{
@@ -135,6 +137,10 @@ export default {
                 this.user.password=''
               }else{
                 this.open1()
+                this.foremans = result[0]
+                this.$store.commit('setuser', result[0])
+                // this.$store.commit('setuser', result[0])
+                // store.commit('setuser', result[0])
                 // window.localStorage.setItem("token",result.jwt_token)
                 this.$router.push({name:"tenderadd",params:result[0]})
               }
@@ -144,11 +150,12 @@ export default {
             return false;
           }
         });
+        this.$store.commit('setuser', this.foremans)
     },
     //工长登录
-    formanLogin(ruleForm){
+    formanLogin(ruleForm1){
        console.log(1111)
-      this.$refs[ruleForm].validate((valid) => {
+      this.$refs[ruleForm1].validate((valid) => {
           if (valid) {
             this.$Axios({
               url:'/foreman/foremanlogin',
@@ -157,6 +164,7 @@ export default {
               success:(result=>{
                 console.log(result)
                 if(result.length!=0){
+                  this.$store.commit('setforeman', result[0])
                   this.open1();
                   this.$router.push({name:'foremanindex',params:result[0]})
                 }else{

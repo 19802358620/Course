@@ -13,5 +13,8 @@ router.post('/foremanlogin',function (req,res){
 router.post('/foremaninfo',function (req,res){
     foreman.foremaninfo(req,res)
 })
-
+//工长投标接口
+router.post('/tender',function (req,res) {
+    foreman.tender(req,res)
+})
 module.exports = router;

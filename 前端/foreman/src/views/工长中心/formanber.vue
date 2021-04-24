@@ -139,7 +139,7 @@ export default {
         return{
             foreman:'',
             demandlist:[],//需求列表
-            isShow:false
+            isShow:false,
         }
     },
     methods:{

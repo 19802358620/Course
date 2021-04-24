@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const user = require('../dao/user_dao')
 const multer = require('multer')
-let upload = multer({dest:'public/images/userinfo'}).single('file')
+let upload = multer({dest:'public/images/userinfo/'}).single('file')
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -40,6 +41,10 @@ router.delete('/deledemand',function (req,res){
 //业主修改密码接口
 router.post('/updatapwd',function (req,res){
   user.updatapwd(req,res)
+})
+//用户修改招标需求接口
+router.post('/modifyde',function (req,res){
+  user.modifyde(req,res)
 })
 
 

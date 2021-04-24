@@ -31,7 +31,7 @@
                   </el-col>
                 <el-col :span="16">
                     <div class="wan">
-                        <el-progress :text-inside="true" :stroke-width="16" :percentage="10" status="success"></el-progress>
+                        <el-progress :text-inside="true" :stroke-width="16" :percentage="percentage" status="success"></el-progress>
                     </div>
                 </el-col>
               </el-row>
@@ -145,6 +145,7 @@ export default {
     },
     data(){
         return{
+            percentage:0,//资料完整度
             foreman:{
                 name:'',
                 phone:'',
@@ -157,7 +158,7 @@ export default {
                 servicearea:'',
                 style:''
             },
-            foremans:'',
+            foremans:'',//用户原始数据
             users:'',
             imageUrl:'',
             //表单验证规则
@@ -192,7 +193,6 @@ export default {
     methods:{
         //用户头像
           handleAvatarSuccess(res, file) {
-              console.log(res)
          this.imageUrl = URL.createObjectURL(file.raw);
       },
        beforeAvatarUpload(file) {
@@ -233,6 +233,12 @@ export default {
          getforeman(){
             this.foreman = this.$route.params;
             this.foremans = this.$route.params;
+            console.log(this.foremans)
+            let arr = []
+            for(let i in this.foremans){
+                arr.push(this.foremans[i])
+            }
+            console.log(arr)
         },
         //获取用户地区
         onSelected(data){

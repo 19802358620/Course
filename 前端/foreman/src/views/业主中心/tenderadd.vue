@@ -54,7 +54,7 @@ export default {
     //发布装修需求
     bidd(){
       this.id=2
-      this.$router.push({name:"bidd",params:this.user})
+      this.$router.push({name:"bidd"})
     },
     getuser(){
       this.user= this.$route.params;
