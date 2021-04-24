@@ -89,14 +89,17 @@ module.exports = class user_dao extends require('../model/user_mode'){
      * @returns {Promise<void>}
      */
     static  async perfect(req,res){
+        console.log(req.body)
         let phone = req.body.phone;
-        let sex = req.body.sex;
-        let adder = req.body.adder;
+        let sex = req.body.sex
         let communityname = req.body.communityname;
         let wei = req.body.wei;
         let email = req.body.email;
+        let province=req.body.province;
+        let city = req.body.city;
+        let area = req.body.area;
         let userid = req.body.userid;
-        let result = await this.perfectInfo(phone,sex,adder,communityname,wei,email,userid)
+        let result = await this.perfectInfo(phone,sex,communityname,wei,email,province,city,area,userid)
         res.send(result)
     }
 

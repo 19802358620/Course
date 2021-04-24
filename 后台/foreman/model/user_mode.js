@@ -6,7 +6,7 @@ module.exports = class user_mod extends require('./model'){
      * @param password
      * @returns {Promise<unknown>}
      */
-    static loginUser(name,password){
+    static loginUser(name,password,){
         return new Promise((resolve,reject)=>{
             console.log(name,password)
             let sql='select * from `user` where name = '+'"'+name+'"'+' and password = '+'"'+password+'"'+'';
@@ -62,9 +62,9 @@ module.exports = class user_mod extends require('./model'){
      * @param userid
      * @returns {Promise<unknown>}
      */
-    static perfectInfo(phone,sex,adder,communityname,wei,email,userid){
+    static perfectInfo(phone,sex,communityname,wei,email,province,city,area,userid){
         return new Promise((resolve,reject)=>{
-            let sql = "update  `user` set `phone` = "+"'"+phone+"'"+", `sex`="+"'"+sex+"'"+",`adder`="+"'"+adder+"'"+",`communityname`="+"'"+communityname+"'"+",`wei`="+"'"+wei+"'"+",`email`="+"'"+email+"'"+" where `id` = "+"'"+userid+"'"+"";
+            let sql = "update  `user` set `phone` = "+"'"+phone+"'"+",`sex`="+"'"+sex+"'"+",`communityname`="+"'"+communityname+"'"+",`wei`="+"'"+wei+"'"+",`email`="+"'"+email+"'"+",`province`="+"'"+province+"'"+",`city`="+"'"+city+"'"+",`area`="+"'"+area+"'"+" where `id` = "+"'"+userid+"'"+"";
             console.log(sql)
             this.query(sql,).then((result)=>{
                 resolve('true')

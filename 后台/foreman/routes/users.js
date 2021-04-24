@@ -3,6 +3,7 @@ var router = express.Router();
 const user = require('../dao/user_dao')
 const multer = require('multer')
 let upload = multer({dest:'public/images/userinfo/'}).single('file')
+let fs = require('fs')
 
 
 /* GET users listing. */
@@ -46,6 +47,17 @@ router.post('/updatapwd',function (req,res){
 router.post('/modifyde',function (req,res){
   user.modifyde(req,res)
 })
+router.get('/getImg',function (req,res){
+  let img = req.query.img
+  let path = `public/images/userinfo/${img}`
+  const data = fs.readFile(path,function (err,data){
+    if(err){
+      res.send('读取错误')
+    }else{
+      res.send(data)
+    }
+  })
 
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@
      <div class="header">
          <div class="userinfo">
              <a href="" class="userimg">
-                 <img :src="user.userpic" alt="">
+                 <img :src="`${url}`+`${imgurl}`" alt="">
              </a>
              <div class="infow">
                  <div class="line1"><span>欢迎来到诚信工长</span></div>
@@ -55,7 +55,7 @@
                              <tr>
                                   <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{user.adder}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{adder}}</span></span>
                                      </div>
                                  </td>
                                  <td>
@@ -81,7 +81,7 @@
                   </div>
                   <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在发布装修招标信息，免费获得1-3位工长提供的设计和报价方案服务</div>
                   <div class="btn">
-                      <a @click="hand">免费发布装修需求</a>
+                      <a >免费发布装修需求</a>
                   </div>
               </div>
               <table class="table" v-else>
@@ -123,7 +123,11 @@ export default {
         return{
             user:'',
             demandlist:[],//需求列表
-            isShow:false
+            isShow:false,
+            imgurl:'',//头像名称,
+            url:"http://localhost:3000/users/getImg?img=",
+            users:'',
+            adder:''
         }
     },
     methods:{
@@ -132,12 +136,24 @@ export default {
             console.log(item)
             this.$router.push({name:"bidding",params:item})
         },
+        //获取用户信息
         getuser(){
-            this.user = this.$route.params;
-            console.log(this.user)
-        },
-        hand(){
-            console.log(this.user)
+            this.url = "http://localhost:3000/users/getImg?img="
+            this.users = this.$route.params;
+            this.$Axios({
+             url:'/users/login',
+             method:'POST',
+             data:this.users,
+             success:(result=>{
+                 this.user = result[0]
+                 if(this.user.userpic==''){
+                     this.url=''
+                 }else{
+                     this.imgurl=this.user.userpic.slice(-6)
+                     this.adder=this.user.province+'/'+this.user.city+'/'+this.user.area
+                 }
+             })
+            })
         },
         //获取业主的装修需求
       getdemandlist(){
@@ -145,7 +161,7 @@ export default {
         this.$Axios({
             url:'/users/meang',
             method:'GET',
-            data:{userid:this.user.id},
+            data:{userid:this.users.id},
             success:(result)=>{
                 if(result.length===0){
                     this.isShow=true
@@ -158,10 +174,9 @@ export default {
     }
     },
     created(){
-        this.getuser();
-        this.getdemandlist();
+        this.getuser()
+        this.getdemandlist()
     },
-    
 }
 </script>
 
@@ -350,6 +365,9 @@ table{
     height: 104px;
     overflow: hidden;
     border-radius: 104px;
+    margin-left: 58px;
+    margin-top: -8px;
+    border: 1px dashed #aaa;
 }
 .userinfo.userinfo img{
     display: block;

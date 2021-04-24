@@ -38,15 +38,17 @@
                 </el-col>
               </el-row>
               <el-row>
-                  <el-col :span="24">
-                      <div class="username">
-                          用户名：<span style=" font-weight: bold;color:#01af63">{{users.name}}</span>
-                      </div>
+                  <el-col :span="10">
+                      <div style="margin-top: -50px;">
+                    <el-form-item label="姓名:" style="font-size: 12px;" prop="name">
+                        <el-input v-model="user.name" placeholder="您的姓名"></el-input>
+                    </el-form-item>
+                    </div>
                   </el-col>
               </el-row>
               <el-row>
                 <el-col :span="10">
-                    <div class="in">
+                    <div class="">
                     <el-form-item label="联系电话:" style="font-size: 12px;" prop="phone">
                         <el-input v-model="user.phone" placeholder="输入联系方式"></el-input>
                     </el-form-item>
@@ -68,8 +70,8 @@
                <el-row>
                 <el-col :span="124">
                     <div class="">
-                    <el-form-item label="所在地区:" style="font-size: 12px;" prop="adder">
-                        <VDistpicker v-model="user.adder" @selected="onSelected"></VDistpicker>
+                    <el-form-item label="所在地区:" style="font-size: 12px;" prop="province">
+                        <VDistpicker  @selected="onSelected" :province="select.province" :city="select.city" :area="select.area"></VDistpicker>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -77,7 +79,7 @@
               <el-row>
                 <el-col :span="10">
                     <div class="">
-                    <el-form-item label="小区名称:" style="font-size: 12px;" >
+                    <el-form-item label="小区名称:" style="font-size: 12px;" prop="communityname">
                         <el-input v-model="user.communityname" placeholder="输入您的小区名称"></el-input>
                     </el-form-item>
                     </div>
@@ -126,15 +128,21 @@ export default {
                 name:'',
                 phone:'',
                 sex:'',
-                adder:'',
                 communityname:'',
                 wei:'',
                 email:'',
                 modftime:'',
-                userpic:''
+                userpic:'',
+                url:"",
+                img:'',
+                province:'',
+                city:'',
+                area:'',
             },
+            select: { province: '重庆市', city: '重庆市', area: '巴南区' },
             users:'',
             imageUrl:'',
+            arr:[],//资料完整度数组
             //表单验证规则
              rules: {
               phone: [
@@ -143,17 +151,20 @@ export default {
             sex:[
                 { required: true, message: '性别必须选择', trigger: 'blur' },
             ],
-            adder:[
+            province:[
                 { required: true, message: '地区必须选择', trigger: 'blur' },
             ],
-            // com:[
-            //      { required: true, message: '小区名称必须输入', trigger: 'blur' },
-            // ],
+            name:[
+                 { required: true, message: '小区名称必须输入', trigger: 'blur' },
+            ],
             wei:[
                  { required: true, message: '微信号必填', trigger: 'blur' },
             ],
             email:[
                  { required: true, message: '邮箱不许为空', trigger: 'blur' },
+            ],
+            communityname:[
+                 { required: true, message: '小区名称必须填写', trigger: 'blur' },
             ]
         }
         }
@@ -163,14 +174,12 @@ export default {
     },
     methods:{
         //用户头像
-          handleAvatarSuccess(res, file) {
-              console.log(res)
+        handleAvatarSuccess(res, file) {
          this.imageUrl = URL.createObjectURL(file.raw);
       },
        beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
         }
@@ -179,21 +188,19 @@ export default {
         }
         return isJPG && isLt2M;
        },
-
         //提交修改
         hand(form){
             this.$refs[form].validate((valid) => {
           if (valid) {
-            var d = new Date();
-            var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-            this.user.modftime = str;
+            // var d = new Date();
+            // var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            // this.user.modftime = str;
             this.user.userid = this.users.id;
             this.$Axios({
                 url:'/users/perfectInfo',
                 method:'POST',
                 data:this.user,
                 success:(result)=>{
-                    console.log(result)
                   if(result){
                       this.open()
                   }else{
@@ -207,12 +214,28 @@ export default {
         });
         },
          getuser(){
+            this.url  ="http://localhost:3000/users/getImg?img="
             this.users = this.$route.params;
+            this.img = this.users.userpic.slice(-6);
+            this.imageUrl=`${this.url}`+`${this.img}`
             this.user = this.users
+            if(this.user.province==''){
+                console.log('11111')
+                this.select.province='',
+                this.select.city='',
+                this.select.area=''
+            }else{
+                this.select.province = this.user.province;
+                this.select.city = this.user.city;
+                this.select.area = this.user.area;
+            }
+            console.log(this.user)
         },
         //获取用户地区
         onSelected(data){
-            this.user.adder = data.province.value+'/'+data.city.value+'/'+data.area.value
+            this.user.province = data.province.value,
+            this.user.city=data.city.value,
+            this.user.area=data.area.value
         },
        open() {
         this.$notify({
@@ -300,11 +323,13 @@ input:focus{
     top: 15px;
     z-index: 9999;
     height: 178px;
+    z-index: 0;
 }
 .img .avatar{
     width: 178px;
     height: 178px;
     display: block;
+    z-index: 0;
 }
 .content{
     width: 98%;

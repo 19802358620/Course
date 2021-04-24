@@ -20,7 +20,9 @@
              </span>
            </div>
            <!-- 业主登录 -->
-           <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true v-show="cur===0">
+           <el-form  :model="user"  ref="ruleForm"  label-width="5px" class="demo-ruleForm" hide-required-asterisk=true v-show="cur===0"
+            v-loading.fullscreen.lock="fullscreenLoading">
+           >
               <el-form-item  prop="name"
               :rules="[
                 { required: true, message: '用户名不能为空'},
@@ -88,6 +90,7 @@ export default {
   },
   data(){
     return{
+      fullscreenLoading: true,
       isforeman:false,
       isuser:true,
       cur:0,
