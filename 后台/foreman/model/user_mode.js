@@ -183,4 +183,21 @@ module.exports = class user_mod extends require('./model'){
         })
 
     }
+
+    /**
+     * 获取工长投标信息
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static stenderlist(id){
+        return new Promise((resolve,reject)=>{
+            let sql= 'select foreman.*,foreman.id foremanid,pmstender.*,pmstender.id pmstenderid FROM pmstender LEFT JOIN foreman ON pmstender.foremanid = foreman.id where pmstender.userid = '+'"'+id+'"';
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('查询失败')
+            })
+        })
+    }
 }

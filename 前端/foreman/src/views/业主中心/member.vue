@@ -114,6 +114,7 @@
              </table>
           </div>
      </div>
+     
   </div>
 </template>
 
@@ -121,6 +122,7 @@
 export default {
     data(){
         return{
+            
             user:'',
             demandlist:[],//需求列表
             isShow:false,

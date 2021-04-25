@@ -112,6 +112,9 @@
               </el-row>
           </el-form>
       </div>
+      <div
+     v-loading.fullscreen.lock="fullscreenLoading"
+     ></div>
   </div>
 </template>
 
@@ -124,6 +127,7 @@ export default {
     },
     data(){
         return{
+            fullscreenLoading: false,//加载提示
             user:{
                 name:'',
                 phone:'',
@@ -190,6 +194,7 @@ export default {
        },
         //提交修改
         hand(form){
+            this.fullscreenLoading=true
             this.$refs[form].validate((valid) => {
           if (valid) {
             // var d = new Date();
@@ -202,8 +207,10 @@ export default {
                 data:this.user,
                 success:(result)=>{
                   if(result){
+                      this.fullscreenLoading=false
                       this.open()
                   }else{
+                      this.fullscreenLoading=false
                     this.$message.error('提交失败')
                   }
             }

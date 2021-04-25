@@ -3,8 +3,7 @@
      <div class="header">
          <div class="userinfo">
              <a href="" class="userimg">
-                 <img src="" alt="">
-                 <div class="txt">修改资料</div>
+                 <img :src="`${url}`+`${imgurl}`" alt="">
              </a>
              <div class="infow">
                  <div class="line1"><span>欢迎来到诚信工长</span></div>
@@ -29,54 +28,54 @@
                              <tr>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">姓名：<span class="col">{{foreman.name}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">姓名：<span class="col">{{foremans.name}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">性别：<span  class="col">{{foreman.sex}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">性别：<span  class="col">{{foremans.sex}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">电话：<span  class="col">{{foreman.phone}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">电话：<span  class="col">{{foremans.phone}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">邮箱：<span  class="col">{{foreman.email}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">邮箱：<span  class="col">{{foremans.email}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">微信：<span  class="col">{{foreman.wei}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">微信：<span  class="col">{{foremans.wei}}</span></span>
                                      </div>
                                  </td>
                              </tr>
                              <tr>
                                   <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{foreman.adder}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">所在地区：<span  class="col">{{adder}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">入驻时间：<span  class="col">{{foreman.createtime}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">入驻时间：<span  class="col">{{foremans.createtime}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">我的风格：<span  class="col">{{foreman.style}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">我的风格：<span  class="col">{{foremans.style}}</span></span>
                                      </div>
                                  </td>
                                  <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">工作经验：<span  class="col">{{foreman.experience}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">工作经验：<span  class="col">{{foremans.experience}}</span></span>
                                      </div>
                                  </td>
                                   <td>
                                      <div class="elicep">
-                                         <span style="color:#767676;font-size: 12px;">我的级别：<span  class="col">{{foreman.level}}</span></span>
+                                         <span style="color:#767676;font-size: 12px;">我的级别：<span  class="col">{{foremans.level}}</span></span>
                                      </div>
                                  </td>
                              </tr>
@@ -140,41 +139,35 @@ export default {
             foreman:'',
             demandlist:[],//需求列表
             isShow:false,
+            url:'http://localhost:3000/foreman/getforamnimg/?img=',
+            imgurl:'',//头像名称,
+            foremans:'',
+            adder:''
         }
     },
     methods:{
-        //查看需求详情
-        Details(item){
-            this.$router.push({name:"bidding",params:item})
-        },
         getfroeman(){
             this.foreman = this.$route.params;
             console.log(this.foreman)
+            this.$Axios({
+              url:'/foreman/foremanlogin',
+              method:'POST',
+              data:this.foreman,
+              success:(result=>{
+                  console.log(result[0])
+                  this.foremans = result[0]
+                if(this.foremans.header==''){
+                     this.url=''
+                 }else{
+                     this.imgurl=this.foremans.header.slice(-6)
+                     this.adder=this.foremans.province+'/'+this.foremans.city+'/'+this.foremans.area
+                 }
+              })
+            })
         },
-        hand(){
-            console.log(this.user)
-        },
-        //获取业主的装修需求
-      getdemandlist(){
-        // let userid= this.user.id
-        this.$Axios({
-            url:'/users/meang',
-            method:'GET',
-            data:{userid:this.user.id},
-            success:(result)=>{
-                if(result.length===0){
-                    this.isShow=true
-                }else{
-                    this.demandlist = result
-                    this.isShow=false
-                }
-            }
-        })
-    }
     },
     created(){
         this.getfroeman();
-        this.getdemandlist();
     },
     
 }
@@ -356,6 +349,7 @@ table{
 }
 .warp .header .userinfo{
     padding: 20px;
+    
 }
 .header .userinfo .userimg{
     float: left;
@@ -365,6 +359,9 @@ table{
     height: 104px;
     overflow: hidden;
     border-radius: 104px;
+    margin-top: -8px;
+    margin-left: 55px;
+    border: 1px dashed #aaa;
 }
 .userinfo.userinfo img{
     display: block;

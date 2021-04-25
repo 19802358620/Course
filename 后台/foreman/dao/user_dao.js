@@ -193,4 +193,17 @@ module.exports = class user_dao extends require('../model/user_mode'){
         res.send(result)
     }
 
+    /**
+     * 获取工长投标信息
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getstenderlist(req,res){
+        let userid = req.query.userid;
+        console.log(userid)
+        let result = await this.stenderlist(userid)
+        res.send(result)
+    }
+
 }

@@ -23,7 +23,7 @@ const routes = [
   //装修设计
    { path: '/design', name: 'design', component: () => import('../views/同城装修/design.vue') },
   {
-    path: '/shop/:id/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
+    path: '/shop/', name: 'shop', component: () => import('../views/Shop.vue'), children: [
       //工长详情
       { path: 'index', name: 'index', component: () => import('../views/工长详情/home.vue'), },
       //在建工地

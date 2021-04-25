@@ -6,6 +6,20 @@
 
 <script>
 export default {
+  data(){
+    return{
+      stenderlist:[]//投标列表
+    }
+  },
+  methods:{
+    getstenderlist(){
+      let userid = this.$store.state.user.id;
+      console.log(userid)
+    }
+  },
+  created(){
+    this.getstenderlist()
+  }
 
 }
 </script>

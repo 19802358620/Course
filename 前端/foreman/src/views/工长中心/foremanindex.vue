@@ -15,9 +15,9 @@
       <div class="item">
         <div class="titname" >我的订单</div>
         <!-- <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a> -->
-        <a @click="manage" :class="{clactive:id==4}">管理订单</a>
-        <!-- <router-link :to="{name:'visit'}">参与项目工长</router-link> -->
-        <a href="">预约我的</a>
+        <a @click="manage" :class="{clactive:id==4}">管理我的订单</a>
+        <router-link :to="{name:'visit'}">管理我的案例</router-link>
+        <a href="">我的预约信息</a>
       </div>
       <div class="item">
         <div class="titname">评价管理</div>

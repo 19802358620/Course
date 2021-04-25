@@ -20,25 +20,25 @@
              </span>
            </div>
            <!-- 业主注册 -->
-           <!-- <el-form  :model="user"  ref="ruleForm" label-width="5px" class="demo-ruleForm" >
+           <el-form  :model="user"  ref="ruleForm1" :rules="rules1" label-width="5px" class="demo-ruleForm" v-show="cur===0">
               <el-form-item  prop="name"> 
                 <el-input v-model="user.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
-              <el-form-item prop="password">
-                <el-input type="password" v-model="user.password" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
+              <el-form-item prop="pass">
+                <el-input type="password" v-model="user.pass" placeholder="请输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
-              <el-form-item prop="password">
-                <el-input type="password" v-model="user.passwords" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
+              <el-form-item prop="checkPass">
+                <el-input type="password" v-model="user.checkPass" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="userreg" type="button"  value="注册">
+                  <input class="sub" @click="userreg('ruleForm1')" type="button"  value="业主注册">
                 </div>
                 <div>
                   <a class="p" @click="regist">已有账号去登录</a>
                 </div>
-            </el-form>   -->
+            </el-form>  
             <!-- 工长注册 -->
-              <el-form  :model="foreman"  ref="ruleForm" :rules="rules" label-width="5px" class="demo-ruleForm" >
+              <el-form  :model="foreman"  ref="ruleForm" :rules="rules" label-width="5px" class="demo-ruleForm" v-show="cur===1">
               <el-form-item  prop="name"> 
                 <el-input v-model="foreman.name" placeholder="请输入用户名"><i slot="prefix" class="el-icon-user-solid"></i></el-input>
               </el-form-item>
@@ -49,7 +49,7 @@
                 <el-input type="password" v-model="foreman.checkPass" placeholder="请再次输入密码"><i slot="prefix" class="el-icon-lock"></i></el-input>
               </el-form-item>
                 <div class="btn">
-                  <input class="sub" @click="foremanReg('ruleForm')" type="button"  value="注册">
+                  <input class="sub" @click="foremanReg('ruleForm')" type="button"  value="工长注册">
                 </div>
                 <div>
                   <a class="p" @click="regist">已有账号去登录</a>
@@ -96,6 +96,27 @@ export default {
           callback();
         }
       };
+
+      //业主注册验证规则
+      var validatePass3 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.user .checkPass !== '') {
+            this.$refs.ruleForm1.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass4 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.user.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
     return{
       isreg:false,
       cur:0,
@@ -104,8 +125,8 @@ export default {
       activeName: 'second',
       user:{
         name:'',
-        password:'',
-        passwords:''
+        pass:'',
+        checkPass:''
       },
       foreman:{
         name:'',
@@ -123,26 +144,29 @@ export default {
           name:[
             { required: true, message: '账号必填', trigger: 'blur' },
           ]
-      }
+      },
+       rules1: {
+          pass: [
+             { validator: validatePass3, trigger: 'blur' }
+          ],
+          checkPass: [
+              { validator: validatePass4, trigger: 'blur' }
+          ],
+          name:[
+            { required: true, message: '账号必填', trigger: 'blur' },
+          ]
+      },
     }
   },
   methods:{
     regist(){
       this.$router.push({name:"login"})
     },
-    submit(){
-      console.log(1111)
-    },
-    reg(){
-      console.log(111)
-      this.isreg= true
-    },
     //工长注册
     foremanReg(ruleForm){
       var d = new Date();
       var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
       this.foreman.createtime = str;
-      console.log(this.foreman)
       this.$refs[ruleForm].validate((valid) => {
           if (valid) {
             this.$Axios({
@@ -162,14 +186,13 @@ export default {
         });
     },
     //业主注册
-    userreg(){
-      if(!this.user.name||!this.user.password || !this.user.passwords){
-         this.open2()
-        this.user.name='';
-        this.user.password='';
-        this.user.passwords=''
-      }else{
-       this.$Axios({
+    userreg(ruleForm1){
+      var d = new Date();
+      var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      this.user.createtime = str;
+      this.$refs[ruleForm1].validate((valid) => {
+        if (valid) {
+        this.$Axios({
          url:'/users/reg',
          method:'POST',
          data:this.user,
@@ -185,7 +208,10 @@ export default {
            }
        }
        })
-      }
+          } else {
+            return false;
+          }
+        });
     },
       open() {
         this.$notify({

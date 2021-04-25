@@ -47,6 +47,7 @@ router.post('/updatapwd',function (req,res){
 router.post('/modifyde',function (req,res){
   user.modifyde(req,res)
 })
+//获取用户头像接口
 router.get('/getImg',function (req,res){
   let img = req.query.img
   let path = `public/images/userinfo/${img}`
@@ -57,7 +58,9 @@ router.get('/getImg',function (req,res){
       res.send(data)
     }
   })
-
 })
-
+//获取投标信息接口
+router.get('/getstenderlist',function (req,res){
+  user.getstenderlist(req,res)
+})
 module.exports = router;

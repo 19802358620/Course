@@ -2,22 +2,22 @@
   <div>
       <div class="title">
           <div class="left">
-            <img src="../../assets/imgs/工长/工长01.png" alt="">
+            <img :src="foreman.header" alt="">
             <i class="icon">123456789</i>
           </div>
           <div class="right">
               <div class="ti">
                   <div class="item">
                       <div class="list">
-                          <h1>明星工长：杨汤清</h1>
+                          <h1>明星工长：{{foreman.name}}</h1>
                           <i class="ic ic1"></i><span>已认证</span>
                           <i class="ic ic2"></i><span>钻石工长</span>
                       </div>
                       <div class="lis">
-                          <p class="k">籍贯：重庆</p>
-                          <p class="ki">从业：10年以上</p>
+                          <p class="k">籍贯：{{foreman.province}}</p>
+                          <p class="ki">从业：{{foreman.experience}}</p>
                           <p class="kj">入驻时间：2017-9-12</p>
-                          <p class="kl">接单区域：重庆</p>
+                          <p class="kl">接单区域：{{foreman.province}}</p>
                       </div>
                   </div>
                   <div class="item01">
@@ -229,8 +229,23 @@
 
 <script>
 export default {
-    components:{
+    data(){
+        return{
+            foreman:'',//工长信息
+
+        }
+    },
+    methods:{
+        getforeman(){
+            this.foreman = this.$route.params;
+            console.log(this.foreman)
+        }
+         
+    },
+    created(){
+        this.getforeman()
     }
+
 
 }
 </script>

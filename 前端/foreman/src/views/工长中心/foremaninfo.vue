@@ -12,10 +12,12 @@
                     <div class="img">
                    <el-upload
                         class="avatar-uploader"
-                        action="http://localhost:3000/users/img"
+                        action="http://localhost:3000/foreman/foremanimg"
                         :show-file-list="false"
                         :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
+                        :before-upload="beforeAvatarUpload"
+                        :data="{foremanid:this.foremans.id}"
+                        >
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
@@ -37,10 +39,8 @@
               </el-row>
               <el-row>
                   <el-col :span="10" style="margin-left: -135px;">
-                      <div>
-                    <el-form-item label="用户名:" style="font-size: 12px;" prop="phone">
-                        <el-input v-model="foreman.name" placeholder="您的姓名"></el-input>
-                    </el-form-item>
+                    <div style="position: relative;">
+                        <span style="display: block;position: absolute;top: -65px;left: 31px;font-size: 14px;">用户名：<em style="color:#01af63;font-weight: bold;">{{foreman.name}}</em></span>
                       </div>
                   </el-col>
               </el-row>
@@ -66,10 +66,19 @@
                 </el-col>
               </el-row>
                <el-row>
-                <el-col :span="124">
+                <el-col :span="10">
                     <div class="">
-                    <el-form-item label="我的地址:" style="font-size: 12px;" prop="adder">
-                        <VDistpicker  @selected="onSelected"></VDistpicker>
+                    <el-form-item label="年龄:" style="font-size: 12px;" prop="age">
+                        <el-input v-model="foreman.age" placeholder="您的年龄"></el-input>
+                    </el-form-item>
+                    </div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="10">
+                    <div class="">
+                    <el-form-item label="从业时间:" style="font-size: 12px;" prop="experience">
+                        <el-input v-model="foreman.experience" placeholder="您的从业时间"></el-input>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -77,8 +86,8 @@
                <el-row>
                 <el-col :span="124">
                     <div class="">
-                    <el-form-item label="接单区域:" style="font-size: 12px;" prop="adder">
-                        <VDistpicker  hide-area @selected="onarea"></VDistpicker>
+                    <el-form-item label="我的地址:" style="font-size: 12px;" prop="province">
+                        <VDistpicker  @selected="onSelected" :province="select.province" :city="select.city" :area="select.area"></VDistpicker>
                     </el-form-item>
                     </div>
                 </el-col>
@@ -146,21 +155,26 @@ export default {
     data(){
         return{
             percentage:0,//资料完整度
+            select: { province: '重庆市', city: '重庆市', area: '巴南区' },
             foreman:{
                 name:'',
                 phone:'',
                 sex:'',
-                adder:'',
                 Introduction:'',
                 wei:'',
                 email:'',
                 experience:'',
-                servicearea:'',
-                style:''
+                style:'',
+                age:'',
+                province:'',
+                city:'',
+                area:'',
             },
             foremans:'',//用户原始数据
             users:'',
             imageUrl:'',
+            url:'http://localhost:3000/foreman/getforamnimg/?img=',
+            img:'',
             //表单验证规则
              rules: {
               phone: [
@@ -169,7 +183,7 @@ export default {
             sex:[
                 { required: true, message: '性别必须选择', trigger: 'blur' },
             ],
-            adder:[
+            province:[
                 { required: true, message: '地区必须选择', trigger: 'blur' },
             ],
             style:[
@@ -183,7 +197,14 @@ export default {
             ],
             Introduction:[
                  { required: true, message: '简介不许为空', trigger: 'blur' },
-            ]
+            ],
+            age:[
+                { required: true, message: '年龄不许为空', trigger: 'blur' },
+            ],
+            experience:[
+                { required: true, message: '从业年限不许为空', trigger: 'blur' },
+            ],
+            
         }
         }
     },
@@ -231,23 +252,27 @@ export default {
         });
         },
          getforeman(){
+            this.url='http://localhost:3000/foreman/getforamnimg/?img=',
             this.foreman = this.$route.params;
             this.foremans = this.$route.params;
+            this.img = this.foremans.header.slice(-6)
+            this.imageUrl=`${this.url}`+`${this.img}`
             console.log(this.foremans)
-            let arr = []
-            for(let i in this.foremans){
-                arr.push(this.foremans[i])
+             if(this.foremans.province==''){
+                this.select.province='',
+                this.select.city='',
+                this.select.area=''
+            }else{
+                this.select.province = this.foremans.province;
+                this.select.city = this.foremans.city;
+                this.select.area = this.foremans.area;
             }
-            console.log(arr)
         },
         //获取用户地区
         onSelected(data){
-            this.foreman.adder = data.province.value+'/'+data.city.value+'/'+data.area.value
-        },
-        //获取用户接单区域
-        onarea(data){
-            console.log(data)
-            this.foreman.servicearea = data.province.value+'/'+data.city.value
+            this.foreman.province = data.province.value;
+            this.foreman.city = data.city.value;
+            this.foreman.area = data.area.value;
         },
        open() {
         this.$notify({
@@ -262,6 +287,12 @@ export default {
 </script>
 
 <style scoped>
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+ 
+  }
 .colbtn input{
     margin: 0 auto;
     display: block;
@@ -329,15 +360,16 @@ input:focus{
 }
 .img{
     border: 1px dashed red;
-    width: 160px;
+    width: 178px;
     position: absolute;
     left: 82px;
-    top: 15px;
+    top: 8px;
     z-index: 9999;
+    height: 178px;
 }
 .content{
     width: 98%;
-    height: 920px;
+    height: 980px;
     border: 1px solid #eee;
     margin: 10px 0;
 }

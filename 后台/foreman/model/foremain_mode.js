@@ -45,9 +45,9 @@ module.exports = class user_mod extends require('./model'){
      * @param style
      * @param Introduction
      */
-    static foremanInfo(phone,sex,adder,email,experience,servicearea,style,Introduction,wei,id){
+    static foremanInfo(phone,sex,email,experience,servicearea,style,Introduction,wei,province,city,area,age,name,id){
         return new Promise((resolve,reject)=>{
-            let sql = "update  `foreman` set `phone` = "+"'"+phone+"'"+", `sex`="+"'"+sex+"'"+",`adder`="+"'"+adder+"'"+",`email`="+"'"+email+"'"+",`experience`="+"'"+experience+"'"+",`servicearea`="+"'"+servicearea+"'"+",`style`="+"'"+style+"'"+",`Introduction`="+"'"+Introduction+"'"+",`wei`="+"'"+wei+"'"+"  where `id` = "+"'"+id+"'"+"";
+            let sql = "update  `foreman` set `phone` = "+"'"+phone+"'"+", `sex`="+"'"+sex+"'"+",`email`="+"'"+email+"'"+",`experience`="+"'"+experience+"'"+",`servicearea`="+"'"+servicearea+"'"+",`style`="+"'"+style+"'"+",`Introduction`="+"'"+Introduction+"'"+",`wei`="+"'"+wei+"'"+",`province`="+"'"+province+"'"+",`city`="+"'"+city+"'"+",`area`="+"'"+area+"'"+",`age`="+"'"+age+"'"+",`name`="+"'"+name+"'"+" where `id` = "+"'"+id+"'"+"";
             console.log(sql)
             this.query(sql).then((result)=>{
                 resolve('true')
@@ -78,5 +78,26 @@ module.exports = class user_mod extends require('./model'){
             })
         })
 
+    }
+
+    /**
+     * 工长上传头像
+     * @param imgUrl
+     * @param foremanid
+     */
+    static upimg(imgUrl,foremanid){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `foreman` set `header` = "+"'"+imgUrl+"'"+" where `id` = "+"'"+foremanid+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve({
+                    code:200,
+                    msg:'上传成功',
+                    url:imgUrl
+                })
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }
