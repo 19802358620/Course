@@ -3,6 +3,8 @@ var router = express.Router();
 const foreman = require('../dao/foremain_dao')
 const multer = require('multer')
 let upload = multer({dest:'public/images/foremainfo/'}).single('file')
+let caseimg = multer({dest:'public/images/caseimg/'}).single('file')
+let caseimgs = multer({dest:'public/images/caseimgs/'}).array('file',5)
 let fs = require('fs')
 //工长注册接口
 router.post('/foremanReg',function (req,res){
@@ -35,7 +37,30 @@ router.get('/getforamnimg',function (req,res){
             res.send(data)
         }
     })
-
+})
+//工长上传案例封面图片
+router.post('/caseimg',caseimg,function (req,res){
+    foreman.upcaseimg(req,res)
+})
+//工长上传案例图片
+router.post('/caseimgs',caseimgs,function (req,res){
+    foreman.upcaseimgs(req,res)
+})
+//新增案例
+router.post('/setcase',function (req,res){
+    foreman.setcase(req,res)
+})
+//获取工长的案例列表
+router.get('/getcaselist',function (req,res){
+    foreman.getcaselist(req,res)
+})
+//工长删除案例
+router.delete('/deletecase',function (req,res){
+    foreman.deletecase(req,res)
+})
+//工长获取投标记录
+router.get('/stenderinfo',function (req,res){
+    foreman.stenderinfo(req,res)
 })
 
 module.exports = router;

@@ -56,7 +56,6 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
-
     /**
      * 工长投标
      * @param foremanid
@@ -100,4 +99,98 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+    //工长上传案例封面图片
+    static caseimg(imgUrl){
+        return new Promise((resolve,reject)=>{
+            let sql = "insert into `case` (img) values (?)"
+            console.log(sql);
+            this.query(sql,this.formatParams(imgUrl)).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+    //工长批量上传案例效果图片
+    static morecaselist(sql,sqlArr){
+        return new Promise((resolve,reject)=>{
+            this.query(sql,sqlArr).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 新增工长案例
+     * @param name
+     * @param time
+     * @param casetype
+     * @param stage
+     * @param price
+     * @param status
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static setcases(name,time,casetype,stage,price,status,foremanid,id){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `case` set `name` = "+"'"+name+"'"+",`time`="+"'"+time+"'"+",`casetype`="+"'"+casetype+"'"+",`stage`="+"'"+stage+"'"+",`price`="+"'"+price+"'"+",`status`="+"'"+status+"'"+",`foremanid`="+"'"+foremanid+"'"+" where `id` = "+"'"+id+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+    /**
+     * 获取工长案例列表
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static caselist(id){
+        return new Promise((resolve,reject)=>{
+            let sql='select * from `case` where foremanid = '+'"'+id+'"'+'';
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无案例信息')
+            })
+        })
+    }
+
+    /**
+     * 工长删除案例
+     * @param id
+     */
+    static delecase(id){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('delete','case','*',{id:id})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('无案例信息')
+            })
+        })
+    }
+
+    /**
+     * 工长获取投标记录
+     * @param id
+     */
+    static getstenderinfo(id){
+        return new Promise((resolve,reject)=>{
+            let sql ='SELECT pmstender.*,pmstender.id pmsid, `user`.* FROM pmstender LEFT JOIN `user` ON `user`.id = pmstender.userid WHERE pmstender.foremanid ='+'"'+id+'"';
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无投标信息')
+            })
+        })
+    }
+
 }

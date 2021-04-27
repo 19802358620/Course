@@ -9,9 +9,12 @@ import './assets/style/glob.css'
 import VDistpicker from 'v-distpicker'
 import vRegion from 'v-region'
 import axios from 'axios'
+import vGallery from 'v-gallery'
+
 
 
 Vue.use(vRegion)
+Vue.use(vGallery)
 Vue.component('v-distpicker', VDistpicker)
 Vue.use(ElementUI);
 

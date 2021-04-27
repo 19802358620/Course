@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.15.0",
     "v-distpicker": "^1.2.9",
+    "v-gallery": "^1.2.4",
     "v-region": "^2.2.2",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",

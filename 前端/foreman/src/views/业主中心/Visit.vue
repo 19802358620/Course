@@ -14,9 +14,55 @@
           <h6 class="name">姓名：<em style="color:#01af63;font-weight: bold;">{{item.name}}</em></h6>
           <h6 class="name" style="margin-left: 15px;">年龄：<em style="color:#01af63;font-weight: bold;">{{item.age}}</em></h6>
           <h6 class="name">地址：<em style="color:#01af63;font-weight: bold;">{{`${item.province+'/'+item.city+'/'+item.area}`}}</em></h6>
-          <a class="name"><em style="color:red;font-weight: bold;">投标信息...</em></a>
+          <a class="name" @click="information(item)"><em style="color:red;font-weight: bold;">投标信息...</em></a>
         </div>
       </div>
+      <el-dialog
+          title="投标信息"
+          :visible.sync="dialogVisible"
+           width="41%"
+          :before-close="handleClose"
+          :append-to-body='true'
+          top='15vh'
+          >
+          <el-row :gutter="20">
+            <el-col :span="6"><div class="list">工长姓名：<strong style="color:#01af69;font-weight: bold;">{{item.name}}</strong></div></el-col>
+            <el-col :span="6"><div class="list">投标时间：<em style="color:#108881;font-weight: bold;">2021/4/27</em></div></el-col>
+            <el-col :span="6"><div class="list">投标价：<em>{{item.price}}</em></div></el-col>
+            <el-col :span="6"><div class="list">年龄：<strong style="color: green;">{{item.age}}</strong></div></el-col>
+          </el-row>
+          <el-row :gutter="20" style="margin-top:20px">
+            <el-col :span="6"><div class="list">现地址：{{`${item.province}`+'/'+`${item.city}`+'/'+`${item.area}`}}</div></el-col>
+            <el-col :span="6"><div class="list">擅长风格：{{item.style}}</div></el-col>
+            <el-col :span="6"><div class="list">入驻时间：2021-4-27</div></el-col>
+            <el-col :span="6"><div class="list">工作经验：<strong style="color: red;">{{item.experience}}</strong></div></el-col>
+          </el-row>
+          <el-row :gutter="20" style="margin-top:20px">
+            <el-col :span="6"><div class="list">在建工地：<strong style="color:#01af69;font-weight: bold;">{{item.site}}</strong></div></el-col>
+            <el-col :span="6"><div class="list">服务次数：{{item.sernumber}}</div></el-col>
+            <el-col :span="6"><div class="list">签单总数：{{item.numberord}}</div></el-col>
+            <el-col :span="6"><div class="list">工长级别：<strong style="color: red;">钻石工长</strong></div></el-col>
+          </el-row>
+          <el-row :gutter="20" style="margin-top:20px">
+            <el-col :span="6"><div class="list">电话：{{item.phone}}</div></el-col>
+            <el-col :span="6"><div class="list">微信：{{item.wei}}</div></el-col>
+            <el-col :span="6"><div class="list">邮箱：{{item.email}}</div></el-col>
+            <el-col :span="6"><a @click="foremaninfo(item)" class="list"><strong style="color: red;font-weight: bold;">进入工长店铺了解更多>></strong></a></el-col>
+          </el-row>
+          <el-row :gutter="10">
+            <el-col :span="24" style="margin-top:20px;">
+              <span style="display: block;margin-top: -10px;font-weight:bold">案例展示：</span>
+              <div style="margin-left:11px；margin-top: 10px;">
+                <v-gallery :images="list" :caption="true"></v-gallery>
+              </div>
+            </el-col>
+          </el-row>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+               <el-button @click="dialogVisible = false" type="warning">暂不考虑</el-button>
+              <el-button type="success" @click="dialogVisible = false">选择该工长</el-button>
+          </span>
+      </el-dialog>
       
   </div>
 </template>
@@ -25,12 +71,35 @@
 export default {
   data(){
     return{
+      dialogVisible:false,
       number:0,
        stenderlist:[],//投标列表
-       imgurl:''//用户头像地址
+       imgurl:'',//用户头像地址
+       list:[
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
+       ],
+       item:{}//单条投标记录
     }
   },
   methods:{
+    //进入工长店铺
+    foremaninfo(item){
+      console.log(item)
+      this.$router.push({name:"index",params:item})
+    },
+    //查看投标详情
+    information(item){
+      console.log(item)
+      this.dialogVisible=true
+      this.item = item
+    },
     //获取投标工长信息
      getstenderlist(){
       let userid = this.$store.state.user.id;
@@ -66,6 +135,11 @@ export default {
 </script>
 
 <style scoped>
+.list{
+  text-align: left;
+  font-size: 14px;
+  
+}
 .content .item .name{
   margin-top: 7px;
   font-size: 12px;
@@ -73,6 +147,8 @@ export default {
   float: left;
   margin-left: 5px;
   margin-top: 10px;
+  
+  
 
 }
 .content .item .imglink{

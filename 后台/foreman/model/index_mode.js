@@ -14,7 +14,7 @@ module.exports = class user_mod extends require('./model'){
             reject('该地区暂无招标信息')
         })
     })
-
     }
+
 
 }

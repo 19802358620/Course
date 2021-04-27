@@ -8,16 +8,16 @@
     <div class="left">
       <div class="tit">个人中心</div>
       <div class="item">
-        <div class="titname">工长信息</div>
+        <div class="titname">个人信息</div>
         <a @click="formanber" :class="{clactive:id==1}">工长基本资料</a>
         <a @click="foremaninfo"  :class="{clactive:id==3}" > 修改/完善个人资料</a>
       </div>
       <div class="item">
-        <div class="titname" >我的订单</div>
-        <!-- <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a> -->
-        <a @click="manage" :class="{clactive:id==4}">管理我的订单</a>
-        <router-link :to="{name:'visit'}">管理我的案例</router-link>
-        <a href="">我的预约信息</a>
+        <div class="titname" >业务中心</div>
+        <a @click="manage" :class="{clactive:id==2}">管理我的订单</a>
+        <a @click="mycase" :class="{clactive:id==4}">管理我的案例</a>
+        <a @click="recording" :class="{clactive:id==6}">我的投标记录</a>
+        <a>我的预约信息</a>
       </div>
       <div class="item">
         <div class="titname">评价管理</div>
@@ -25,7 +25,7 @@
       </div>
       <div class="item">
         <div class="titname">账号管理</div>
-        <a @click='changpwd' :class="{clactive:id==5}">修改密码</a>
+        <a @click='changpwd' :class="{clactive:id==5}">账户信息修改</a>
       </div>
     </div>
     <div class="right">
@@ -75,6 +75,16 @@ export default {
     changpwd(){
       this.id=5
       this.$router.push({name:"changpwd",params:this.user})
+    },
+    //管理我的案例
+    mycase(){
+      this.id=4
+      this.$router.push({name:"mycase",params:this.foreman})
+    },
+    //我的投标记录
+    recording(){
+      this.id=6
+      this.$router.push({name:"recording",params:this.foreman})
     }
   },
   created(){

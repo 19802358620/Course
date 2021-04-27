@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var fs = require('fs')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -64,7 +65,18 @@ global.globalKey="123456";
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/foreman',foremanRouter);
-
+app.get('/getimg',function (req,res){
+  let img = req.query.img
+  let name = req.query.name
+  let path = `public/images/${name}/${img}`
+  const data = fs.readFile(path,function (err,data){
+    if(err){
+      res.send('读取错误')
+    }else{
+      res.send(data)
+    }
+  })
+})
 
 
 // catch 404 and forward to error handler

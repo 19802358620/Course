@@ -79,6 +79,10 @@ const routes = [
       { path: '/formanber', name: 'formanber', component: () => import('../views/工长中心/formanber.vue') },
       //完善个人信息
       { path: '/foremaninfo', name: 'foremaninfo', component: () => import('../views/工长中心/foremaninfo.vue') },
+      //管理我的案例
+      { path: '/mycase', name: 'mycase', component: () => import('../views/工长中心/mycase.vue') },
+      //我的投标记录
+       { path: '/recording', name: 'recording', component: () => import('../views/工长中心/recording.vue') },
     ]
   }
   
