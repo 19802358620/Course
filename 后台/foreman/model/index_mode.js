@@ -15,6 +15,15 @@ module.exports = class user_mod extends require('./model'){
         })
     })
     }
-
-
+    static imglist(id){
+        return  new Promise((resolve,reject)=>{
+            let sql =  this.Geshi('select','imglist','*',{demandid:id,isdem:1})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('该地区暂无招标信息')
+            })
+        })
+    }
 }

@@ -16,7 +16,7 @@
         <div class="titname" >我的装修需求</div>
         <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
         <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
-        <a @click="visit" :class="{clactive:id==6}" >需求投标工长</a>
+        <a @click="visit" :class="{clactive:id==6}" >项目投标情况</a>
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">

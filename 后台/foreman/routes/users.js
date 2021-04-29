@@ -63,4 +63,16 @@ router.get('/getImg',function (req,res){
 router.get('/getstenderlist',function (req,res){
   user.getstenderlist(req,res)
 })
+//生成订单
+router.post('/setorder',function (req,res){
+  user.setorder(req,res)
+})
+//修改工长的投标状态
+router.get('/editstatus',function (req,res){
+  user.editstatus(req,res)
+})
+//获取工长提交的设计图
+router.get('/getdesing',function (req,res){
+  user.getdesing(req,res)
+})
 module.exports = router;

@@ -20,8 +20,8 @@
       <el-dialog
           title="投标信息"
           :visible.sync="dialogVisible"
-           width="41%"
-          :before-close="handleClose"
+           width="45%"
+           :open="opendiog"
           :append-to-body='true'
           top='15vh'
           >
@@ -51,16 +51,16 @@
           </el-row>
           <el-row :gutter="10">
             <el-col :span="24" style="margin-top:20px;">
-              <span style="display: block;margin-top: -10px;font-weight:bold">案例展示：</span>
+              <span style="display: block;margin-top: -5px;font-weight:bold;color:red">设计方案：</span>
               <div style="margin-left:11px；margin-top: 10px;">
-                <v-gallery :images="list" :caption="true"></v-gallery>
+                <v-gallery :images="list" ></v-gallery>
               </div>
             </el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
                <el-button @click="dialogVisible = false" type="warning">暂不考虑</el-button>
-              <el-button type="success" @click="dialogVisible = false">选择该工长</el-button>
+              <el-button type="success" @click="selectforeman">预约该工长</el-button>
           </span>
       </el-dialog>
       
@@ -75,27 +75,94 @@ export default {
       number:0,
        stenderlist:[],//投标列表
        imgurl:'',//用户头像地址
-       list:[
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-         {title:'Image1',url:'../../assets/imgs/照片墙/01.jpg'},
-       ],
-       item:{}//单条投标记录
+       list:[],
+       item:{},//单条投标记录
+       order:{}//订单信息
     }
   },
   methods:{
+    //打开弹出框
+    opendiog(){
+      console.log('11')
+    },
     //进入工长店铺
     foremaninfo(item){
       console.log(item)
       this.$router.push({name:"index",params:item})
     },
+    //工长中标
+    selectforeman(){
+      var d = new Date();
+      var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      this.order.time = str;
+      this.order.foremanid = this.item.foremanid;
+      this.order.userid = this.item.userid;
+      this.order.demandid = this.item.demandid;
+      this.$Axios({
+        url:'/users/setorder',
+        method:'POST',
+        data:this.order,
+        success:(result=>{
+          if(result){
+            this.editstatus()
+            this.open()
+          }else{
+            this.open1()
+          }
+        })
+      })
+      this.dialogVisible= false;
+    },
+    //修改状态
+    editstatus(){
+      this.$Axios({
+        url:'/users/editstatus',
+        method:'GET',
+        data:{status:'已中标',id:this.item.pmstenderid},
+        success:(result=>{
+          console.log(result)
+        })
+      })
+
+    },
+     open() {
+        this.$notify({
+          title: '订单生成成功',
+          type: 'success',
+          offset:100,
+        });
+      },
+      open1() {
+        this.$notify({
+          title: '订单生成失败',
+          type: 'error',
+          offset:100,
+        });
+      },
+      //获取工长提交的设计图
+      getdesignlist(id){
+         let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getdesing',
+          method:'GET',
+          data:{id:id},
+          success:(result=>{
+            for(let i in result){
+              if(result[i].isdesign){
+                let img = result[i].url.slice(45)
+                result[i].url = `${url}`+'designimg&img='+`${img}`
+              }
+            }
+            console.log(result)
+            this.list = result
+          })
+        })
+
+      },
+      
     //查看投标详情
     information(item){
+      this.getdesignlist(item.demandid)
       console.log(item)
       this.dialogVisible=true
       this.item = item
@@ -108,6 +175,8 @@ export default {
         method:'GET',
         data:{userid:userid},
         success:(result=>{
+
+          console.log(result)
           this.stenderlist = result
           for(let i in this.stenderlist){
             let url='http://localhost:3000/foreman/getforamnimg/?img='

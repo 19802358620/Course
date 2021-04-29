@@ -140,8 +140,28 @@
                   </el-form-item>
                   </el-col>
               </el-row>
-              <el-row :gutter="5">
-                  <el-col>
+              <el-row>
+                <el-col :span="8">
+                   <el-form-item label="户型图">
+                     <div style="text-align: left;">
+                    <el-upload
+                      class="upload-demo"
+                      multiple
+                      ref="upload"
+                      list-type="picture"
+                      action="http://localhost:3000/foreman/adddemandimg"
+                      :on-preview="handlePreview"
+                      :on-remove="handleRemove"
+                      :file-list="fileList"
+                      :data='imgdata'
+                      :auto-upload="false">
+                      <el-button slot="trigger" size="small" type="primary">选取户型图</el-button>
+                      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb。不超过8张</div>
+                    </el-upload>
+                    </div>
+                  </el-form-item>
+                </el-col>
+                <el-col span="10">
                       <div class="colbtn" >
                           <input type="button" @click="submit('form')" :value="isedit?'发布需求':'提交修改'">
                       </div>
@@ -250,13 +270,21 @@ data(){
           label: '二手'
         },
         ],
-        demands:{}
+        demands:{},
+        imgdata:{}
     }
 },
 created(){
   this.getuser()
 },
 methods:{
+  //上传图片的钩子
+  upimg(response, file, fileList){
+    console.log(response);
+    console.log(file)
+    console.log(fileList)
+
+  },
   //发布招标需求
   submit(from){
     //获取当前时间
@@ -275,7 +303,13 @@ methods:{
              method:'POST',
              data:this.demand,
              success:(result)=>{
-               if(result){
+               console.log(result)
+               if(result.protocol41){
+                this.imgdata.demandid = result.insertId;
+               this.imgdata.userid = this.$store.state.user.id;
+               this.imgdata.isdem = 1
+               console.log(this.imgdata)
+               this.$refs.upload.submit();
                  this.open3()
                }else{
                  this.open3()

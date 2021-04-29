@@ -5,6 +5,9 @@ const multer = require('multer')
 let upload = multer({dest:'public/images/foremainfo/'}).single('file')
 let caseimg = multer({dest:'public/images/caseimg/'}).single('file')
 let caseimgs = multer({dest:'public/images/caseimgs/'}).array('file',5)
+let huxing = multer({dest:'public/images/huxing/'}).array('file',5)
+let design = multer({dest:'public/images/designimg/'}).array('file',5)
+let demand = multer({dest:'public/images/demandimg/'}).array('file',5)
 let fs = require('fs')
 //工长注册接口
 router.post('/foremanReg',function (req,res){
@@ -42,7 +45,7 @@ router.get('/getforamnimg',function (req,res){
 router.post('/caseimg',caseimg,function (req,res){
     foreman.upcaseimg(req,res)
 })
-//工长上传案例图片
+//批量上传图片
 router.post('/caseimgs',caseimgs,function (req,res){
     foreman.upcaseimgs(req,res)
 })
@@ -62,5 +65,17 @@ router.delete('/deletecase',function (req,res){
 router.get('/stenderinfo',function (req,res){
     foreman.stenderinfo(req,res)
 })
+//工长投标上传设计方案图片
+router.post('/updesign',design,function (req,res){
+    foreman.updesignimgs(req,res)
+})
+//发布招标需求时上传户型图
+router.post('/adddemandimg',demand,function (req,res){
+    foreman.adddemandimg(req,res)
+})
+
+
+
+
 
 module.exports = router;

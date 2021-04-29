@@ -63,11 +63,10 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
     static async tender(req,res){
         let foremanid = req.body.foremanid;
         let userid = req.body.userid;
-        let ltime = req.body.ltime;
         let price = req.body.price;
         let content = req.body.content;
         let demandid = req.body.demandid
-        let result = await  this.foremantender(foremanid,userid,ltime,price,content,demandid)
+        let result = await  this.foremantender(foremanid,userid,price,content,demandid)
         res.send(result)
     }
 
@@ -117,28 +116,70 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
     }
 
     /**
-     * 批量上传案例图片
+     * 批量上传设计方案图片
      * @param req
      * @param res
      * @returns {Promise<void>}
      */
-    static async upcaseimgs(req,res){
+    static async updesignimgs(req,res){
+        let demandid = req.body.demandid;
+        let pmstenderid = req.body.pmstenderid;
+        let isdesign = req.body.isdesign;
+        let foremanid = req.body.foremanid;
         if(req.files.length===0){
             res.send('error',{message:'上传文件不能为空'})
         }else{
-            let sql = `insert into imglist (url) values `;
+            let sql = `insert into imglist (demandid,pmstenderid,isdesign,foremanid,url) values `;
             let sqlArr = [];
             for(let i in req.files){
                 res.set({
                     'content-type':'application/json; charset=utf8'
                 });
                 let file = req.files[i];
-                fs.renameSync('public/images/caseimgs/'+file.filename,'public/images/caseimgs/'+file.originalname);
-                let url = 'http://localhost:3000/public/images/caseimgs/'+file.originalname;
+                console.log(file)
+                fs.renameSync('public/images/designimg/'+file.filename,'public/images/designimg/'+file.originalname);
+                let url = 'http://localhost:3000/public/images/designimg/'+file.originalname;
                 if(req.files.length-1==i){
-                    sql+='(?)'
+                    sql+=`(${demandid},${pmstenderid},${isdesign},${foremanid},?)`
                 }else{
-                    sql+='(?)'
+                    sql+=`(${demandid},${pmstenderid},${isdesign},${foremanid},?)`
+                }
+                console.log(sql)
+                sqlArr.push([url])
+                console.log(sqlArr)
+                let result = await  this.morecaselist( sql,sqlArr)
+                res.send(result)
+            }
+        }
+    }
+
+    /**
+     * 发布招标需求时的户型图
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async adddemandimg(req,res){
+        let demandid = req.body.demandid;
+        let userid = req.body.userid;
+        let isdem = req.body.isdem
+        console.log(req.body)
+        if(req.files.length===0){
+            res.send('error',{message:'上传文件不能为空'})
+        }else{
+            let sql = `insert into imglist (demandid,userid,isdem,url) values `;
+            let sqlArr = [];
+            for(let i in req.files){
+                res.set({
+                    'content-type':'application/json; charset=utf8'
+                });
+                let file = req.files[i];
+                fs.renameSync('public/images/demandimg/'+file.filename,'public/images/demandimg/'+file.originalname);
+                let url = 'http://localhost:3000/public/images/demandimg/'+file.originalname;
+                if(req.files.length-1==i){
+                    sql+=`(${demandid},${userid},${isdem},?)`
+                }else{
+                    sql+=`(${demandid},${userid},${isdem},?)`
                 }
                 console.log(sql)
                 sqlArr.push([url])
@@ -204,4 +245,5 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         let result = await this.getstenderinfo(foremanid);
         res.send(result)
     }
+
 }

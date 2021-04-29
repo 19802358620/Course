@@ -1,5 +1,5 @@
 <template>
-  <div class="m">
+  <div class="m" style="height:900px">
       <div class="left">
           <table class="tab">
               <tbody>
@@ -48,25 +48,23 @@
                           </font>
                       </td>
                   </tr>
-                  <tr>
-                      <td colspan="4" style="text-align: center;height: 50px;">
-                          <span>
-                              <a href="#"><el-button style="width:210px;border:1px solid red" @click="dialogVisible = true">我要投标</el-button></a>
-                          </span>
-                      </td>
-                  </tr>
               </tbody>
           </table>
       </div>
       <div class="right">
           待设计
       </div>
-      <div class="fot">
+      <div class="imginfo">
+          <span class="huxing">户型资料：</span>
+              <div class="imglist">
+                  <v-gallery :images="listimg"></v-gallery>
+              </div>
+                <a  class="biao"><el-button style="width:210px;border:1px solid red" @click="dialogVisible = true">我要投标</el-button></a>
       </div>
       <el-dialog
-        title="投标信息"
+        title="标书"
         :visible.sync="dialogVisible"
-        width="30%"
+        width="40%"
         append-to-body=true
         lock-scroll=false
         modal-append-to-body=false
@@ -74,20 +72,8 @@
     <el-form :model="stender">
         <el-row :gutter="10">
           <el-col :span="10">
-              <el-form-item label="标价：" label-width="60px">
-                   <el-input v-model="stender.price"  placeholder="投标价格"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="10">
-              <el-form-item label="量房时间：" label-width="90px">
-                 <el-date-picker
-                         v-model="stender.ltime"
-                         type="date"
-                        format="yyyy 年 MM 月 dd 日"
-                        value-format="yyyy-MM-dd"
-                        placeholder="选择动工日期"
-                        >
-                      </el-date-picker>
+              <el-form-item label="报价：" label-width="90px">
+                   <el-input v-model="stender.price"  placeholder="项目报价(万元)"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -95,6 +81,24 @@
           <el-col :span="24">
               <el-form-item label="投标说明：" label-width="90px">
                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="stender.content"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+              <el-form-item label="设计方案：" label-width="90px">
+                  <el-upload
+                      class="upload-demo"
+                      multiple
+                      ref="upload"
+                      action="http://localhost:3000/foreman/updesign"
+                      :file-list="fileList"
+                      :data='imgdata'
+                       :auto-upload="false"
+                      >
+                      <el-button slot="trigger" size="small" type="primary">上传设计方案</el-button>
+                      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，不超过8张</div>
+                    </el-upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -123,16 +127,36 @@ export default {
                 price:'',//投标价
                 ltime:'',//量房时间
                 content:'',//投标说明
-            }
+                stutas:'进行中'
+            },
+            listimg: [],//户型列表
+            imgdata:{},//设计方案图片信息
         }
     },
     methods:{
         getlist(){
             this.list = this.$route.params;
-            console.log(this.list)
         },
         hnad(){
             console.log(this.list)
+        },
+        //获取户型图片
+        getimglist(){
+            let url = 'http://localhost:3000/getimg/?name='
+            this.$Axios({
+                url:'/imgs',
+                method:'GET',
+                data:{id:this.list.id},
+                success:(result=>{
+                    console.log(result)
+                    for(let i in result){
+                        let img = result[i].url.slice(46)
+                        result[i].url = `${url}`+'demandimg&img='+`${img}`
+                    }
+                    this.listimg = result
+                })
+            })
+
         },
         //工长投标
         foremantender(){
@@ -144,9 +168,16 @@ export default {
                 method:'POST',
                 data:this.stender,
                 success:(result=>{
-                    if(result){
-                        this.open()
+                    console.log(result)
+                    if(result.protocol41){
+                        this.imgdata.pmstenderid = result.insertId;
+                        this.imgdata.isdesign = 1;
+                        this.imgdata.foremanid = this.$store.state.foreman.id;
+                        this.imgdata.demandid = this.list.id
+                        console.log(this.imgdata)
+                        this.$refs.upload.submit();
                         this.dialogVisible=false
+                        this.open()
                     }else{
                         this.open1()
                     }
@@ -171,11 +202,37 @@ export default {
     },
     created(){
         this.getlist()
+        this.getimglist()
     }
 }
 </script>
 
 <style scoped>
+.biao{
+    position: absolute;
+    top: 770px;
+    display: block;
+    left: 485px;
+}
+.imginfo .imglist{
+    width: 98%;
+    position: absolute;
+    top: 620px;
+}
+.imginfo .huxing{
+    display: block;
+    float: left;
+    margin-top: -50px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: red
+}
+.left .imginfo{
+    width: 100%;
+    height: 200px;
+    border: 1px solid;
+}
 
 .fot{
     width: 100%;
@@ -186,7 +243,7 @@ export default {
 }
 .right{
     width: 250px;
-    height: 635px;
+    height: 560px;
     border: 1px solid blue;
     float: right;
 }
@@ -208,8 +265,8 @@ export default {
 .m .left{
     width: 940px;
     float: left;
-    border: 1px solid #f5f5f5;
-    height: 635px;
+    /* border: 1px solid #f5f5f5; */
+    height: 560px;
 }
 .left .tab{
     margin: 0 auto;

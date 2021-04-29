@@ -66,12 +66,12 @@ module.exports = class user_mod extends require('./model'){
      * @param demandid
      * @returns {Promise<unknown>}
      */
-    static foremantender(foremanid,userid,ltime,price,content,demandid){
+    static foremantender(foremanid,userid,price,content,demandid){
         return new Promise((resolve,reject)=>{
-            let sql ="insert into `pmstender` (foremanid,userid,ltime,price,content,demandid) values (?,?,?,?,?,?)"
+            let sql ="insert into `pmstender` (foremanid,userid,price,content,demandid) values (?,?,?,?,?)"
             console.log(sql)
-            this.query(sql,this.formatParams(foremanid,userid,ltime,price,content,demandid)).then((result)=>{
-                resolve('true')
+            this.query(sql,this.formatParams(foremanid,userid,price,content,demandid)).then((result)=>{
+                resolve(result)
             }).catch(err=>{
                 reject('false')
             })
@@ -99,7 +99,12 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
-    //工长上传案例封面图片
+
+    /**
+     * 工长上传案例图片封面
+     * @param imgUrl
+     * @returns {Promise<unknown>}
+     */
     static caseimg(imgUrl){
         return new Promise((resolve,reject)=>{
             let sql = "insert into `case` (img) values (?)"
@@ -111,7 +116,13 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
-    //工长批量上传案例效果图片
+
+    /**
+     * 工长批量上传案例图片
+     * @param sql
+     * @param sqlArr
+     * @returns {Promise<unknown>}
+     */
     static morecaselist(sql,sqlArr){
         return new Promise((resolve,reject)=>{
             this.query(sql,sqlArr).then((reult)=>{

@@ -11,4 +11,16 @@ module.exports = class foreman_dao extends require('../model/index_mode'){
         res.send(result)
     }
 
+    /**
+     * 根据招标id获取户型图
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async imgs(req,res){
+        let id = req.query.id;
+        let result = await  this.imglist(id)
+        res.send(result)
+    }
+
 }

@@ -27,7 +27,7 @@ module.exports = class user_mod extends require('./model'){
         return new Promise((resolve,reject)=>{
             let sql = "insert into `demand` (title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
             this.query(sql,this.formatParams(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid)).then((result)=>{
-                resolve('true')
+                resolve(result)
             }).catch(err=>{
                 reject("由于网络原因，你的招标需求没有发出")
             })
@@ -197,6 +197,61 @@ module.exports = class user_mod extends require('./model'){
                 resolve(result)
             }).catch(err=>{
                 reject('查询失败')
+            })
+        })
+    }
+
+    /**
+     * 业主生成订单
+     * @param userid
+     * @param foremanid
+     * @param demandid
+     * @param time
+     * @returns {Promise<unknown>}
+     */
+    static orderlist(userid,foremanid,demandid,time){
+        return new Promise((resolve,reject)=>{
+            let sql = "insert into `order` (userid,foremanid,demandid,time) values (?,?,?,?)";
+            console.log(sql)
+            this.query(sql,this.formatParams(userid,foremanid,demandid,time)).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 修改工长投标状态
+     * @param status
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static statuschang(status,id){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `pmstender` set `stutas` = "+"'"+status+"'"+" where `id` = "+"'"+id+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('fasle')
+            })
+        })
+    }
+
+    /**
+     * 获取工长提交的设计图
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static disnig(id){
+        return new  Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','imglist','*',{demandid:id,isdesign:1});
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('fasle')
             })
         })
     }

@@ -206,4 +206,45 @@ module.exports = class user_dao extends require('../model/user_mode'){
         res.send(result)
     }
 
+    /**
+     * 业主生成订单
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async setorder(req,res){
+        let userid = req.body.userid;
+        let foremanid = req.body.foremanid;
+        let demandid = req.body.demandid;
+        let time = req.body.time;
+        let result = await this.orderlist(userid,foremanid,demandid,time)
+        res.send(result)
+    }
+
+    /**
+     *
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async editstatus(req,res){
+        let id = req.query.id;
+        let status = req.query.status
+        let result = await this.statuschang(status,id)
+        res.send(result)
+    }
+
+    /**
+     * 获取工长提交的设计图
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getdesing(req,res){
+        let demandid= req.query.id
+        let result = await this.disnig(demandid);
+        res.send(result)
+
+    }
+
 }

@@ -23,7 +23,7 @@
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
                       <td>2021-04-15</td>
-                      <td style="color:red">进行中</td>
+                      <td style="color:red">{{item.stutas}}</td>
                       <td>{{item.name}}</td>
                       <td>{{item.price}}</td>
                       <td>2021-04-15</td>
@@ -57,6 +57,7 @@ export default {
                 method:'GET',
                 data:{id:this.$store.state.foreman.id},
                 success:(result=>{
+                    console.log(result)
                     this.stenderlist=result;
                 })
             })
