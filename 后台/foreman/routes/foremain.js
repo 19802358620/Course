@@ -73,6 +73,10 @@ router.post('/updesign',design,function (req,res){
 router.post('/adddemandimg',demand,function (req,res){
     foreman.adddemandimg(req,res)
 })
+//工长获取自己的预约信息
+router.get('/getreserlist',function (req,res){
+    foreman.getreserlist(req,res)
+})
 
 
 

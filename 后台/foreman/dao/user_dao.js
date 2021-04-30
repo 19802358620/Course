@@ -62,9 +62,9 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let claim = req.body.claim;
         let userid = req.body.userid;
         let user = req.body.user
-        let communityid = req.body.communityid;
+        let communityname = req.body.communityname;
         console.log(req.body)
-        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid)
+        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname)
         res.send(result)
     }
 
@@ -216,8 +216,12 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let userid = req.body.userid;
         let foremanid = req.body.foremanid;
         let demandid = req.body.demandid;
-        let time = req.body.time;
-        let result = await this.orderlist(userid,foremanid,demandid,time)
+        let restime = req.body.restime;
+        let isres = req.body.isres
+        let adder = req.body.adder
+        let deark = req.body.deark
+        let status = req.body.status
+        let result = await this.orderlist(userid,foremanid,demandid,restime,isres,adder,deark,status)
         res.send(result)
     }
 
@@ -242,9 +246,36 @@ module.exports = class user_dao extends require('../model/user_mode'){
      */
     static async getdesing(req,res){
         let demandid= req.query.id
-        let result = await this.disnig(demandid);
+        let foremanid = req.query.foremanid
+        let result = await this.disnig(demandid,foremanid);
         res.send(result)
 
+    }
+
+    /**
+     * 获取预约记录
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getreslist(req,res){
+        let userid  = req.query.userid;
+        let result = await this.reslist(userid)
+        res.send(result)
+    }
+    /**
+     * 业主取消预约
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async calclres(req,res){
+        let orderid = req.body.orderid;
+        let cancel = req.body.cancel;
+        let cantime = req.body.cantime;
+        let status = req.body.status
+        let result = await this.clres(orderid,cancel,cantime,status)
+        res.send(result)
     }
 
 }

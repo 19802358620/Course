@@ -69,6 +69,8 @@ const routes = [
       { path: '/changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
       //管理需求招标
       { path: '/manage', name: 'manage', component: () => import('../views/业主中心/management.vue') },
+      //我的预约记录
+      { path: '/reser', name: 'reser', component: () => import('../views/业主中心/reser.vue') },
     ]
   },
   //工长首页
@@ -82,7 +84,9 @@ const routes = [
       //管理我的案例
       { path: '/mycase', name: 'mycase', component: () => import('../views/工长中心/mycase.vue') },
       //我的投标记录
-       { path: '/recording', name: 'recording', component: () => import('../views/工长中心/recording.vue') },
+      { path: '/recording', name: 'recording', component: () => import('../views/工长中心/recording.vue') },
+      //我的预约信息
+      { path: '/foremanreser', name: 'foremanreser', component: () => import('../views/工长中心/reser.vue') },
     ]
   }
   

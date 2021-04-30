@@ -246,4 +246,16 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         res.send(result)
     }
 
+    /**
+     * 工长获取预约信息
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getreserlist(req,res){
+        let foremanid = req.query.foremanid;
+        let result = await  this.reserlist(foremanid)
+        res.send(result)
+    }
+
 }

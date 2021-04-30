@@ -23,7 +23,7 @@
            width="45%"
            :open="opendiog"
           :append-to-body='true'
-          top='15vh'
+          top='20vh'
           >
           <el-row :gutter="20">
             <el-col :span="6"><div class="list">工长姓名：<strong style="color:#01af69;font-weight: bold;">{{item.name}}</strong></div></el-col>
@@ -60,8 +60,50 @@
           <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
                <el-button @click="dialogVisible = false" type="warning">暂不考虑</el-button>
-              <el-button type="success" @click="selectforeman">预约该工长</el-button>
+              <el-button type="success" @click="innerVisible=true">预约该工长</el-button>
           </span>
+           <el-dialog
+             width="30%"
+             title="预约信息"
+             :visible.sync="innerVisible"
+             append-to-body
+             top='22vh'
+             >
+             <el-form :model="order" :rules="rules">
+               <el-row>
+                 <el-col :span="24">
+                    <el-form-item label="看房时间：" label-width="100px" prop="restime">
+                       <el-date-picker
+                         v-model="order.restime"
+                         type="date"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="yyyy-MM-dd"
+                        placeholder="选择工长看房时间"
+                        >
+                      </el-date-picker>
+                    </el-form-item>
+                 </el-col>
+               </el-row>
+               <el-row>
+                 <el-col :span="24">
+                    <el-form-item label="详细地址：" label-width="100px" prop="adder">
+                       <el-input v-model="order.adder" placeholder="详细地址"></el-input>
+                    </el-form-item>
+                 </el-col>
+               </el-row>
+                <el-row>
+                 <el-col :span="24">
+                    <el-form-item label="备注：" label-width="90px">
+                       <el-input v-model="order.deark" placeholder="其他信息"   type="textarea"></el-input>
+                    </el-form-item>
+                 </el-col>
+               </el-row>
+             </el-form>
+             <span slot="footer" class="dialog-footer">
+              <el-button @click="innerVisible = false">取 消</el-button>
+              <el-button type="success" @click="selectforeman">确定预约</el-button>
+          </span>
+          </el-dialog>
       </el-dialog>
       
   </div>
@@ -72,12 +114,25 @@ export default {
   data(){
     return{
       dialogVisible:false,
+      innerVisible:false,//内层
       number:0,
        stenderlist:[],//投标列表
        imgurl:'',//用户头像地址
        list:[],
        item:{},//单条投标记录
-       order:{}//订单信息
+       order:{
+         restime:'',
+         adder:'',
+         deark:'',
+       },//订单信息
+       rules: {
+          restime: [
+            { required: true, message: '时间必须填写', trigger: 'blur' },
+          ],
+          adder:[
+             { required: true, message: '详细地址必须填写', trigger: 'blur' },
+          ]
+       }
     }
   },
   methods:{
@@ -90,21 +145,24 @@ export default {
       console.log(item)
       this.$router.push({name:"index",params:item})
     },
-    //工长中标
+    //预约工长
     selectforeman(){
-      var d = new Date();
-      var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-      this.order.time = str;
+      // var d = new Date();
+      // var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+      // this.order.time = str;
       this.order.foremanid = this.item.foremanid;
       this.order.userid = this.item.userid;
       this.order.demandid = this.item.demandid;
+      this.order.isres = 1;
+      this.order.status= '进行中'
+      console.log(this.order)
       this.$Axios({
         url:'/users/setorder',
         method:'POST',
         data:this.order,
         success:(result=>{
           if(result){
-            this.editstatus()
+            // this.editstatus()
             this.open()
           }else{
             this.open1()
@@ -112,6 +170,7 @@ export default {
         })
       })
       this.dialogVisible= false;
+      this.innerVisible=false
     },
     //修改状态
     editstatus(){
@@ -123,11 +182,10 @@ export default {
           console.log(result)
         })
       })
-
     },
      open() {
         this.$notify({
-          title: '订单生成成功',
+          title: '预约成功，工长稍后联系你',
           type: 'success',
           offset:100,
         });
@@ -140,12 +198,12 @@ export default {
         });
       },
       //获取工长提交的设计图
-      getdesignlist(id){
+      getdesignlist(item){
          let url = 'http://localhost:3000/getimg/?name='
         this.$Axios({
           url:'/users/getdesing',
           method:'GET',
-          data:{id:id},
+          data:{id:item.demandid,foremanid:item.foremanid},
           success:(result=>{
             for(let i in result){
               if(result[i].isdesign){
@@ -162,7 +220,7 @@ export default {
       
     //查看投标详情
     information(item){
-      this.getdesignlist(item.demandid)
+      this.getdesignlist(item)
       console.log(item)
       this.dialogVisible=true
       this.item = item
@@ -175,7 +233,6 @@ export default {
         method:'GET',
         data:{userid:userid},
         success:(result=>{
-
           console.log(result)
           this.stenderlist = result
           for(let i in this.stenderlist){

@@ -23,10 +23,10 @@ module.exports = class user_mod extends require('./model'){
      * 业主发布需求
      * @returns {Promise<unknown>}
      */
-    static addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid){
+    static addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname){
         return new Promise((resolve,reject)=>{
-            let sql = "insert into `demand` (title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-            this.query(sql,this.formatParams(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityid)).then((result)=>{
+            let sql = "insert into `demand` (title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            this.query(sql,this.formatParams(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname)).then((result)=>{
                 resolve(result)
             }).catch(err=>{
                 reject("由于网络原因，你的招标需求没有发出")
@@ -209,11 +209,11 @@ module.exports = class user_mod extends require('./model'){
      * @param time
      * @returns {Promise<unknown>}
      */
-    static orderlist(userid,foremanid,demandid,time){
+    static orderlist(userid,foremanid,demandid,restime,isres,adder,deark,status){
         return new Promise((resolve,reject)=>{
-            let sql = "insert into `order` (userid,foremanid,demandid,time) values (?,?,?,?)";
+            let sql = "insert into `order` (userid,foremanid,demandid,restime,isres,adder,deark,status) values (?,?,?,?,?,?,?,?)";
             console.log(sql)
-            this.query(sql,this.formatParams(userid,foremanid,demandid,time)).then((result)=>{
+            this.query(sql,this.formatParams(userid,foremanid,demandid,restime,isres,adder,deark,status)).then((result)=>{
                 resolve('true')
             }).catch(err=>{
                 reject('false')
@@ -244,9 +244,9 @@ module.exports = class user_mod extends require('./model'){
      * @param id
      * @returns {Promise<unknown>}
      */
-    static disnig(id){
+    static disnig(id,foremanid){
         return new  Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{demandid:id,isdesign:1});
+            let sql = this.Geshi('select','imglist','*',{demandid:id,isdesign:1,foremanid:foremanid});
             console.log(sql)
             this.query(sql).then((result)=>{
                 resolve(result)
@@ -255,4 +255,44 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+
+    /**
+     * 用户获取自己的预约记录
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static reslist(id){
+        return new Promise((resolve,reject)=>{
+            let sql= 'SELECT foreman.* FROM `order` LEFT JOIN foreman ON foreman.id = order.foremanid WHERE `order`.userid = '+'"'+id+'"'
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('fasle')
+            })
+        })
+    }
+
+    /**
+     * 业主取消预约
+     * @param orderid
+     * @param cancel
+     * @param cantime
+     * @param status
+     * @returns {Promise<unknown>}
+     */
+    static clres(orderid,cancel,cantime,status){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `order` set `cancel` = "+"'"+cancel+"'"+",`cantime` = "+"'"+cantime+"'"+",`status` = "+"'"+status+"'"+" where `id` = "+"'"+orderid+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('fasle')
+            })
+
+        })
+    }
+
+
+
 }

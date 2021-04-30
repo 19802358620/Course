@@ -204,4 +204,21 @@ module.exports = class user_mod extends require('./model'){
         })
     }
 
+    /**
+     * 工长获取自己的预约记录
+     * @param id
+     * @returns {Promise<unknown>}
+     */
+    static reserlist(id){
+        return new Promise((resolve,reject)=>{
+            let sql = 'SELECT `order`.id orderid,`order`.*,`user`.id userid,`user`.* FROM `order` LEFT JOIN `user` ON `user`.id = `order`.userid LEFT JOIN demand ON demand.id = `order`.demandid WHERE `order`.foremanid = '+'"'+id+'"'
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无投标信息')
+            })
+        })
+    }
+
 }

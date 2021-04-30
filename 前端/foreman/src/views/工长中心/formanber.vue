@@ -8,7 +8,7 @@
              <div class="infow">
                  <div class="line1"><span>欢迎来到诚信工长</span></div>
                  <div class="line3">
-                     预约信息(<span>0</span>)
+                     <a @click="reser">预约信息(<span>{{reserlist.length}}</span>)</a>
                      业主评价(<span>0</span>)
                      全部消息(<span>0</span>)
                  </div>
@@ -129,6 +129,15 @@
              </table>
           </div>
      </div>
+      <el-dialog
+          title="预约信息"
+          :visible.sync="dialogVisible"
+           width="45%"
+          :append-to-body='true'
+          top='35vh'
+          >
+          252525
+      </el-dialog>
   </div>
 </template>
 
@@ -142,10 +151,31 @@ export default {
             url:'http://localhost:3000/foreman/getforamnimg/?img=',
             imgurl:'',//头像名称,
             foremans:'',
-            adder:''
+            adder:'',
+            reserlist:[],//预约记录
+            dialogVisible:false
         }
     },
     methods:{
+        //获取工长预约信息
+        reser(){
+            this.dialogVisible=true
+
+        },
+        //获取工长的预约记录
+        getreslist(){
+            this.$Axios({
+                url:'/foreman/getreserlist',
+                method:'GET',
+                data:{foremanid:this.$store.state.foreman.id},
+                success:(result=>{
+                    this.reserlist = result;
+                    console.log(result)
+                })
+            })
+
+        },
+        //获取工长信息
         getfroeman(){
             this.foreman = this.$route.params;
             console.log(this.foreman)
@@ -168,6 +198,7 @@ export default {
     },
     created(){
         this.getfroeman();
+        this.getreslist()
     },
     
 }

@@ -6,7 +6,7 @@
   </div>
   <div class="content">
     <div class="left">
-      <div class="tit">个人中心</div>
+      <div class="tit">工长中心</div>
       <div class="item">
         <div class="titname">个人信息</div>
         <a @click="formanber" :class="{clactive:id==1}">工长基本资料</a>
@@ -17,7 +17,7 @@
         <a @click="manage" :class="{clactive:id==2}">管理我的订单</a>
         <a @click="mycase" :class="{clactive:id==4}">管理我的案例</a>
         <a @click="recording" :class="{clactive:id==6}">我的投标记录</a>
-        <a>我的预约信息</a>
+        <a @click="reser" :class="{clactive:id==7}">我的预约信息</a>
       </div>
       <div class="item">
         <div class="titname">评价管理</div>
@@ -85,6 +85,11 @@ export default {
     recording(){
       this.id=6
       this.$router.push({name:"recording",params:this.foreman})
+    },
+    //我的预约信息
+    reser(){
+      this.id=7
+      this.$router.push({name:"foremanreser",params:this.foreman})
     }
   },
   created(){
@@ -129,7 +134,8 @@ export default {
   text-align: center;
   font-size: 18px;
   color: #000;
-  border-left: 1px solid #cbcbcb
+  border-left: 1px solid #cbcbcb;
+  font-weight: bold;
 }
 .content{
   width: 1200px;

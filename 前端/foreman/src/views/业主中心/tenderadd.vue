@@ -6,7 +6,7 @@
   </div>
   <div class="content">
     <div class="left">
-      <div class="tit">个人中心</div>
+      <div class="tit">业主中心</div>
       <div class="item">
         <div class="titname">业主信息</div>
         <a @click="member" :class="{clactive:id==1}">业主基本资料</a>
@@ -17,6 +17,7 @@
         <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
         <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
         <a @click="visit" :class="{clactive:id==6}" >项目投标情况</a>
+        <a @click="reser" :class="{clactive:id==7}">我预约的工长</a>
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">
@@ -79,6 +80,11 @@ export default {
     visit(){
       this.id =6;
       this.$router.push({name:"visit",params:this.user})
+    },
+    //我的预约记录
+    reser(){
+      this.id =7;
+      this.$router.push({name:"reser",params:this.user})
     }
   },
   created(){
@@ -122,7 +128,8 @@ export default {
   text-align: center;
   font-size: 18px;
   color: #000;
-  border-left: 1px solid #cbcbcb
+  border-left: 1px solid #cbcbcb;
+  font-weight: bold;
 }
 .content{
   width: 1200px;

@@ -20,11 +20,16 @@
                         <el-input v-model="demand.title" placeholder="标题"></el-input>
                   </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="6">
                 <el-form-item label="量房时间" prop="ltitme" label-width='80px'>
                       <el-input v-model="demand.ltitme" placeholder="输入量房时间段"></el-input>
                   </el-form-item>
               </el-col>
+              <el-col :span="6">
+                     <el-form-item label="小区名称" label-width='100px' prop="communityname">
+                        <el-input v-model="demand.communityname" placeholder="小区名称"></el-input>
+                  </el-form-item>
+                 </el-col>
             </el-row>
               <el-row :gutter="5">
                  <el-col :span="6">
@@ -121,7 +126,7 @@
                     </el-form-item>
                  </el-col>
                  <el-col :span="6">
-                     <el-form-item label="备注" label-width='90px'>
+                     <el-form-item label="备注" label-width='100px'>
                         <el-input v-model="demand.remarks" placeholder="备注"></el-input>
                   </el-form-item>
                  </el-col>
@@ -203,7 +208,7 @@ data(){
           content:'',
           claim:'',
           userid:'',
-          communityid:''
+          communityname:''
         },
         value:'',
         //表单验证规则
@@ -246,6 +251,9 @@ data(){
           ],
           dotime:[
             { required: true, message: '动工日期需要填写', trigger: 'blur' },
+          ],
+          communityname:[
+            { required: true, message: '小区名称需要填写', trigger: 'blur' },
           ]
         },
         //房屋类别
@@ -305,7 +313,7 @@ methods:{
              success:(result)=>{
                console.log(result)
                if(result.protocol41){
-                this.imgdata.demandid = result.insertId;
+               this.imgdata.demandid = result.insertId;
                this.imgdata.userid = this.$store.state.user.id;
                this.imgdata.isdem = 1
                console.log(this.imgdata)

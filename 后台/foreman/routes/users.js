@@ -63,7 +63,7 @@ router.get('/getImg',function (req,res){
 router.get('/getstenderlist',function (req,res){
   user.getstenderlist(req,res)
 })
-//生成订单
+//业主预约工长
 router.post('/setorder',function (req,res){
   user.setorder(req,res)
 })
@@ -74,5 +74,13 @@ router.get('/editstatus',function (req,res){
 //获取工长提交的设计图
 router.get('/getdesing',function (req,res){
   user.getdesing(req,res)
+})
+//获取我的预约信息
+router.get('/getreslist',function (req,res){
+  user.getreslist(req,res)
+})
+//业主取消预约接口
+router.post('/calclres',function (req,res){
+  user.calclres(req,res)
 })
 module.exports = router;
