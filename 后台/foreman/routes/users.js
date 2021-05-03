@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const user = require('../dao/user_dao')
 const multer = require('multer')
-let upload = multer({dest:'public/images/userinfo/'}).single('file')
+let upload = multer({dest:'public/images/userinfo/'}).single('file');
+let resimg = multer({dest:'public/images/resimg/'}).array('file',6)
 let fs = require('fs')
 
 
@@ -82,5 +83,17 @@ router.get('/getreslist',function (req,res){
 //业主取消预约接口
 router.post('/calclres',function (req,res){
   user.calclres(req,res)
+})
+//业主上传预约图片
+router.post('/setresimg',resimg,function (req,res){
+  user.setresimg(req,res)
+})
+//获取预约记录图片
+router.get('/getresimg',function (req,res){
+  user.getresimg(req,res)
+})
+//生成订单
+router.get('/setuserorder',function (req,res){
+  user.setuserorder(req,res)
 })
 module.exports = router;

@@ -258,4 +258,31 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         res.send(result)
     }
 
+    /**
+     * 工长同意预约
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async setresinfo(req,res){
+        let foremanid = req.body.id;
+        let status = req.body.status
+        let result = await this.resinfo(foremanid,status);
+        res.send(result)
+    }
+
+    /**
+     * 工长获取订单信息
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getforemanorder(req,res){
+        let foremanid = req.query.foremanid;
+        console.log(foremanid)
+        let result = await this.foremanorder(foremanid);
+        res.send(result)
+
+    }
+
 }

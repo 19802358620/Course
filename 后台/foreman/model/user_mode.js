@@ -263,7 +263,7 @@ module.exports = class user_mod extends require('./model'){
      */
     static reslist(id){
         return new Promise((resolve,reject)=>{
-            let sql= 'SELECT foreman.* FROM `order` LEFT JOIN foreman ON foreman.id = order.foremanid WHERE `order`.userid = '+'"'+id+'"'
+            let sql= 'SELECT foreman.*, `order`.* ,`order`.id orderid FROM `order` LEFT JOIN foreman ON foreman.id = order.foremanid WHERE `order`.userid = '+'"'+id+'"'
             this.query(sql).then((result)=>{
                 resolve(result)
             }).catch(err=>{
@@ -293,6 +293,55 @@ module.exports = class user_mod extends require('./model'){
         })
     }
 
+    /**
+     * 业主上传与工长线下预约的图片
+     * @param userid
+     * @param resimg
+     * @param foremanid
+     * @param demandid
+     */
+    static moreimglist(sql,sqlArr){
+        return new Promise((resolve,reject)=>{
+            this.query(sql,sqlArr).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
 
+    /**
+     * 获取业主上传的预约记录图片
+     * @param id
+     */
+    static resimg(id){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','imglist','*',{userid:id,resimg:1});
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
 
+    }
+
+    /**
+     * 业主生成订单
+     * @param orderid
+     * @param stageprice
+     */
+    static userorder(orderid,stageprice,){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `order` set `stageprice` = "+"'"+stageprice+"'"+",`isres` = "+"'"+2+"'"+" where `foremanid` = "+"'"+orderid+"'"+"";
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+
+    }
 }

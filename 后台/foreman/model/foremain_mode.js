@@ -221,4 +221,38 @@ module.exports = class user_mod extends require('./model'){
         })
     }
 
+    /**
+     * 工长同意预约
+     * @param id
+     */
+    static resinfo(id,status){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `order` set `status` = "+"'"+status+"'"+" where `id` = "+"'"+id+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('无投标信息')
+            })
+        })
+
+    }
+
+    /**
+     * 工长获取订单信息
+     * @param id
+     */
+    static foremanorder(id){
+        return new Promise((resolve,reject)=>{
+            let sql = 'SELECT `order`.*,  `order`.id orderid,`user`.* FROM `order` LEFT JOIN `user` ON `user`.id = `order`.userid WHERE `order`.isres = 2 and `order`.foremanid = '+'"'+id+'"'
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无投标信息')
+            })
+        })
+    }
+
+
 }

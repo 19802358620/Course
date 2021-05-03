@@ -154,7 +154,7 @@ export default {
       this.order.userid = this.item.userid;
       this.order.demandid = this.item.demandid;
       this.order.isres = 1;
-      this.order.status= '进行中'
+      this.order.status= '等待工长确认'
       console.log(this.order)
       this.$Axios({
         url:'/users/setorder',

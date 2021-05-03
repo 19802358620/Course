@@ -278,4 +278,69 @@ module.exports = class user_dao extends require('../model/user_mode'){
         res.send(result)
     }
 
+    /**
+     * 业主上传预约图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async setresimg(req,res){
+        let userid = req.body.userid;
+        let foremanid = req.body.foremanid;
+        let demandid = req.body.demandid
+        let resimg = req.body.resimg;
+        if(req.files.length===0){
+            res.send('error',{message:'上传文件不能为空'})
+        }else{
+            let sql = `insert into imglist (userid,foremanid,demandid,resimg,url) values `;
+            let sqlArr = [];
+            for(let i in req.files){
+                res.set({
+                    'content-type':'application/json; charset=utf8'
+                });
+                let file = req.files[i];
+                fs.renameSync('public/images/resimg/'+file.filename,'public/images/resimg/'+file.originalname);
+                let url = 'http://localhost:3000/public/images/resimg/'+file.originalname;
+                if(req.files.length-1==i){
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},?)`
+                }else{
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},?)`
+                }
+                console.log(sql)
+                sqlArr.push([url])
+                console.log(sqlArr)
+                let result = await  this.moreimglist( sql,sqlArr)
+                res.send(result)
+            }
+        }
+
+
+    }
+
+    /**
+     * 获取业主上传的预约记录图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getresimg(req,res){
+        let userid = req.query.userid;
+        console.log(userid)
+        let result = await this.resimg(userid);
+        res.send(result)
+    }
+
+    /**
+     * 生成订单
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async setuserorder(req,res){
+        let foremanid = req.query.foremanid;
+        let stageprice = req.query.stageprice;
+        let result = await this.userorder(foremanid,stageprice)
+        res.send(result)
+    }
+
 }

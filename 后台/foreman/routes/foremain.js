@@ -77,6 +77,14 @@ router.post('/adddemandimg',demand,function (req,res){
 router.get('/getreserlist',function (req,res){
     foreman.getreserlist(req,res)
 })
+//工长同意预约
+router.post('/setresinfo',function (req,res){
+    foreman.setresinfo(req,res)
+})
+//工长获取订单信息
+router.get('/getforemanorder',function (req,res){
+    foreman.getforemanorder(req,res)
+})
 
 
 

@@ -14,7 +14,7 @@
       </div>
       <div class="item">
         <div class="titname" >业务中心</div>
-        <a @click="manage" :class="{clactive:id==2}">管理我的订单</a>
+        <a @click="foremanorder" :class="{clactive:id==2}">管理我的订单</a>
         <a @click="mycase" :class="{clactive:id==4}">管理我的案例</a>
         <a @click="recording" :class="{clactive:id==6}">我的投标记录</a>
         <a @click="reser" :class="{clactive:id==7}">我的预约信息</a>
@@ -52,11 +52,6 @@ export default {
       this.id=1
        this.$router.push({name:"formanber",params:this.foreman})
     },
-    //发布装修需求
-    bidd(){
-      this.id=2
-      this.$router.push({name:"bidd",params:this.user})
-    },
     getforeman(){
       this.foreman= this.$route.params;
       console.log(this.foreman)
@@ -65,11 +60,6 @@ export default {
     foremaninfo(){
        this.id=3
       this.$router.push({name:"foremaninfo",params:this.foreman})
-    },
-    //管理需求招标
-    manage(){
-      this.id=4
-      this.$router.push({name:"manage",params:this.user})
     },
     //修改密码
     changpwd(){
@@ -90,6 +80,11 @@ export default {
     reser(){
       this.id=7
       this.$router.push({name:"foremanreser",params:this.foreman})
+    },
+    //管理我的订单
+    foremanorder(){
+      this.id=2
+      this.$router.push({name:"foremanorder",params:this.foreman})
     }
   },
   created(){

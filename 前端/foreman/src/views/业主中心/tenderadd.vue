@@ -13,11 +13,12 @@
         <a @click="perfectinfo"  :class="{clactive:id==3}" > 修改/完善个人资料</a>
       </div>
       <div class="item">
-        <div class="titname" >我的装修需求</div>
+        <div class="titname" >我的装修</div>
         <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
         <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
         <a @click="visit" :class="{clactive:id==6}" >项目投标情况</a>
         <a @click="reser" :class="{clactive:id==7}">我预约的工长</a>
+        <a @click="project" :class="{clactive:id==8}">我的装修进程</a>
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">
@@ -85,6 +86,11 @@ export default {
     reser(){
       this.id =7;
       this.$router.push({name:"reser",params:this.user})
+    },
+    //我的装修项目
+    project(){
+      this.id =8;
+      this.$router.push({name:"project",params:this.user})
     }
   },
   created(){

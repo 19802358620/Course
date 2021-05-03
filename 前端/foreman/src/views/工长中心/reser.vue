@@ -25,10 +25,11 @@
                       <td>{{item.name}}</td>
                       <td style="color:red">{{item.communityname}}</td>
                       <td>{{item.sex}}</td>
-                      <td>{{item.status}}</td>
+                      <td><em style="color:red">{{item.status}}</em></td>
                       <td>2021-04-15</td>
                       <td style="width: 140px;">
-                          <a class="btn" @click.stop="Details(item)">预约详情</a>
+                          <a v-if="item.istrue" class="btn" @click.stop="Details(item)">预约详情</a>
+                          <a class="btn" style="color:red;" @click.stop="dia=true" v-else>取消原因</a>
                       </td>
                   </tr>
               </tbody>
@@ -58,11 +59,28 @@
            <el-col :span="12">微信：{{list.wei}}</el-col>
            <el-col :span="12">详细地址：{{list.adder}}</el-col>
           </el-row>
-          
+          <el-row style="margin-top:15px">
+           <el-col :span="24">业主备注：<em style="color:#01af63;font-weight: bold;">{{list.deark}}</em></el-col>
+          </el-row>
           <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false" >关闭</el-button>
-             <el-button @click="dialogVisible = false" type="warning">拒绝预约</el-button>
-             <el-button type="primary" @click="dialogVisible = false">同意预约</el-button>
+             <el-button @click="dialogVisible = false" type="warning" :disabled='list.istrue'>拒绝预约</el-button>
+             <el-button type="primary" @click="agreeres" :disabled='list.istrue'>同意预约</el-button>
+         </span>
+      </el-dialog>
+         <el-dialog
+          title="业主取消原因"
+          :visible.sync="dia"
+           width="30%"
+          :append-to-body='true'
+          top='35vh'
+          >
+          <el-row>
+            <el-col :span="24">
+                <p style="color:#01af63;font-weight: bold;">{{list.cancel}}</p>
+            </el-col>
+          </el-row>
+            <span slot="footer" class="dialog-footer">
+             <el-button type="primary" @click="dia=false" :disabled='list.istrue'>了解</el-button>
          </span>
       </el-dialog>
   </div>
@@ -74,10 +92,31 @@ export default {
         return{
             reslist:[],
             dialogVisible:false,
-            list:[]
+            list:[],
+            dia:false
         }
     },
     methods:{
+        //同意预约
+        agreeres(){
+            console.log(this.list)
+            this.$Axios({
+                url:'/foreman/setresinfo',
+                method:'POST',
+                data:{status:'预约成功',id:this.list.orderid},
+                success:(result=>{
+                    if(result){
+                        this.open('预约成功','success')
+                        this.istrue = true;
+                    }else{
+                        this.open('预约失败','error')
+                    }
+                    this.getreslist()
+                    this.dialogVisible =false
+                })
+            })
+
+        },
         //获取预约信息
         getreslist(){
             this.$Axios({
@@ -86,16 +125,31 @@ export default {
                 data:{foremanid:this.$store.state.foreman.id},
                 success:(result=>{
                     console.log(result)
+                    for(let i in result){
+                        if(result[i].status == '预约成功'){
+                            result[i].istrue = true;
+                        }else{
+                              result[i].istrue = false;
+                        }
+                    }
                     this.reslist = result
                 })
             })
 
         },
+        //查看预约信息
         Details(item){
             this.dialogVisible=true
             console.log(item)
             this.list = item
-        }
+        },
+        open(msg,type) {
+        this.$notify({
+          title: msg,
+          type: type,
+          offset:100,
+        });
+      },
     },
     created(){
         this.getreslist()

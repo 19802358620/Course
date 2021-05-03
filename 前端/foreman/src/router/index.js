@@ -71,6 +71,8 @@ const routes = [
       { path: '/manage', name: 'manage', component: () => import('../views/业主中心/management.vue') },
       //我的预约记录
       { path: '/reser', name: 'reser', component: () => import('../views/业主中心/reser.vue') },
+      //我的装修项目
+      { path: '/project', name: 'project', component: () => import('../views/业主中心/project.vue') },
     ]
   },
   //工长首页
@@ -87,6 +89,10 @@ const routes = [
       { path: '/recording', name: 'recording', component: () => import('../views/工长中心/recording.vue') },
       //我的预约信息
       { path: '/foremanreser', name: 'foremanreser', component: () => import('../views/工长中心/reser.vue') },
+      //我的订单
+      { path: '/foremanorder', name: 'foremanorder', component: () => import('../views/工长中心/foremanorder.vue') },
+      //进入订单
+      { path: '/foremanorderinfo', name: 'foremanorderinfo', component: () => import('../views/工长中心/project.vue') },
     ]
   }
   

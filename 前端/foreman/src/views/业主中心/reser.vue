@@ -12,24 +12,29 @@
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
                       <th>工长姓名</th>
-                      <th>联系电话</th>
                       <th>性别</th>
+                      <th>联系电话</th>
                       <th>微信</th>
+                      <th>预约状态</th>
                       <th>看房时间</th>
                       <th>操作</th>
                   </tr>
                   <tr 
                   v-for="(item,i) in reslist" :key="i"
-                  style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
+                  style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;"
+                  :class="{calan:item.istrue}"
+
+                  >
                       <td>{{i+1}}</td>
                       <td>{{item.name}}</td>
-                      <td >{{item.phone}}</td>
                       <td>{{item.sex}}</td>
-                       <td>{{item.wei}}</td>
+                      <td >{{item.phone}}</td>
+                      <td>{{item.wei}}</td>
+                      <em style="color:red">{{item.status}}</em>
                       <td>2021-04-15</td>
                       <td style="width: 140px;">
-                          <a class="btn" @click.stop="resinfo(item)">工长详情/</a>
-                          <a class="btn" @click.stop="dia=true"><em style="color:red">取消预约</em></a>
+                          <a class="btn" @click.stop="resinfo(item)">详情/</a>
+                          <a class="btn" @click.stop="cancl(item)"><em style="color:red">取消预约</em></a>
                       </td>
                   </tr>
               </tbody>
@@ -43,7 +48,7 @@
           top='35vh'
           >
           <el-row>
-              <el-col :span="12"><div>姓名：<em style="color:red;font-weight: bold;">{{list.name}}</em></div></el-col>
+              <el-col :span="12"><div>姓名：<em style="color:#01af63;font-weight: bold;">{{list.name}}</em></div></el-col>
                <el-col :span="12">风格：<em style="color:red;font-weight: bold;">{{list.style}}</em></el-col>
           </el-row>
           <el-row style="margin-top:15px">
@@ -57,7 +62,7 @@
           </el-row>
            <el-row style="margin-top:15px">
            <el-col :span="12">电话：{{list.phone}}</el-col>
-           <el-col :span="12">工作经验：{{list.experience}}</el-col>
+           <el-col :span="12">工作经验：<em style="color:red;font-weight: bold;">{{list.experience}}年</em></el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
              <el-button @click="dialogVisible = false" type="warning">修改预约</el-button>
@@ -79,7 +84,6 @@
                 </el-col>
               </el-row>
           </el-form>
-         
           <span slot="footer" class="dialog-footer">
              <el-button @click="cancel(item)" type="primary">确定</el-button>
          </span>
@@ -91,26 +95,50 @@
 export default {
     data(){
         return{
+            istrue:false,//状态判断
+            isstatus:false,//状态判断
             reslist:[],
             dialogVisible:false,
-            list:[],
+            list:[],//单条预约工长信息
+            callist:{},//取消预约
             dia:false,
             order:{
                 cancel:''
             },
              rules: {
-          cancel: [
-            { required: true, message: '取消预约原因必须填写', trigger: 'blur' },
-          ],
+               cancel: [
+                 { required: true, message: '取消预约原因必须填写', trigger: 'blur' },
+             ],
              }
         }
     },
     methods:{
-        //业主取消预约
-        cancel(item){
-            console.log(item)
+         //业主取消预约
+        cancl(item){
             this.dia = true
-
+            this.callist = item
+        },
+        //业主取消预约
+        cancel(){
+            this.order.status = '业主取消预约'
+            var d = new Date();
+            var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            this.order.cantime = str;
+            this.order.orderid = this.callist.orderid
+            this.$Axios({
+                url:'/users/calclres',
+                method:'POST',
+                data:this.order,
+                success:(result=>{
+                    if(result){
+                        this.open('取消成功','success')
+                    }else{
+                        this.open('取消失败','error')
+                    }
+                    this.dia = false
+                })
+            })
+            console.log(this.order)
         },
         //获取预约信息
         getreslist(){
@@ -120,11 +148,26 @@ export default {
                 data:{userid:this.$store.state.user.id},
                 success:(result=>{
                     console.log(result)
+                    for(let i in result){
+                        if(result[i].cancel==null){
+                            result[i].istrue= false;
+                        }else{
+                            result[i].istrue = true
+                        }
+                    }
                     this.reslist = result
                 })
             })
 
         },
+        open(msg,type) {
+        this.$notify({
+          title: msg,
+          type: type,
+          offset:100,
+        });
+      },
+        //详情界面
         resinfo(item){
             this.dialogVisible=true
             console.log(item)
@@ -139,6 +182,15 @@ export default {
 </script>
 
 <style scoped>
+.disabled {
+    pointer-events: none;
+    filter: alpha(opacity=50); /*IE滤镜，透明度50%*/
+    -moz-opacity: 0.5; /*Firefox私有，透明度50%*/
+    opacity: 0.5; /*其他，透明度50%*/
+        }
+.calan{
+    text-decoration:line-through;
+}
 .table{
     width: 100%;
     font-size: 12px;
