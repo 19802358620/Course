@@ -254,5 +254,26 @@ module.exports = class user_mod extends require('./model'){
         })
     }
 
+    /**
+     * 工长进入阶段
+     * @param dismantle
+     * @param hyd
+     * @param wood
+     * @param painting
+     * @param accept
+     * @param foremanid
+     */
+    static changstage(dismantle,hyd,wood,painting,accept,foremanid){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `order` set `dismantle` = "+"'"+dismantle+"'"+",`hyd` = "+"'"+hyd+"'"+",`wood` = "+"'"+wood+"'"+",`painting` = "+"'"+painting+"'"+",`accept` = "+"'"+accept+"'"+" where `foremanid` = "+"'"+foremanid+"'"+"";
+            console.log(sql);
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
 
 }

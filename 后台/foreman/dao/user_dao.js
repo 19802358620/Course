@@ -289,22 +289,28 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let foremanid = req.body.foremanid;
         let demandid = req.body.demandid
         let resimg = req.body.resimg;
+        let dismanimg = req.body.dismanimg;
+        let hydimg = req.body.hydimg;
+        let woodimg = req.body.woodimg;
+        let paintimg = req.body.paintimg;
+        let acceptimg = req.body.acceptimg;
+        let title = req.body.title
         if(req.files.length===0){
             res.send('error',{message:'上传文件不能为空'})
         }else{
-            let sql = `insert into imglist (userid,foremanid,demandid,resimg,url) values `;
+            let sql = `insert into imglist (userid,foremanid,demandid,resimg,dismanimg,hydimg,woodimg,paintimg,acceptimg,url) values `;
             let sqlArr = [];
             for(let i in req.files){
                 res.set({
                     'content-type':'application/json; charset=utf8'
                 });
                 let file = req.files[i];
-                fs.renameSync('public/images/resimg/'+file.filename,'public/images/resimg/'+file.originalname);
-                let url = 'http://localhost:3000/public/images/resimg/'+file.originalname;
+                fs.renameSync(`public/images/${title}/`+file.filename,`public/images/${title}/`+file.originalname);
+                let url = `http://localhost:3000/public/images/${title}/`+file.originalname;
                 if(req.files.length-1==i){
-                    sql+=`(${userid},${foremanid},${demandid},${resimg},?)`
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},?)`
                 }else{
-                    sql+=`(${userid},${foremanid},${demandid},${resimg},?)`
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},?)`
                 }
                 console.log(sql)
                 sqlArr.push([url])
@@ -323,11 +329,31 @@ module.exports = class user_dao extends require('../model/user_mode'){
      * @param res
      * @returns {Promise<void>}
      */
-    static async getresimg(req,res){
+    static async getresimg(req,res) {
         let userid = req.query.userid;
-        console.log(userid)
-        let result = await this.resimg(userid);
-        res.send(result)
+        let typeimg = req.query.typeimg;
+        console.log(typeimg)
+        if(typeimg==1){//预约
+            let result1 = await this.resimg(userid);
+            res.send(result1)
+        }else if(typeimg==2){//拆改
+            let result2 = await this.dismanimg(userid)
+            res.send(result2)
+        }else if(typeimg==3){//水电
+            let result3 = await this.hydimg(userid)
+            res.send(result3)
+        }else if(typeimg==4){//木工
+            let result4 = await this.woodimg(userid)
+            res.send(result4)
+        }else if(typeimg==5){//漆工
+            let result5 = await this.paintimg(userid)
+            res.send(result5)
+        }else if(typeimg==6){//验收
+            let result6 = await this.acceptimg(userid)
+            res.send(result6)
+
+        }
+
     }
 
     /**
@@ -339,7 +365,24 @@ module.exports = class user_dao extends require('../model/user_mode'){
     static  async setuserorder(req,res){
         let foremanid = req.query.foremanid;
         let stageprice = req.query.stageprice;
-        let result = await this.userorder(foremanid,stageprice)
+        let dismantleprice = req.query.dismantleprice;
+        let hydprice = req.query.hydprice;
+        let woodprice = req.query.woodprice;
+        let painprice = req.query.painprice;
+        let acceptprice = req.query.acceptprice;
+        let result = await this.userorder(foremanid,stageprice,dismantleprice,hydprice,woodprice,painprice,acceptprice)
+        res.send(result)
+    }
+
+    /**
+     * 业主获取订单记录
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async userorderlist(req,res){
+        let userid = req.query.userid;
+        let result = await this.orderlistmsg(userid);
         res.send(result)
     }
 

@@ -3,7 +3,12 @@ var router = express.Router();
 const user = require('../dao/user_dao')
 const multer = require('multer')
 let upload = multer({dest:'public/images/userinfo/'}).single('file');
-let resimg = multer({dest:'public/images/resimg/'}).array('file',6)
+let resimg = multer({dest:'public/images/resimg/'}).array('file',6);
+let dismanimg = multer({dest:'public/images/dismanimg/'}).array('file',6);
+let hydimg = multer({dest:'public/images/hydimg/'}).array('file',6);
+let woodimg = multer({dest:'public/images/woodimg/'}).array('file',6);
+let paintimg = multer({dest:'public/images/paintimg/'}).array('file',6);
+let acceptimg = multer({dest:'public/images/acceptimg/'}).array('file',6);
 let fs = require('fs')
 
 
@@ -95,5 +100,29 @@ router.get('/getresimg',function (req,res){
 //生成订单
 router.get('/setuserorder',function (req,res){
   user.setuserorder(req,res)
+})
+//工长上传拆改图片
+router.post('/setdismaning',dismanimg,function (req,res){
+  user.setresimg(req,res)
+})
+//业主获取订单记录
+router.get('/userorderlist',function (req,res){
+  user.userorderlist(req,res)
+})
+//工长上传水电图片
+router.post('/sethydimg',hydimg,function (req,res){
+  user.setresimg(req,res)
+})
+//工长上传木工图片
+router.post('/setwoodimg',woodimg,function (req,res){
+  user.setresimg(req,res)
+})
+//工长上传漆工图片
+router.post('/setpaintimg',paintimg,function (req,res){
+  user.setresimg(req,res)
+})
+//工长上传验收图片
+router.post('/setaccrptimg',acceptimg,function (req,res){
+  user.setresimg(req,res)
 })
 module.exports = router;

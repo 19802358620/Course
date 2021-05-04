@@ -85,6 +85,15 @@ router.post('/setresinfo',function (req,res){
 router.get('/getforemanorder',function (req,res){
     foreman.getforemanorder(req,res)
 })
+//工长进入阶段
+router.post('/foremanstage',function (req,res){
+    foreman.foremanstage(req,res)
+})
+//工长获拆改阶段的图片
+// router.get('/getdismanimg',function (req,res){
+//
+// })
+
 
 
 

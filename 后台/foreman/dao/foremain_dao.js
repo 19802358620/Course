@@ -285,4 +285,21 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
 
     }
 
+    /**
+     * 工长选择进入阶段
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async foremanstage(req,res){
+        let dismantle = req.body.dismantle;
+        let hyd = req.body.hyd;
+        let wood = req.body.wood;
+        let painting = req.body.painting;
+        let accept  = req.body.accept;
+        let foremanid = req.body.foremanid
+        let result = await this.changstage(dismantle,hyd,wood,painting,accept,foremanid);
+        res.send(result)
+    }
+
 }

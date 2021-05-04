@@ -19,13 +19,14 @@
       <div class="content">
           <div class="block">
   <el-timeline  >
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" :icon="el-icon-more" timestamp="2018/4/12">
+    <!-- 签订合同开始 -->
+    <el-timeline-item  placement="top" style="text-align: left;"   :key="index"  icon="el-icon-more" timestamp="2018/4/12"  type="primary">
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">签订合同</strong></h4>
         <el-form :model="reslist" :rules="rules1">
           <el-form-item label="">
             <el-row>
-            <el-col :span="6">
+            <el-col :span="6" >
                 <el-upload
                       class="upload-demo"
                       multiple
@@ -35,20 +36,22 @@
                       :file-list="fileList"
                       :data='reslist'
                       :on-success='successimg'
-                      :auto-upload="false">
+                      :auto-upload="false"
+                      :disabled="disba"
+                      >
                       <el-button slot="trigger" size="small" type="primary">上传看房资料</el-button>
                       <div slot="tip" class="el-upload__tip">上传合同图片文件，不超过6张</div>
                     </el-upload>
             </el-col>
             <el-col :span="10">
               <el-form-item label="合同工长:" label-width="100px" prop="foremanid">
-                <el-select v-model="reslist.foremanid" placeholder="选择您要签订合同的工长" @change='chanvalue'>
+                <el-select v-model="reslist.foremanid" placeholder="选择您要签订合同的工长" @change='chanvalue' :disabled ='disba' >
                   <el-option  v-for="(item,i) in foreman" :key="i" :label="item.name" :value="item.foremanid"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <div>定金：<em style="color:red;font-size:16px;font-weight: bold;">￥{{prices}}</em></div>
+              <div>付定金：<em style="color:red;font-size:16px;font-weight: bold;">￥{{prices}}</em></div>
             </el-col>
         </el-row>
           </el-form-item>
@@ -61,11 +64,166 @@
           </el-col>
         </el-row>
         <div class="btn">
-          <el-button type="success" @click="dialogVisible=true" style="background-color: #01af69;">支付定金</el-button>
+          <el-button type="success" @click="dialogVisible=true" style="background-color: #01af69;" :disabled ='disba'>{{restitle}}</el-button>
         </div>
       </el-card>
     </el-timeline-item>
- 
+    <!-- 签订合同结束 -->
+
+    <!-- 房屋拆改开始 -->
+    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.dismantle ==1'>
+      <el-card style="width:97%">
+        <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">房屋拆改</strong></h4>
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+              <div>需支付拆改费用：<em style="color:red;font-size:16px;font-weight: bold;">￥{{order.dismantleprice}}</em></div>
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+            <div class="img">
+              <v-gallery :images="distmanimg" ></v-gallery>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success" @click="disman" style="background-color: #01af69;" >{{dismanrestitle}}</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 房拆改结束 -->
+
+    <!-- 水电开始 -->
+     <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.hyd ==1'>
+      <el-card style="width:97%">
+        <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">房屋水电</strong></h4>
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+              <div>需支付拆改费用：<em style="color:red;font-size:16px;font-weight: bold;">￥{{order.hydprice}}</em></div>
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+            <div class="img">
+              <v-gallery :images="hydimglist" ></v-gallery>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success" @click="()=>{dia=true,this.orderprice=this.order.hydprice}" style="background-color: #01af69;" >支付水电费用</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 水电结束 -->
+    <!-- 木工阶段开始 -->
+     <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.wood ==1'>
+      <el-card style="width:97%">
+        <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">木工</strong></h4>
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+              <div>需支付拆改费用：<em style="color:red;font-size:16px;font-weight: bold;">￥{{order.woodprice}}</em></div>
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+            <div class="img">
+              <v-gallery :images="woodimglist" ></v-gallery>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success" @click="()=>{dia=true,this.orderprice=this.order.woodprice}" style="background-color: #01af69;" >支付木工费用</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 木工结束 -->
+    <!-- 漆工开始 -->
+    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+      <el-card style="width:97%">
+        <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">漆工</strong></h4>
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+              <div>需支付拆改费用：<em style="color:red;font-size:16px;font-weight: bold;">￥{{order.painprice}}</em></div>
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+            <div class="img">
+              <v-gallery :images="paintimglist" ></v-gallery>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success" @click="()=>{dia=true,this.orderprice=this.order.painprice}" style="background-color: #01af69;" >支付漆工费用</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 漆工结束 -->
+    <!-- 验收开始 -->
+    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+      <el-card style="width:97%">
+        <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">验收</strong></h4>
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+              <div>需付尾款：<em style="color:red;font-size:16px;font-weight: bold;">￥{{order.acceptprice}}</em></div>
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+            <div class="img">
+              <v-gallery :images="acceptimglist" ></v-gallery>
+            </div>
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success" @click="()=>{dia=true,this.orderprice=this.order.painprice}" style="background-color: #01af69;" >支付尾款</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 验收结束 -->
+    <!-- 对工长进行评价开始 -->
+    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+      <el-card style="width:97%">
+        <el-form :model="reslist" :rules="rules1">
+          <el-form-item label="">
+            <el-row>
+            <el-col :span="8">
+             
+            </el-col>
+        </el-row>
+          </el-form-item>
+        </el-form>
+        <el-row>
+          <el-col :span="24">
+
+          </el-col>
+        </el-row>
+        <div class="btn">
+          <el-button type="success"  style="background-color: #01af69;" >提交评价</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item>
+    <!-- 评价结束 -->
   </el-timeline>
 </div>
     </div>
@@ -83,7 +241,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-     
     </el-form>
     <div class="play">
       <img src="../../assets/imgs/支付.jpg" alt="">
@@ -91,6 +248,27 @@
     <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="sumbit('ruleForm')" style="background-color: #01af69;">确 定</el-button>
+  </span>
+    </el-dialog>
+    <el-dialog title="支付"
+    :visible.sync="dia"
+    width="30%"
+    append-to-body=true
+    top="22vh"
+    >
+      <el-row>
+        <el-col :span="16">
+          <div>
+            需付金额：<em style="color:red;font-size:16px;font-weight: bold;">{{orderprice}}</em>
+          </div>
+        </el-col>
+      </el-row>
+    <div class="play">
+      <img src="../../assets/imgs/支付.jpg" alt="">
+    </div>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="dia = false">取 消</el-button>
+    <el-button type="primary" @click="dia=flase" style="background-color: #01af69;">确 定</el-button>
   </span>
     </el-dialog>
   </div>
@@ -101,11 +279,29 @@
 export default {
     data(){
         return{
+          dia:false,
+          orderprice:"",
+          hydtitle:'支付水电费用',
+          order:{},//订单信息
+          dismanrestitle:'支付拆改费用',
+          dismantleprice:'',//查改阶段费用
+          restitle:'支付定金',
+          distmanimg:[],//工长上传的拆改图片
+          hydimglist:[],//工长上传的水电图片
+          woodimglist:[],//工长上传的木工图片
+          paintimglist:[],//漆工图片
+          acceptimglist:[],//验收图片
+          disba:false,
           dialogVisible:false,
           reslist:{
             foremanid:'',
             userid:'',
             demandid:'',
+            dismanimg:0,
+            hydimg:0,
+            woodimg:0,
+            paintimg:0,
+            acceptimg:0,
           },
           foremanid:'',
           foreman:{},
@@ -129,6 +325,12 @@ export default {
       
     },
     methods: {
+      //支付拆改费用
+      disman(){
+        this.dia=true
+        this.orderprice = this.order.dismantleprice
+
+      },
       chanvalue(data){
         console.log(data)
         this.foremanid =data
@@ -149,8 +351,9 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id},
+          data:{userid:this.$store.state.user.id,typeimg:1},
           success:(result=>{
+            console.log(result)
             for(let i in result){
               let img = result[i].url.slice(42)
               result[i].url = `${url}`+'resimg&img='+`${img}`
@@ -160,11 +363,101 @@ export default {
           })
         })
       },
-      
+      //获取工长上传的拆改图片
+        getdismanimg(){
+        let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getresimg',
+          method:'GET',
+          data:{userid:this.$store.state.user.id,typeimg:2},
+          success:(result=>{
+            console.log(result)
+            for(let i in result){
+              let img = result[i].url.slice(45)
+              result[i].url = `${url}`+'dismanimg&img='+`${img}`
+            }
+            this.distmanimg = result
+            console.log(result)
+          })
+        })
+      },
+         //获取工长上传的水电图片
+      gethydimg(){
+        let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getresimg',
+          method:'GET',
+          data:{userid:this.$store.state.user.id,typeimg:3},
+          success:(result=>{
+            console.log(result)
+            for(let i in result){
+              let img = result[i].url.slice(43)
+              result[i].url = `${url}`+'hydimg&img='+`${img}`
+            }
+            this.hydimglist = result
+            console.log(result)
+          })
+        })
+      },
+      //获取工长上传的木工图片
+       getwoodimg(){
+        let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getresimg',
+          method:'GET',
+          data:{userid:this.$store.state.user.id,typeimg:4},
+          success:(result=>{
+            console.log(result)
+            for(let i in result){
+              let img = result[i].url.slice(43)
+              result[i].url = `${url}`+'woodimg&img='+`${img}`
+            }
+            this.woodimglist = result
+            console.log(result)
+          })
+        })
+      },
+        //获取工长上传的漆工图片
+      getpaintimg(){
+        let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getresimg',
+          method:'GET',
+          data:{userid:this.$store.state.user.id,typeimg:5},
+          success:(result=>{
+            console.log(result)
+            for(let i in result){
+              let img = result[i].url.slice(44)
+              result[i].url = `${url}`+'paintimg&img='+`${img}`
+            }
+            this.paintimglist = result
+            console.log(result)
+          })
+        })
+      },
+      //获取验收图片
+        getacceptimg(){
+        let url = 'http://localhost:3000/getimg/?name='
+        this.$Axios({
+          url:'/users/getresimg',
+          method:'GET',
+          data:{userid:this.$store.state.user.id,typeimg:6},
+          success:(result=>{
+            console.log(result)
+            for(let i in result){
+              let img = result[i].url.slice(46)
+              result[i].url = `${url}`+'acceptimg&img='+`${img}`
+            }
+            this.acceptimglist = result
+            console.log(result)
+          })
+        })
+      },
       //上传
       sumbit(ruleForm){
         this.reslist.userid = this.$store.state.user.id;
         this.reslist.demandid = this.foreman[0].demandid;
+        this.reslist.title = 'resimg'
         this.reslist.resimg = 1;
         this.dialogVisible=true;
         this.$refs.upload.submit();
@@ -178,6 +471,7 @@ export default {
             if(result){
               this.prices = this.price.stageprice
               this.open('操作成功','success')
+              this.getresimg()
             }else{
               this.open('操作失败','error')
             }
@@ -189,9 +483,6 @@ export default {
             return false;
           }
         });
-        
-
-        //
       },
       //获取预约的工长
       getfroeman(){
@@ -205,6 +496,31 @@ export default {
                 })
             })
       },
+      //业主获取订单
+      getordermsg(){
+        this.$Axios({
+          url:'/users/userorderlist',
+          method:'GET',
+          data:{userid:this.$store.state.user.id},
+          success:(result=>{
+            // this.reslist = result[0].fileList
+            this.order = result[0]
+            console.log(result)
+            if(result[0].isres ==2){
+               this.prices = result[0].stageprice;
+              this.reslist = result[0];
+              this.disba=true;
+              this.restitle='已支付定金';
+              this.dismantleprice = result[0].dismantleprice;
+            }else{
+              this.price='未支付';
+              this.reslist=''
+            }
+
+          })
+        })
+
+      },
         open(msg,type) {
         this.$notify({
           title: msg,
@@ -216,6 +532,12 @@ export default {
     created(){
       this.getfroeman()
       this.getresimg()
+      this.getordermsg()
+      this.getdismanimg()
+      this.gethydimg()
+      this.getwoodimg()
+      this.getpaintimg()
+      this.getacceptimg()
     }
 }
 </script>
