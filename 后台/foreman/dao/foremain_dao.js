@@ -65,8 +65,10 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         let userid = req.body.userid;
         let price = req.body.price;
         let content = req.body.content;
-        let demandid = req.body.demandid
-        let result = await  this.foremantender(foremanid,userid,price,content,demandid)
+        let demandid = req.body.demandid;
+        let stutas = req.body.stutas
+        let time = req.body.time
+        let result = await  this.foremantender(foremanid,userid,price,content,demandid,stutas,time)
         res.send(result)
     }
 

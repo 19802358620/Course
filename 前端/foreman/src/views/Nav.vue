@@ -11,7 +11,7 @@
              </div> -->
            </div>
          </el-col>
-         <el-col :span="12" type="flex">
+         <el-col :span="10" type="flex">
            <ul class="felx">
            <li class="na">
              <router-link :to="{name:'home'}"   class="a" >首页</router-link>
@@ -32,10 +32,10 @@
                <router-link :to="{name:'design'}"  class="disc">装修设计</router-link>
              </div>
            </li>
-           <li class="li">
+           <!-- <li class="li">
              <router-link class="j dc" :to="{name:'login'}">登录</router-link>
              <router-link class="j dc" :to="{name:'reg'}">注册</router-link>
-           </li>
+           </li> -->
           </ul>
          </el-col>
          <!-- 搜索框 -->
@@ -45,6 +45,10 @@
               <el-button slot="append" icon="el-icon-search" class="btn" style="background-color: #b90000"></el-button>
            </el-input>
            </div>
+         </el-col>
+         <el-col :span="2">
+           <router-link class="j dc" :to="{name:'login'}">登录</router-link>
+             <router-link class="j dc" :to="{name:'reg'}">注册</router-link>
          </el-col>
        </el-row>
 </template>
@@ -104,6 +108,8 @@ export default {
 .j{
   margin: 0 10px;
   color:white;
+  font-size: 12px;
+  float: left;
 }
 .li{
   font-size: 12px;

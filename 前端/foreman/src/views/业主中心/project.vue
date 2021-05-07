@@ -20,7 +20,7 @@
           <div class="block">
   <el-timeline  >
     <!-- 签订合同开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index"  icon="el-icon-more" timestamp="2018/4/12"  type="primary">
+    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary">
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">签订合同</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -33,7 +33,6 @@
                       ref="upload"
                       list-type="picture"
                       action="http://localhost:3000/users/setresimg"
-                      :file-list="fileList"
                       :data='reslist'
                       :on-success='successimg'
                       :auto-upload="false"
@@ -71,7 +70,7 @@
     <!-- 签订合同结束 -->
 
     <!-- 房屋拆改开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.dismantle ==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.dismantle ==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">房屋拆改</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -98,7 +97,7 @@
     <!-- 房拆改结束 -->
 
     <!-- 水电开始 -->
-     <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.hyd ==1'>
+     <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.hyd ==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">房屋水电</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -124,7 +123,7 @@
     </el-timeline-item>
     <!-- 水电结束 -->
     <!-- 木工阶段开始 -->
-     <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.wood ==1'>
+     <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.wood ==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">木工</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -150,7 +149,7 @@
     </el-timeline-item>
     <!-- 木工结束 -->
     <!-- 漆工开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">漆工</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -176,7 +175,7 @@
     </el-timeline-item>
     <!-- 漆工结束 -->
     <!-- 验收开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">验收</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -202,28 +201,87 @@
     </el-timeline-item>
     <!-- 验收结束 -->
     <!-- 对工长进行评价开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
       <el-card style="width:97%">
-        <el-form :model="reslist" :rules="rules1">
-          <el-form-item label="">
+        <el-form :model="eval" :rules="rules2" ref="eval">
+          <el-row>
+            <el-col :span="10">
+              <el-form-item label="星级：" label-width="100px" prop="grade">
+                <div style="margin-top: 10px;">
+                  <el-rate
+                    v-model="eval.grade"
+                    show-text>
+                  </el-rate>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="14">
+              <el-form-item label="您对工长的印象：" prop="impression">
+                <el-select v-model="eval.impression" multiple placeholder="请选择您的认为符合的印象" >
+                  <el-option label="效率高" value="效率高"></el-option>
+                  <el-option label="专业性强" value="专业性强"></el-option>
+                  <el-option label="服务周到" value="服务周到"></el-option>
+                  <el-option label="参考好" value="参考好"></el-option>
+                 </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
             <el-row>
-            <el-col :span="8">
-             
+            <el-col :span="24">
+             <el-form-item label="评价内容：" label-width="100px" prop="content">
+               <el-input v-model="eval.content" type="textarea" placeholder="输入你对该工长的评价"></el-input>
+             </el-form-item>
             </el-col>
         </el-row>
-          </el-form-item>
         </el-form>
-        <el-row>
-          <el-col :span="24">
-
-          </el-col>
-        </el-row>
         <div class="btn">
-          <el-button type="success"  style="background-color: #01af69;" >提交评价</el-button>
+          <el-button type="success"  style="background-color: #01af69;" @click="submiteval('eval')">提交评价</el-button>
         </div>
       </el-card>
     </el-timeline-item>
     <!-- 评价结束 -->
+    <!-- 评价控制开始 -->
+    <!-- <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='iseval'>
+      <el-card style="width:97%">
+        <el-form :model="eval" :rules="rules2" ref="eval">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="星级：" label-width="100px" prop="grade">
+                <div style="margin-top: 10px;">
+                  <el-rate
+                    v-model="usereval.grade"
+                    show-text>
+                  </el-rate>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="您对工长的印象：" prop="impression">
+                <div>{{usereval.impression}}</div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="评价时间">
+                <div>
+                {{usereval.time}}
+              </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
+            <el-row>
+            <el-col :span="24">
+             <el-form-item label="评价内容：" label-width="100px" prop="content">
+               <p>{{usereval.content}}</p>
+             </el-form-item>
+            </el-col>
+        </el-row>
+        </el-form>
+        <div class="btn">
+          <el-button type="success"  style="background-color: #01af69;" @click="submiteval('eval')">提交评价</el-button>
+        </div>
+      </el-card>
+    </el-timeline-item> -->
+    <!-- 评价控制结束 -->
   </el-timeline>
 </div>
     </div>
@@ -279,6 +337,14 @@
 export default {
     data(){
         return{
+        iseval:true,//评价控制
+        eval:{//业主评价信息
+        time:'',
+        grade:'',
+        impression:'',
+        content:''
+        },
+          value:'',
           dia:false,
           orderprice:"",
           hydtitle:'支付水电费用',
@@ -302,6 +368,8 @@ export default {
             woodimg:0,
             paintimg:0,
             acceptimg:0,
+            huximg:0,
+            designimg:0
           },
           foremanid:'',
           foreman:{},
@@ -320,11 +388,52 @@ export default {
              foremanid:[
                { required: true, message: '选择要签订合同的工长', trigger: 'blur' },
              ]
+           },
+           rules2:{
+             grade:[
+               { required: true, message: '评价星级必须给出', trigger: 'blur' },
+             ],
+             impression:[
+               { required: true, message: '印象必须选择', trigger: 'blur' },
+             ],
+             content:[
+                { required: true, message: '评价内容不能为空', trigger: 'blur' },
+             ]
            }
         }
       
     },
     methods: {
+      //提交评价
+      submiteval(name){
+        var d = new Date();
+        var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+        this.eval.userid = this.$store.state.user.id;
+        this.eval.foremanid = this.order.foremanid;
+        this.eval.impression = this.eval.impression.join(',')
+        this.eval.time = str;
+        this.eval.username = this.$store.state.user.name;
+         this.$refs[name].validate((valid) => {
+          if (valid) {
+           this.$Axios({
+             url:'/users/seteval',
+             method:'POST',
+             data:this.eval,
+             success:(result=>{
+               if(result){
+                 this.open('感谢您的评价','success')
+               }else{
+                 this.open('不明原因，评价失败！','error')
+               }
+             })
+           })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
+      },
       //支付拆改费用
       disman(){
         this.dia=true
@@ -453,6 +562,19 @@ export default {
           })
         })
       },
+      //获取评价列表
+      getusereval(){
+        let foremanid = this.reslist.foremanid
+        console.log(foremanid)
+        // this.$Axios({
+        //   url:'/users/getusereval',
+        //   method:'GET',
+        //   data:{userid:this.$store.state.user.id,foremanid:foremanid},
+        //   success:(result=>{
+
+        //   })
+        // })
+      },
       //上传
       sumbit(ruleForm){
         this.reslist.userid = this.$store.state.user.id;
@@ -503,7 +625,8 @@ export default {
           method:'GET',
           data:{userid:this.$store.state.user.id},
           success:(result=>{
-            // this.reslist = result[0].fileList
+            this.reslist = result[0].fileList
+            console.log(result)
             this.order = result[0]
             console.log(result)
             if(result[0].isres ==2){
@@ -538,6 +661,7 @@ export default {
       this.getwoodimg()
       this.getpaintimg()
       this.getacceptimg()
+      this.getusereval()
     }
 }
 </script>

@@ -27,7 +27,7 @@
           >
           <el-row :gutter="20">
             <el-col :span="6"><div class="list">工长姓名：<strong style="color:#01af69;font-weight: bold;">{{item.name}}</strong></div></el-col>
-            <el-col :span="6"><div class="list">投标时间：<em style="color:#108881;font-weight: bold;">2021/4/27</em></div></el-col>
+            <el-col :span="6"><div class="list">投标时间：<em style="color:#108881;font-weight: bold;">{{item.time}}</em></div></el-col>
             <el-col :span="6"><div class="list">投标价：<em>{{item.price}}</em></div></el-col>
             <el-col :span="6"><div class="list">年龄：<strong style="color: green;">{{item.age}}</strong></div></el-col>
           </el-row>
@@ -154,7 +154,7 @@ export default {
       this.order.userid = this.item.userid;
       this.order.demandid = this.item.demandid;
       this.order.isres = 1;
-      this.order.status= '等待工长确认'
+      this.order.status= '已预约'
       console.log(this.order)
       this.$Axios({
         url:'/users/setorder',
@@ -162,7 +162,7 @@ export default {
         data:this.order,
         success:(result=>{
           if(result){
-            // this.editstatus()
+            this.editstatus('业主已预约')
             this.open()
           }else{
             this.open1()
@@ -173,11 +173,11 @@ export default {
       this.innerVisible=false
     },
     //修改状态
-    editstatus(){
+    editstatus(msg){
       this.$Axios({
         url:'/users/editstatus',
         method:'GET',
-        data:{status:'已中标',id:this.item.pmstenderid},
+        data:{status:msg,id:this.item.pmstenderid},
         success:(result=>{
           console.log(result)
         })
@@ -201,15 +201,14 @@ export default {
       getdesignlist(item){
          let url = 'http://localhost:3000/getimg/?name='
         this.$Axios({
-          url:'/users/getdesing',
+          url:'/users/getresimg',
           method:'GET',
-          data:{id:item.demandid,foremanid:item.foremanid},
+          data:{demandid:item.demandid,typeimg:8},
           success:(result=>{
+            console.log(result)
             for(let i in result){
-              if(result[i].isdesign){
                 let img = result[i].url.slice(45)
                 result[i].url = `${url}`+'designimg&img='+`${img}`
-              }
             }
             console.log(result)
             this.list = result
@@ -221,9 +220,10 @@ export default {
     //查看投标详情
     information(item){
       this.getdesignlist(item)
-      console.log(item)
       this.dialogVisible=true
+      item.time = item.time.slice(0,10)
       this.item = item
+      this.editstatus('标书已查看')
     },
     //获取投标工长信息
      getstenderlist(){

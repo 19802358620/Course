@@ -3,7 +3,7 @@
        <div class="title">
           <div class="name">
               我的投标记录
-              <span>共<span style="color: red;">(123)</span>条记录</span>  
+              <span>共<span style="color: red;">(10000)</span>条记录</span>  
             </div>
       </div>
       <div class="content">
@@ -15,31 +15,45 @@
                       <th>当前状态</th>
                       <th>业主姓名</th>
                       <th>投标价</th>
-                      <th>量房时间</th>
                       <th>操作</th>
                   </tr>
                   <tr 
                   v-for="(item,i) in stenderlist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>2021-04-15</td>
+                      <td>{{item.time}}</td>
                       <td style="color:red">{{item.stutas}}</td>
                       <td>{{item.name}}</td>
-                      <td>{{item.price}}</td>
-                      <td>2021-04-15</td>
+                      <td style="color:red">{{item.price}}</td>
                       <td style="width: 140px;">
-                          <a class="btn" @click.stop="Details(item)">详情/</a>
-                          <el-popconfirm
-                             title="您确定要撤回吗？"
-                             @confirm="deletelist(item)"
-                            >
-                           <a slot="reference">撤回</a>
-                             </el-popconfirm>
+                          <a class="btn" @click.stop="Details(item)">详情</a>
+                          
                       </td>
                   </tr>
               </tbody>
           </table>
       </div>
+    <el-dialog title="投标详情"
+    :visible.sync="dia"
+    width="30%"
+    append-to-body=true
+    top="35vh"
+    >
+    <div style="text-align: center;font-size:12px">
+      <el-row>
+              <el-col :span="6"><div>业主姓名：<em style=" color: #01af69;font-weight: bold;">{{list.name}}</em></div></el-col>
+              <el-col :span="6"><div>性别：{{list.sex}}</div></el-col>
+              <el-col :span="6"><div>电话：{{list.phone}}</div></el-col>
+              <el-col :span="6"><div>微信：{{list.wei}}</div></el-col>
+      </el-row>
+      <el-row style="margin-top:15px">
+              <el-col :span="6"><div>城市：{{list.city}}</div></el-col>
+              <el-col :span="6"><div>地区：{{list.area}}</div></el-col>
+              <el-col :span="6"><div>状态：<em style="color: red;font-weight: bold;">{{list.stutas}}</em></div></el-col>
+              <el-col :span="6"><div>投标价：<em style="color: red;font-weight: bold;">{{list.price}}</em></div></el-col>
+      </el-row>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -48,9 +62,18 @@ export default {
     data(){
         return{
             stenderlist:[],//投标信息列表
+            dia:false,
+            list:''
         }
     },
     methods:{
+        //投标详情
+        Details(item){
+            console.log(item)
+            this.dia=true
+            console.log(item)
+            this.list = item
+        },
         getstenderlist(){
             this.$Axios({
                 url:'/foreman/stenderinfo',
@@ -58,6 +81,9 @@ export default {
                 data:{id:this.$store.state.foreman.id},
                 success:(result=>{
                     console.log(result)
+                    for(let i in result){
+                        result[i].time = result[i].time.slice(0,10)
+                    }
                     this.stenderlist=result;
                 })
             })
@@ -74,6 +100,10 @@ export default {
 .table{
     width: 100%;
     font-size: 12px;
+   
+    
+   
+    
 }
 .title .tr{
     line-height: 90px;

@@ -408,6 +408,39 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+
+    /**
+     * 投标时获户型图片
+     * @param demandid
+     */
+    static huximglist(demandid){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','imglist','*',{demandid:demandid,huximg:1});
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 获取工长投标设计图片
+     * @param id
+     */
+    static gethuximglist(id){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','imglist','*',{demandid:id,designimg:1});
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
     /**
      * 业主生成订单
      * @param orderid
@@ -435,6 +468,61 @@ module.exports = class user_mod extends require('./model'){
             console.log(sql)
             this.query(sql).then((result)=>{
                 resolve(result)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 业主评价项目工长
+     * @param userid
+     * @param foremanid
+     * @param time
+     * @param grade
+     * @param impression
+     * @param content
+     */
+    static foremaneval(userid,foremanid,time,grade,impression,content,username){
+        return new Promise((resolve,reject)=>{
+            let sql = "insert into `evaluation` (userid,foremanid,time,grade,impression,content,username) values (?,?,?,?,?,?,?)";
+            console.log(sql)
+            this.query(sql,this.formatParams(userid,foremanid,time,grade,impression,content,username)).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 业主获取自己的评价内容
+     * @param userid
+     * @param foremanid
+     */
+    static usereval(userid,foremanid){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','evaluation','*',{userid:userid,foremanid:foremanid});
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve(reult)
+            }).catch(err=>{
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 业主获取所有评列表
+     * @param userid
+     */
+    static allusereval(userid){
+        return new Promise((resolve,reject)=>{
+            let sql = 'SELECT `evaluation`.*, foreman.* FROM  `evaluation` LEFT JOIN foreman ON foreman.id = `evaluation`.foremanid WHERE `evaluation`.userid ='+'"'+userid+'" '
+            // let sql = this.Geshi('select','evaluation','*',{userid:userid});
+            console.log(sql)
+            this.query(sql).then((reult)=>{
+                resolve(reult)
             }).catch(err=>{
                 reject('false')
             })

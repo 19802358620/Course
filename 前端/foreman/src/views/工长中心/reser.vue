@@ -29,7 +29,7 @@
                       <td>2021-04-15</td>
                       <td style="width: 140px;">
                           <a v-if="item.istrue" class="btn" @click.stop="Details(item)">预约详情</a>
-                          <a class="btn" style="color:red;" @click.stop="dia=true" v-else>取消原因</a>
+                          <a class="btn" style="color:red;" @click.stop="base(item)" v-else>取消原因</a>
                       </td>
                   </tr>
               </tbody>
@@ -44,7 +44,7 @@
           >
           <el-row>
               <el-col :span="12"><div>业主姓名：<em style="color:red;font-weight: bold;">{{list.name}}</em></div></el-col>
-               <el-col :span="12">看房时间：<em style="color:red;font-weight: bold;">2021-4-28</em></el-col>
+               <el-col :span="12">看房时间：<em style="color:red;font-weight: bold;">{{list.restime}}</em></el-col>
             
           </el-row>
           <el-row style="margin-top:15px">
@@ -63,8 +63,8 @@
            <el-col :span="24">业主备注：<em style="color:#01af63;font-weight: bold;">{{list.deark}}</em></el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
-             <el-button @click="dialogVisible = false" type="warning" :disabled='list.istrue'>拒绝预约</el-button>
-             <el-button type="primary" @click="agreeres" :disabled='list.istrue'>同意预约</el-button>
+             <el-button @click="dialogVisible = false" type="warning" :disabled='!list.istrue'>拒绝预约</el-button>
+             <el-button type="primary" @click="agreeres" :disabled='!list.istrue'>同意预约</el-button>
          </span>
       </el-dialog>
          <el-dialog
@@ -76,12 +76,9 @@
           >
           <el-row>
             <el-col :span="24">
-                <p style="color:#01af63;font-weight: bold;">{{list.cancel}}</p>
+                <p style="color:#01af63;font-weight: bold;">{{baselist.cancel}}</p>
             </el-col>
           </el-row>
-            <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="dia=false" :disabled='list.istrue'>了解</el-button>
-         </span>
       </el-dialog>
   </div>
 </template>
@@ -93,10 +90,17 @@ export default {
             reslist:[],
             dialogVisible:false,
             list:[],
-            dia:false
+            dia:false,
+            baselist:''
         }
     },
     methods:{
+        //查看取消原因
+        base(item){
+            this.dia=true;
+            this.baselist =item
+
+        },
         //同意预约
         agreeres(){
             console.log(this.list)
@@ -115,7 +119,6 @@ export default {
                     this.dialogVisible =false
                 })
             })
-
         },
         //获取预约信息
         getreslist(){
@@ -126,12 +129,13 @@ export default {
                 success:(result=>{
                     console.log(result)
                     for(let i in result){
-                        if(result[i].status == '预约成功'){
+                        if(result[i].status == '已预约'){
                             result[i].istrue = true;
                         }else{
                               result[i].istrue = false;
                         }
                     }
+                    // result.restime = result.restime.slice(0,10)
                     this.reslist = result
                 })
             })
@@ -141,6 +145,7 @@ export default {
         Details(item){
             this.dialogVisible=true
             console.log(item)
+            item.restime = item.restime.slice(0,10)
             this.list = item
         },
         open(msg,type) {

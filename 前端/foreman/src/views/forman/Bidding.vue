@@ -91,7 +91,7 @@
                       class="upload-demo"
                       multiple
                       ref="upload"
-                      action="http://localhost:3000/foreman/updesign"
+                      action="http://localhost:3000/users/updesignimg"
                       :file-list="fileList"
                       :data='imgdata'
                        :auto-upload="false"
@@ -130,29 +130,41 @@ export default {
                 stutas:'进行中'
             },
             listimg: [],//户型列表
-            imgdata:{},//设计方案图片信息
+            imgdata:{
+            foremanid:0,
+            resimg:0,
+            dismanimg:0,
+            hydimg:0,
+            woodimg:0,
+            paintimg:0,
+            acceptimg:0,
+            huximg:0,
+            designimg:1
+            },//设计方案图片信息
         }
     },
     methods:{
         getlist(){
             this.list = this.$route.params;
+            console.log(this.list)
         },
         hnad(){
             console.log(this.list)
         },
         //获取户型图片
         getimglist(){
-            let url = 'http://localhost:3000/getimg/?name='
+             let url = 'http://localhost:3000/getimg/?name='
             this.$Axios({
-                url:'/imgs',
+                url:'/users/getresimg',
                 method:'GET',
-                data:{id:this.list.id},
+                data:{demandid:this.list.id,typeimg:7},
                 success:(result=>{
                     console.log(result)
                     for(let i in result){
-                        let img = result[i].url.slice(46)
-                        result[i].url = `${url}`+'demandimg&img='+`${img}`
+                        let img = result[i].url.slice(43)
+                        result[i].url = `${url}`+'huximg&img='+`${img}`
                     }
+                    console.log(result)
                     this.listimg = result
                 })
             })
@@ -160,6 +172,10 @@ export default {
         },
         //工长投标
         foremantender(){
+            var d = new Date();
+            var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+            this.stender.time = str
+            this.stender.stutas= '已投出'
             this.stender.userid=this.list.userid;
             this.stender.demandid = this.list.id;
             this.stender.foremanid = this.$store.state.foreman.id;
@@ -170,10 +186,11 @@ export default {
                 success:(result=>{
                     console.log(result)
                     if(result.protocol41){
+                        this.imgdata.userid = this.list.userid;
                         this.imgdata.pmstenderid = result.insertId;
-                        this.imgdata.isdesign = 1;
                         this.imgdata.foremanid = this.$store.state.foreman.id;
-                        this.imgdata.demandid = this.list.id
+                        this.imgdata.demandid = this.list.id;
+                        this.imgdata.title = 'designimg'
                         console.log(this.imgdata)
                         this.$refs.upload.submit();
                         this.dialogVisible=false

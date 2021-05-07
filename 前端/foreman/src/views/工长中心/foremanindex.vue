@@ -21,7 +21,7 @@
       </div>
       <div class="item">
         <div class="titname">评价管理</div>
-        <a href="">管理我的评价</a>
+        <a href="">我的评价</a>
       </div>
       <div class="item">
         <div class="titname">账号管理</div>

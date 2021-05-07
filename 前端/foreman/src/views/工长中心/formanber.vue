@@ -103,26 +103,24 @@
               <tbody>
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
-                      <th>发布时间</th>
-                      <th>招标状态</th>
-                      <th>承包方式</th>
-                      <th>房屋现状</th>
-                      <th>装修预算</th>
-                      <th>游览量</th>
+                      <th>业主姓名</th>
+                      <th>性别</th>
+                      <th>小区地址</th>
+                      <th>联系电话</th>
+                      <th>微信</th>
                       <th>操作</th>
                   </tr>
                   <tr 
-                  v-for="(item,i) in demandlist" :key="i"
+                  v-for="(item,i) in orderlist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>{{item.titme}}</td>
-                      <td style="color:red">{{item.status}}</td>
-                      <td>{{item.contract}}</td>
-                      <td>{{item.statusquo}}</td>
-                      <td>{{item.budget}}</td>
-                      <td style="color:red">200次</td>
+                      <td>{{item.name}}</td>
+                       <td>{{item.sex}}</td>
+                      <td>{{item.adder}}</td>
+                      <td >{{item.phone}}</td>
+                      <td>{{item.wei}}</td>
                       <td style="width: 140px;">
-                          <a class="btn" @click.stop="Details(item)">查看详情</a>
+                          <a class="btn" @click.stop="orderinfo(item)"><em style="color:red">进入该订单</em></a>
                       </td>
                   </tr>
               </tbody>
@@ -153,7 +151,8 @@ export default {
             foremans:'',
             adder:'',
             reserlist:[],//预约记录
-            dialogVisible:false
+            dialogVisible:false,
+            orderlist:'',//订单列表
         }
     },
     methods:{
@@ -161,6 +160,11 @@ export default {
         reser(){
             this.dialogVisible=true
 
+        },
+         //进入订单
+        orderinfo(item){
+            this.$router.push({name:"foremanorderinfo",params:item})
+            console.log(item)
         },
         //获取工长的预约记录
         getreslist(){
@@ -195,10 +199,23 @@ export default {
               })
             })
         },
+        //获取订单
+         getforemanorder(){
+            this.$Axios({
+                url:'/foreman/getforemanorder',
+                method:'GET',
+                data:{foremanid:this.$store.state.foreman.id},
+                success:(result=>{
+                    console.log(result)
+                    this.orderlist = result
+                })
+            })
+        }
     },
     created(){
         this.getfroeman();
-        this.getreslist()
+        this.getreslist();
+        this.getforemanorder();
     },
     
 }

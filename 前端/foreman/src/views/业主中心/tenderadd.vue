@@ -23,7 +23,7 @@
       </div>
       <div class="item">
         <div class="titname">评价管理</div>
-        <a href="">管理我的评价</a>
+        <a @click="usereval" :class="{clactive:id==9}">管理我的评价</a>
       </div>
       <div class="item">
         <div class="titname">账号管理</div>
@@ -91,6 +91,11 @@ export default {
     project(){
       this.id =8;
       this.$router.push({name:"project",params:this.user})
+    },
+    //管理我的评价
+    usereval(){
+      this.id =9;
+      this.$router.push({name:"usereval",params:this.user})
     }
   },
   created(){

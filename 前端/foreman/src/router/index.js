@@ -73,6 +73,8 @@ const routes = [
       { path: '/reser', name: 'reser', component: () => import('../views/业主中心/reser.vue') },
       //我的装修项目
       { path: '/project', name: 'project', component: () => import('../views/业主中心/project.vue') },
+      //管理我的评价
+      { path: '/usereval', name: 'usereval', component: () => import('../views/业主中心/usereval.vue') },
     ]
   },
   //工长首页

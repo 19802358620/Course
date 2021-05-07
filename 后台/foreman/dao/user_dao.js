@@ -77,7 +77,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
     static async userreg(req,res){
         console.log(req)
         let name = req.body.name;
-        let password = req.body.password;
+        let password = req.body.pass;
         let result = await this.userReg(name,password);
         res.send(result)
     }
@@ -226,7 +226,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
     }
 
     /**
-     *
+     *修改投标状态
      * @param req
      * @param res
      * @returns {Promise<void>}
@@ -294,11 +294,13 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let woodimg = req.body.woodimg;
         let paintimg = req.body.paintimg;
         let acceptimg = req.body.acceptimg;
+        let huximg = req.body.huximg
+        let designimg = req.body.designimg
         let title = req.body.title
         if(req.files.length===0){
             res.send('error',{message:'上传文件不能为空'})
         }else{
-            let sql = `insert into imglist (userid,foremanid,demandid,resimg,dismanimg,hydimg,woodimg,paintimg,acceptimg,url) values `;
+            let sql = `insert into imglist (userid,foremanid,demandid,resimg,dismanimg,hydimg,woodimg,paintimg,acceptimg,huximg,designimg,url) values `;
             let sqlArr = [];
             for(let i in req.files){
                 res.set({
@@ -308,9 +310,9 @@ module.exports = class user_dao extends require('../model/user_mode'){
                 fs.renameSync(`public/images/${title}/`+file.filename,`public/images/${title}/`+file.originalname);
                 let url = `http://localhost:3000/public/images/${title}/`+file.originalname;
                 if(req.files.length-1==i){
-                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},?)`
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},${huximg},${designimg},?)`
                 }else{
-                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},?)`
+                    sql+=`(${userid},${foremanid},${demandid},${resimg},${dismanimg},${hydimg},${woodimg},${paintimg},${acceptimg},${huximg},${designimg},?)`
                 }
                 console.log(sql)
                 sqlArr.push([url])
@@ -332,6 +334,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
     static async getresimg(req,res) {
         let userid = req.query.userid;
         let typeimg = req.query.typeimg;
+        let demandid = req.query.demandid
         console.log(typeimg)
         if(typeimg==1){//预约
             let result1 = await this.resimg(userid);
@@ -351,7 +354,12 @@ module.exports = class user_dao extends require('../model/user_mode'){
         }else if(typeimg==6){//验收
             let result6 = await this.acceptimg(userid)
             res.send(result6)
-
+        }else if(typeimg==7){//首页招标详细信息户型图
+            let result7 = await this.huximglist(demandid)
+            res.send(result7)
+        }else if(typeimg==8){
+            let result8 = await this.gethuximglist(demandid)
+            res.send(result8)
         }
 
     }
@@ -385,5 +393,52 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let result = await this.orderlistmsg(userid);
         res.send(result)
     }
+
+    /**
+     * 业主评价工长
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async seteval(req,res){
+        let userid = req.body.userid;
+        let foremanid = req.body.foremanid;
+        let time = req.body.time;
+        let grade = req.body.grade;
+        let impression = req.body.impression;
+        let username = req.body.username;
+        let content = req.body.content;
+        let result = await this.foremaneval(userid,foremanid,time,grade,impression,content,username);
+        res.send(result)
+
+    }
+
+    /**
+     * 业主获取评价
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getusereval(req,res){
+        let userid = req.query.userid;
+        let foremanid = req.query.foremanid;
+        console.log(userid)
+        console.log(foremanid)
+        let result = await this.usereval(userid,foremanid);
+        res.send(result)
+    }
+
+    /**
+     * 业主获取自己所有的哦评价
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getallusereval(req,res){
+        let userid = req.query.userid;
+        let result = await this.allusereval(userid);
+        res.send(result)
+    }
+
 
 }

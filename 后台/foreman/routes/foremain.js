@@ -5,10 +5,11 @@ const multer = require('multer')
 let upload = multer({dest:'public/images/foremainfo/'}).single('file')
 let caseimg = multer({dest:'public/images/caseimg/'}).single('file')
 let caseimgs = multer({dest:'public/images/caseimgs/'}).array('file',5)
-let huxing = multer({dest:'public/images/huxing/'}).array('file',5)
+// let huxing = multer({dest:'public/images/huxing/'}).array('file',5)
 let design = multer({dest:'public/images/designimg/'}).array('file',5)
 let demand = multer({dest:'public/images/demandimg/'}).array('file',5)
 let fs = require('fs')
+//业主发布招标时上传的户型图
 //工长注册接口
 router.post('/foremanReg',function (req,res){
     foreman.foreman(req,res)

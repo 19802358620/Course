@@ -66,11 +66,11 @@ module.exports = class user_mod extends require('./model'){
      * @param demandid
      * @returns {Promise<unknown>}
      */
-    static foremantender(foremanid,userid,price,content,demandid){
+    static foremantender(foremanid,userid,price,content,demandid,stutas,time){
         return new Promise((resolve,reject)=>{
-            let sql ="insert into `pmstender` (foremanid,userid,price,content,demandid) values (?,?,?,?,?)"
+            let sql ="insert into `pmstender` (foremanid,userid,price,content,demandid,stutas,time) values (?,?,?,?,?,?,?)"
             console.log(sql)
-            this.query(sql,this.formatParams(foremanid,userid,price,content,demandid)).then((result)=>{
+            this.query(sql,this.formatParams(foremanid,userid,price,content,demandid,stutas,time)).then((result)=>{
                 resolve(result)
             }).catch(err=>{
                 reject('false')

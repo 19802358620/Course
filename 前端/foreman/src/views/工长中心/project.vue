@@ -117,7 +117,7 @@
                       :data='hydlist'
                       :on-success='successimg'
                       :auto-upload="false"
-                      :disabled='isyhdd'
+
                       >
                       <el-button slot="trigger" size="small" type="primary">上传水电资料</el-button>
                       <div slot="tip" class="el-upload__tip">上传拆改图片文件，不超过6张</div>
@@ -137,7 +137,7 @@
           </el-col>
         </el-row>
         <div class="btn">
-          <el-button type="success" @click="disman=true" style="background-color: #01af69;" :disabled='isyhdd'>{{hydtitle}}</el-button>
+          <el-button type="success" @click="disman=true" style="background-color: #01af69;" >{{hydtitle}}</el-button>
         </div>
       </el-card>
     </el-timeline-item>
@@ -402,7 +402,9 @@ export default {
             hydimg:0,
             woodimg:0,
             paintimg:0,
+            huximg:0,
             acceptimg:0,
+            designimg:0
           },
           hydlist:{
             foremanid:'',
@@ -412,8 +414,10 @@ export default {
             dismanimg:0,
             hydimg:1,
             woodimg:0,
+            huximg:0,
             paintimg:0,
             acceptimg:0,
+            designimg:0
 
           },
           woodlist:{
@@ -426,6 +430,7 @@ export default {
             woodimg:1,
             paintimg:0,
             acceptimg:0,
+            designimg:0
 
           },
           paintlist:{
@@ -438,6 +443,7 @@ export default {
             woodimg:0,
             paintimg:1,
             acceptimg:0,
+            designimg:0
 
           },
           acceptlist:{
@@ -450,6 +456,7 @@ export default {
             woodimg:0,
             paintimg:0,
             acceptimg:1,
+            designimg:0
           },
           foremanid:'',
           foreman:{},

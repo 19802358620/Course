@@ -154,7 +154,7 @@
                       multiple
                       ref="upload"
                       list-type="picture"
-                      action="http://localhost:3000/foreman/adddemandimg"
+                      action="http://localhost:3000/users/sethuximg"
                       :on-preview="handlePreview"
                       :on-remove="handleRemove"
                       :file-list="fileList"
@@ -278,8 +278,20 @@ data(){
           label: '二手'
         },
         ],
-        demands:{},
-        imgdata:{}
+        demands:{
+            
+        },
+        imgdata:{
+            foremanid:0,
+            resimg:0,
+            dismanimg:0,
+            hydimg:0,
+            woodimg:0,
+            paintimg:0,
+            acceptimg:0,
+            huximg:1,
+            designimg:0
+        }
     }
 },
 created(){
@@ -315,7 +327,8 @@ methods:{
                if(result.protocol41){
                this.imgdata.demandid = result.insertId;
                this.imgdata.userid = this.$store.state.user.id;
-               this.imgdata.isdem = 1
+               this.imgdata.huximg = 1;
+               this.imgdata.title = 'huximg'
                console.log(this.imgdata)
                this.$refs.upload.submit();
                  this.open3()

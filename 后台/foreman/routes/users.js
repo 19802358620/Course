@@ -9,6 +9,8 @@ let hydimg = multer({dest:'public/images/hydimg/'}).array('file',6);
 let woodimg = multer({dest:'public/images/woodimg/'}).array('file',6);
 let paintimg = multer({dest:'public/images/paintimg/'}).array('file',6);
 let acceptimg = multer({dest:'public/images/acceptimg/'}).array('file',6);
+let huximg = multer({dest:'public/images/huximg/'}).array('file',6);
+let designimg = multer({dest:'public/images/designimg/'}).array('file',6);
 let fs = require('fs')
 
 
@@ -125,4 +127,25 @@ router.post('/setpaintimg',paintimg,function (req,res){
 router.post('/setaccrptimg',acceptimg,function (req,res){
   user.setresimg(req,res)
 })
+//业主发表时上传户型图片
+router.post('/sethuximg',huximg, function (req,res){
+  user.setresimg(req,res)
+})
+//工长投标时上传设计图片
+router.post('/updesignimg',designimg,function (req,res){
+  user.setresimg(req,res)
+})
+//业主评价工长
+router.post('/seteval',function (req,res){
+  user.seteval(req,res)
+})
+//业主获取对工长的评价
+router.get('/getusereval',function (req,res){
+  user.getusereval(req,res)
+})
+//业主获取自己所有的评价
+router.get('/getallusereval',function (req,res){
+  user.getallusereval(req,res)
+})
+
 module.exports = router;
