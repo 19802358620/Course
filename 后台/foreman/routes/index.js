@@ -13,5 +13,12 @@ router.get('/bidlist',function (req,res){
 router.get('/imgs',function (req,res){
   index.imgs(req,res)
 })
-
+//根据类型获取效果图
+router.get('/geteffimg',function (req,res){
+  index.geteffimg(req,res)
+})
+//根据效果封面图片获取所有图片
+router.get('/gettypeimglist',function (req,res){
+  index.gettypeimglist(req,res)
+})
 module.exports = router;

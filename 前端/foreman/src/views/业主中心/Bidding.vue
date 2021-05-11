@@ -100,8 +100,9 @@
               </el-row>
               <el-row :gutter="5">
                  <el-col :span="6">
-                    <el-form-item label="所在地区" prop='suoarea' label-width='80px'>
-                       <el-input v-model="demand.suoarea" placeholder="装修地点"></el-input>
+                    <el-form-item label="所在地区" prop='province' label-width='80px'>
+                      <v-region type="group" @values='select'></v-region>
+                       <!-- <el-input v-model="demand.suoarea" placeholder="装修地点"></el-input> -->
                   </el-form-item>
                 </el-col>
                  <el-col :span="6">
@@ -208,7 +209,10 @@ data(){
           content:'',
           claim:'',
           userid:'',
-          communityname:''
+          communityname:'',
+          province:'',
+          city:'',
+          adder:'',
         },
         value:'',
         //表单验证规则
@@ -243,7 +247,7 @@ data(){
           contract:[
              { required: true, message: '需要说明承包方式', trigger: 'blur' },
           ],
-          suoarea:[
+          province:[
             { required: true, message: '地点需要填写', trigger: 'blur' },
           ],
           budget:[
@@ -312,7 +316,6 @@ methods:{
     var d = new Date();
     var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
     this.demand.userid=this.$store.state.user.id;
-    this.demand.communityid=2;
     this.demand.titme = str;
     this.demand.status= '招标中'
     console.log(this.demand)
@@ -355,6 +358,13 @@ methods:{
         this.demands = this.$route.params;
         this.demand = this.demands;
     },
+    //返回地选择数据
+    select(data){
+      this.demand.province = data.province.value;
+      this.demand.city = data.city.value;
+      this.demand.adder = data.area.value;
+      console.log(this.demand)
+    }
 }
 }
 </script>

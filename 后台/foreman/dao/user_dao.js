@@ -54,7 +54,6 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let structure= req.body.structure;
         let style = req.body.style;
         let budget = req.body.budget;
-        let suoarea = req.body.suoarea;
         let ltitme = req.body.ltitme;
         let dotime = req.body.dotime;
         let remarks = req.body.remarks;
@@ -63,8 +62,12 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let userid = req.body.userid;
         let user = req.body.user
         let communityname = req.body.communityname;
+        let province = req.body.province;
+        let city = req.body.city
+        let adder = req.body.adder;
+
         console.log(req.body)
-        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname)
+        let result = await this.addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,ltitme,dotime,remarks,content,claim,userid,user,communityname,province,city,adder)
         res.send(result)
     }
 

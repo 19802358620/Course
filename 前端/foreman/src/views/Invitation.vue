@@ -6,11 +6,11 @@
                      <div class="title">
                          <span class="i"></span>
                          <h5>业主最新招标</h5>
-                         <a href="#" class="it">更多>></a>
+                         <a href="#" class="it" @click="inceter">更多>></a>
                      </div>
                      <div class="cont" >
-                         <div class="ie"  v-for="(item,i) in bidlist" :key="i" @click="hand(item)">
-                             <a href="#">{{item.title}}</a>
+                         <div class="ie"  v-for="(item,i) in bidlist" :key="i" >
+                             <a  @click="hand(item)">{{item.title}}</a>
                              <span>01.10</span>
                          </div>
                      </div>
@@ -118,23 +118,27 @@ export default {
     data () {
         return {
             bidlist:[],//招标列表
-            
         }
     },
     methods:{
         hand(item){
+            console.log(item)
             this.$router.push({name:'bidding',params:item})
         },
         getbiddList(){
             this.$Axios({
                 url:'/bidlist',
                 method:'GET',
-                data:{area:'重庆'},
+                data:{area:'重庆市'},
                 success:(result=>{
                     console.log(result)
                     this.bidlist = result
                 })
             })
+        },
+        //查看跟多招标信息
+        inceter(){
+            this.$router.push({name:'incenter'})
         }
     },
     created(){

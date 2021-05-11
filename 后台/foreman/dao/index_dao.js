@@ -23,4 +23,29 @@ module.exports = class foreman_dao extends require('../model/index_mode'){
         res.send(result)
     }
 
+    /**
+     * 首页根据类型获取效果图
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async geteffimg(req,res){
+        let type= req.query.type;
+        let result = await this.effict(type)
+        res.send(result)
+    }
+
+    /**
+     * 根据封面图片获取该图片下的所有子图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async gettypeimglist(req,res){
+        let id= req.query.id;
+        console.log(id)
+        let result = await this.typeimglidt(id);
+        res.send(result)
+    }
+
 }

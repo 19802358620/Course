@@ -1,50 +1,35 @@
 <template>
   <div class="mm" :style="{height:`${height}px`}">
-      <vimg :imgsArr="imgsArr" @click="clickFn"  :gap='10'>
-          <div class="title">
-            <p class="p">装修案例</p>
-          </div>
+      <vimg :imgsArr="imgsArr" @click="clickFn"  :gap='10' class="effect">
+        <div class="img-info" slot-scope="props">
+         <p class="some-info">{{props.value.title}}</p>
+        </div>
+        <div slot="waterfall-over">waterfall-over</div>
           <div slot="waterfall-head">
               <div class="header">
                   <div class="title ">
            <div class="huo">
              <span class="sp">户型</span>
              <div class="li">
-               <a class="a"  href="">全部</a>
-               <a class="a"  href="">小户型</a>
-               <a class="a"  href="">二居</a>
-               <a class="a"  href="">三居</a>
-               <a class="a"  href="">四居</a>
+               <a class="a"  v-for="item in huxing" :key=item @click="select(item)">{{item}}</a>
              </div>
            </div>
            <div class="huo">
-             <span class="sp">面积</span>
+             <span class="sp">布局</span>
              <div class="li">
-               <a class="a" href="">全部</a>
-               <a class="a" href="">40㎡以下</a>
-               <a class="a" href="">41-60㎡</a>
-               <a class="a" href="">61-90㎡</a>
-               <a class="a" href="">91-120㎡ </a>
+                 <a class="a"   v-for="item in layout" :key=item @click="select(item)">{{item}}</a>
              </div>
            </div>
            <div class="huo">
              <span class="sp">风格</span>
              <div class="li">
-               <a class="a"   href="">全部</a>
-               <a class="a"   href="">中式</a>
-               <a class="a"   href="">欧式</a>
-               <a class="a"   href="">美式</a>
-               <a class="a"   href="">现代</a>
+               <a class="a"   v-for="item in style" :key=item @click="select(item)">{{item}}</a>
              </div>
            </div>
            <div class="huo">
-             <span class="sp">总价</span>
+             <span class="sp">空间</span>
              <div class="li">
-               <a class="a" href="">全部</a>
-               <a class="a" href="">1-5万</a>
-               <a class="a" href="">5-10万</a>
-               <a class="a" href="">10-20万</a>
-               <a class="a" href="">20-30万</a>
+                <a class="a"   v-for="item in space" :key=item @click="select(item)">{{item}}</a>
              </div>
            </div>
          </div>
@@ -52,6 +37,26 @@
           </div>
            <div slot="waterfall-over">waterfall-over</div>
       </vimg>
+      <el-dialog
+          title=""
+          :visible.sync="dialogVisible"
+          width="60%"
+          :before-close="handleClose"
+          append-to-body=true
+          >
+          <viewer :images="typeimglist"> 
+            <img
+                v-for="(item,index) in typeimglist"
+                :src="item.src"
+                :key="index"
+                :onerror="errorImg"
+                style="width:100%;height:100%"
+              >
+           </viewer>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">关闭</el-button>
+          </span>
+     </el-dialog>
   </div>
 </template>
 <script>
@@ -87,19 +92,60 @@ export default {
                 { id:'20',   src: require('../../assets/imgs/照片墙/05.jpg')},
                 { id:'21',   src: require('../../assets/imgs/照片墙/06.jpg')},
                 { id:'22',   src: require('../../assets/imgs/照片墙/07.jpg')},
-            ]
+            ],
+            typeimglist:[],//类型字图片列表
+            //户型
+            huxing:['一室','两室','三室','复式','别墅','阁楼','小户型'],
+            style:['简约','韩式','中式','欧式','田园','地中海','日式','现代'],
+            space:['客厅','卧室','厨房','儿童房','卫生间','书房'],
+            layout:['背景墙','玄关','阳台','吊顶','卫橱柜','衣柜','吧台'],
+            dialogVisible:false,
         }
     },
     components:{
         vimg,
     },
+    created(){
+      this.gettypeeffect('客厅')
+    },
     methods:{
+      //查询选择
+      select(data){
+        this.gettypeeffect(data)
+        console.log(data)
+      },
+      //根据类型获取不同类型的效果图
+      gettypeeffect(data){
+        this.$Axios({
+          url:'/geteffimg',
+          method:'GET',
+          data:{type:data},
+          success:(result=>{
+            this.imgsArr = result
+          })
+        })
+      },
+    //获取所有分组图片
+    gettypeimglist(id){
+      this.$Axios({
+        url:'/gettypeimglist',
+        method:'GET',
+        data:{id:id},
+        success:(result=>{
+          this.typeimglist = result
+          console.log(result)
+        })
+      })
+
+    },
     clickFn(event, { index,value}) {
     // 阻止a标签跳转
     event.preventDefault()
     // 只有当点击到图片时才进行操作
     if (event.target.tagName.toLowerCase() == 'img') {
-        console.log(index,value.__ob__.value.src)
+      this.dialogVisible=true
+        console.log(index,value)
+        this.gettypeimglist(value.id)
     }
   }
     }
@@ -107,6 +153,17 @@ export default {
 </script>
 
 <style scoped>
+.effect{
+  transition:all .2s;
+ 
+}
+.img-box:hover{
+   transform:scale(1.2);
+}
+.some-info{
+  font-size: 12px;
+  line-height: 31px
+}
 .a{
   color: inherit;
   line-height: 47px;
@@ -115,7 +172,7 @@ export default {
   text-decoration: none;
   white-space: nowrap;
   border-radius: 6px;
-font-size: 14px;
+  font-size: 14px;
 }
 .li{
   position: absolute;
@@ -143,10 +200,11 @@ font-size: 14px;
 }
 .huo .sp{
   font-size: 14px;
-  color: #444444;
+  color: #ff552e;
   display: block;
   text-align: left;
   width: 30px;
+  font-weight: bold;
 
 }
 .header{
@@ -171,7 +229,6 @@ vimg:hover{
 .mm{
     width: 1200px;
     margin: 10px auto;
-    border: 1px solid #eee;
     overflow-y: hidden;
 }
 </style>

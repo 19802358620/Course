@@ -4,7 +4,7 @@
           <table class="tab">
               <tbody>
                   <tr>
-                      <td colspan="5"><h1>{{list.suoarea}}</h1></td>
+                      <td colspan="5"><h1>{{list.province}}·{{list.city}}·{{list.adder}}·{{list.title}}</h1></td>
                   </tr>
                   <tr>
                       <td>投标编号：{{list.id}}</td>
@@ -22,11 +22,11 @@
                       <td>户型结构：{{list.structure}}</td>
                       <td>装修风格：{{list.style}}</td>
                       <td>房屋用途：{{list.use}}</td>
-                      <td> 	装修预算：{{list.budget}}</td>
+                      <td>装修预算：{{list.budget}}</td>
                   </tr>
                   <tr>
-                      <td colspan="2">所在地区：{{list.suoarea}}</td>
-                      <td colspan="2">街道/小区：{{list.communityid}}</td>
+                      <td colspan="2">所在地区：{{list.province}}·{{list.city}}·{{list.adder}}</td>
+                      <td colspan="2">街道/小区：{{list.communityname}}</td>
                   </tr>
                   <tr>
                       <td colspan="2">量房时间：{{list.ltitme}}</td>

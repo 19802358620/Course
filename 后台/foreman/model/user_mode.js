@@ -23,10 +23,10 @@ module.exports = class user_mod extends require('./model'){
      * 业主发布需求
      * @returns {Promise<unknown>}
      */
-    static addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname){
+    static addbidd(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,ltitme,dotime,remarks,content,claim,userid,user,communityname,province,city,adder){
         return new Promise((resolve,reject)=>{
-            let sql = "insert into `demand` (title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-            this.query(sql,this.formatParams(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,suoarea,ltitme,dotime,remarks,content,claim,userid,user,communityname)).then((result)=>{
+            let sql = "insert into `demand` (title,titme,status,contract,type,space,statusquo,area,structure,style,budget,ltitme,dotime,remarks,content,claim,userid,user,communityname,province,city,adder) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+            this.query(sql,this.formatParams(title,titme,status,contract,type,space,statusquo,area,structure,style,budget,ltitme,dotime,remarks,content,claim,userid,user,communityname,province,city,adder)).then((result)=>{
                 resolve(result)
             }).catch(err=>{
                 reject("由于网络原因，你的招标需求没有发出")

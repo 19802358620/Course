@@ -9,6 +9,7 @@
 <Setp></Setp>
 <!-- 效果图-->
 <Info></Info>
+<!-- <viwer></viwer> -->
 <!-- 工长介绍 -->
 <Card></Card>
 <!-- 装修日记 -->
@@ -34,11 +35,14 @@ import Invitation from '../views/Invitation'
 import back from '../views/back'
 import fromain from '../views/forman/frominfo'
 import site from '../views/site'
+// import viwer from '../views/pictview'
 export default {
     components:{
         Banner,
         Center,
         Info,
+        // viwer,
+
         Card,
         Setp,
         // Day,

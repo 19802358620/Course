@@ -10,9 +10,11 @@ import VDistpicker from 'v-distpicker'
 import vRegion from 'v-region'
 import axios from 'axios'
 import vGallery from 'v-gallery'
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css';
 
 
-
+Vue.use(Viewer)
 Vue.use(vRegion)
 Vue.use(vGallery)
 Vue.component('v-distpicker', VDistpicker)

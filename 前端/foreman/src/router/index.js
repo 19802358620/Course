@@ -13,7 +13,8 @@ const routes = [
   //投标信息
   { path: '/bidding', name: 'bidding', component: () => import('../views/forman/Bidding.vue') },
   // 学装修
-  { path: '/learn', name: 'learn', component: () => import('../views/学装修/Learn.vue') },
+  // { path: '/learn', name: 'learn', component: () => import('../views/学装修/Learn.vue') },
+  { path: '/incenter', name: 'incenter', component: () => import('../views/incenter.vue') },
   // 效果图
   { path: '/effect', name: 'effect', component: () => import('../views/forman/effect.vue') },
   //  装修问答
