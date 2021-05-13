@@ -48,4 +48,17 @@ module.exports = class foreman_dao extends require('../model/index_mode'){
         res.send(result)
     }
 
+    /**
+     * 根据地区获取小区列表
+     * @param res
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async getcommunitylist(req,res){
+        let area= req.query.area;
+        console.log(area)
+        let result = await this.communitylist(area);
+        res.send(result)
+    }
+
 }

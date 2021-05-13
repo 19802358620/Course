@@ -26,146 +26,22 @@
           <span class="an">123456</span>
           个适合装修的方案
       </div>
-      <div class="list">
+      <div class="list" v-for="(item,i) in communitylist.slice(0,8)" :key=i>
           <div class="left">
               <a href="">
-                  <img src="../../assets/imgs/我的小区/我的小区.jpg" alt="">
+                  <img :src="item.src" alt="">
               </a>
           </div>
           <div class="right">
               <div class="right_tilte">
-                  <a href="#">东方蓝海中心</a>
+                  <a href="#">{{item.title}}</a>
               </div>
               <div class="li">
                   <button class="btn" @click="hand">查看方案</button>
               </div>
                <div class="li">
                  <span>开发商：</span>
-                 北京东方蓝海置业有限责任公司 
-              </div>
-              <div class="li01">
-                 <span>相关标签：</span>
-                 <a href="">小区详情</a> 
-                 <a href="">户型图</a>
-                 <a href="">实景图</a>
-                 <a href="">样板图</a>
-              </div>
-               <div class="li02">
-                 <span>游览量：</span>
-                 <em>123</em>
-                 人查看了该楼盘
-              </div>
-          </div>
-      </div>
-      <div class="list">
-          <div class="left">
-              <a href="">
-                  <img src="../../assets/imgs/我的小区/我的小区.jpg" alt="">
-              </a>
-          </div>
-          <div class="right">
-              <div class="right_tilte">
-                  <a href="#">东方蓝海中心</a>
-              </div>
-              <div class="li">
-                  <button class="btn">查看方案</button>
-              </div>
-               <div class="li">
-                 <span>开发商：</span>
-                 北京东方蓝海置业有限责任公司 
-              </div>
-              <div class="li01">
-                 <span>相关标签：</span>
-                 <a href="">小区详情</a> 
-                 <a href="">户型图</a>
-                 <a href="">实景图</a>
-                 <a href="">样板图</a>
-              </div>
-               <div class="li02">
-                 <span>游览量：</span>
-                 <em>123</em>
-                 人查看了该楼盘
-              </div>
-          </div>
-      </div>
-      <div class="list">
-          <div class="left">
-              <a href="">
-                  <img src="../../assets/imgs/我的小区/我的小区.jpg" alt="">
-              </a>
-          </div>
-          <div class="right">
-              <div class="right_tilte">
-                  <a href="#">东方蓝海中心</a>
-              </div>
-              <div class="li">
-                  <button class="btn">查看方案</button>
-              </div>
-               <div class="li">
-                 <span>开发商：</span>
-                 北京东方蓝海置业有限责任公司 
-              </div>
-              <div class="li01">
-                 <span>相关标签：</span>
-                 <a href="">小区详情</a> 
-                 <a href="">户型图</a>
-                 <a href="">实景图</a>
-                 <a href="">样板图</a>
-              </div>
-               <div class="li02">
-                 <span>游览量：</span>
-                 <em>123</em>
-                 人查看了该楼盘
-              </div>
-          </div>
-      </div>
-      <div class="list">
-          <div class="left">
-              <a href="">
-                  <img src="../../assets/imgs/我的小区/我的小区.jpg" alt="">
-              </a>
-          </div>
-          <div class="right">
-              <div class="right_tilte">
-                  <a href="#">东方蓝海中心</a>
-              </div>
-              <div class="li">
-                  <button class="btn">查看方案</button>
-              </div>
-               <div class="li">
-                 <span>开发商：</span>
-                 北京东方蓝海置业有限责任公司 
-              </div>
-              <div class="li01">
-                 <span>相关标签：</span>
-                 <a href="">小区详情</a> 
-                 <a href="">户型图</a>
-                 <a href="">实景图</a>
-                 <a href="">样板图</a>
-              </div>
-               <div class="li02">
-                 <span>游览量：</span>
-                 <em>123</em>
-                 人查看了该楼盘
-              </div>
-          </div>
-      </div>
-      <div class="list">
-          <div class="left">
-              <a href="">
-                  <img src="../../assets/imgs/我的小区/我的小区.jpg" alt="">
-              </a>
-          </div>
-          <div class="right">
-              <div class="right_tilte">
-                  <a href="#">东方蓝海中心</a>
-              </div>
-              <div class="li">
-                  <button class="btn">查看方案</button>
-              </div>
-               <div class="li">
-                 <span>开发商：</span>
-                 北京东方蓝海置业有限责任公司 
+                 {{item.developer}} 
               </div>
               <div class="li01">
                  <span>相关标签：</span>
@@ -185,7 +61,9 @@
           <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            :total="1000"
+            page-size=8
+            >
       </el-pagination>
       </div>
   </div>
@@ -196,12 +74,28 @@ export default {
     data(){
         return{
             height:document.documentElement.clientHeight,
+            communitylist:[],//小区列表
         }
     },
     methods:{
         hand(){
            this.$router.push({ name: 'paogram', params: { paogramId: '123' }})
+        },
+        //根据地区获取小区列表
+        getcommunitylist(){
+            this.$Axios({
+                url:'/getcommunitylist',
+                method:'GET',
+                data:{area:'巴南'},
+                success:(result=>{
+                    this.communitylist = result;
+                    console.log(result)
+                })
+            })
         }
+    },
+    created(){
+        this.getcommunitylist()
     }
 }
 </script>

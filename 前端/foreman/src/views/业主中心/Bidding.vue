@@ -186,7 +186,7 @@ export default {
 data(){
     return{
       //加载中
-      isedit:false,
+      isedit:true,
       user:'',
       isloading:false,
       //招标信息

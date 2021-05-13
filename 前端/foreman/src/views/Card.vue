@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top:215px">
        <el-row type="flex" justify='start' class="p">
           <el-col :span="8">
               <div class="h2">重庆 · <em>设计师</em></div>

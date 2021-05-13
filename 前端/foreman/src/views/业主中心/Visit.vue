@@ -23,7 +23,7 @@
            width="45%"
            :open="opendiog"
           :append-to-body='true'
-          top='20vh'
+          top='15vh'
           >
           <el-row :gutter="20">
             <el-col :span="6"><div class="list">工长姓名：<strong style="color:#01af69;font-weight: bold;">{{item.name}}</strong></div></el-col>
@@ -67,7 +67,7 @@
              title="预约信息"
              :visible.sync="innerVisible"
              append-to-body
-             top='22vh'
+             top='15vh'
              >
              <el-form :model="order" :rules="rules">
                <el-row>

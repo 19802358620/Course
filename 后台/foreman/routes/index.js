@@ -21,4 +21,8 @@ router.get('/geteffimg',function (req,res){
 router.get('/gettypeimglist',function (req,res){
   index.gettypeimglist(req,res)
 })
+//同城装修获取小区详情
+router.get('/getcommunitylist',function (req,res){
+  index.getcommunitylist(req,res)
+})
 module.exports = router;

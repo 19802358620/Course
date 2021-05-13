@@ -64,4 +64,20 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+
+    /**
+     * 根据地区获取小区列表
+     * @param area
+     */
+    static communitylist(area){
+        return  new Promise((resolve,reject)=>{
+            let sql =  this.Geshi('select','community','*',{area:area})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('该地区暂无招标信息')
+            })
+        })
+    }
 }

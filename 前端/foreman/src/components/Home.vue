@@ -1,17 +1,19 @@
 <template>
 <div>
 <Banner :bannerlist='list'></Banner>
-<Center></Center>
+<!-- <Center></Center> -->
 <div class="zhong">
-<!-- 优质工长 -->
+  <!-- 优质工长 -->
 <fromain></fromain>
 <!-- 装修流程 -->
-<Setp></Setp>
+<process></process>
+<!-- 装修流程 -->
+<!-- <Setp></Setp> -->
 <!-- 效果图-->
 <Info></Info>
 <!-- <viwer></viwer> -->
-<!-- 工长介绍 -->
-<Card></Card>
+<!-- 设计师介绍 -->
+<!-- <Card></Card> -->
 <!-- 装修日记 -->
 <!-- <Day></Day> -->
 <!-- 在建工地 -->
@@ -26,25 +28,26 @@
 </template>
 <script>
 import Banner from '../views/Banner'
-import Center from '../views/Center'
+// import Center from '../views/Center'
 import Info from '../views/Information'
-import Card from '../views/Card'
-import Setp from '../views/Step'
+// import Card from '../views/Card'
+// import Setp from '../views/Step'
 // import Day from '../views/Day'
 import Invitation from '../views/Invitation'
 import back from '../views/back'
 import fromain from '../views/forman/frominfo'
 import site from '../views/site'
 // import viwer from '../views/pictview'
+import process from '../views/loading/proc'
 export default {
     components:{
         Banner,
-        Center,
+        // Center,
         Info,
+        process,
         // viwer,
-
-        Card,
-        Setp,
+        // Card,
+        // Setp,
         // Day,
         Invitation,
         back,

@@ -1,13 +1,19 @@
 <template>
   <div style="height:530px">
-      <el-row type="flex" justify='start' class="p">
+      <!-- <el-row type="flex" justify='start' class="p">
           <el-col :span="8">
               <div class="h2">装修 · <em>效果</em></div>
           </el-col>
             <el-col :span="16">
               <a href="#" class="a">更多>></a>
           </el-col>
-     </el-row>
+     </el-row> -->
+      <div class="warp">
+          <p class="title">工长装修效果图</p>
+          <div class="sp_t">
+              户型风格自由搭配90%业主都在选 
+          </div>
+      </div>
           <el-row type="flex" justify='start' >
               <el-col :span='8' >
                     <div class="item" >
@@ -182,5 +188,21 @@ export default {
     width: 320px;
     height: 412px;
     padding-top: 20px;
+}
+.warp{
+    text-align: center;
+    font-family: "微软雅黑", Tahoma, Arial;
+    width: 100%;
+    margin-top: -40px;
+}
+.warp .title{
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: black;
+}
+.warp .sp_t{
+    font-size: 14px;
+    color: #717171;
+    margin-top: -70px;
 }
 </style>
