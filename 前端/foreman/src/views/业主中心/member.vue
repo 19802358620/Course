@@ -122,7 +122,6 @@
 export default {
     data(){
         return{
-            
             user:'',
             demandlist:[],//需求列表
             isShow:false,
@@ -142,6 +141,7 @@ export default {
         getuser(){
             this.url = "http://localhost:3000/users/getImg?img="
             this.users = this.$route.params;
+            console.log(this.users)
             this.$Axios({
              url:'/users/login',
              method:'POST',
@@ -169,6 +169,7 @@ export default {
                     this.isShow=true
                 }else{
                     this.demandlist = result
+                    console.log(this.demandlist)
                     this.isShow=false
                 }
             }

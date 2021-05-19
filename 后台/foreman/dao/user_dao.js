@@ -1,6 +1,7 @@
 const  jwtUtil = require('../utils/jwtUtils');
 let fs = require('fs')
 
+
  // const redisUtils = require('../utils/redisUtils');
 module.exports = class user_dao extends require('../model/user_mode'){
     /**
@@ -13,7 +14,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
     static async Login(req,res){
         let body = req.body;
         let loginData = await this.loginUser(body.name,body.password)
-        res.send(loginData)
+         res.send(loginData)
         // if(loginData.length!=0){
         //     let jwt_token = jwtUtil.sign({
         //         id:loginData[0].id,
@@ -28,7 +29,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
         //         wei:loginData[0].wei,
         //         sex:loginData[0].sex,
         //         communityid:loginData[0].communityid
-        //     },global.globalkey,3600)
+        //     },global.globalKey,3600)
         //     res.send({loginData,jwt_token})
         // }else{
         //     res.status(500).send('用户名或者账号输入错误')
