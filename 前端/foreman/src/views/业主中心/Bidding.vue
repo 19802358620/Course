@@ -335,6 +335,7 @@ methods:{
                console.log(this.imgdata)
                this.$refs.upload.submit();
                  this.open3()
+                 this.$router.push({name:"manage"})
                }else{
                  this.open3()
                }

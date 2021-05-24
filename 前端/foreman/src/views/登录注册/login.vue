@@ -132,18 +132,19 @@ export default {
              data:this.user,
              success:(result)=>{
                console.log(result)
+               console.log(result.loginData[0])
               if(result.length==0){
                this.open()
                 this.user.name=''
                 this.user.password=''
               }else{
                 this.open1()
-                this.foremans = result[0]
-                this.$store.commit('setuser', result[0])
+                this.foremans = result.loginData[0]
+                this.$store.commit('setuser', result.loginData[0])
                 // this.$store.commit('setuser', result[0])
                 // store.commit('setuser', result[0])
-                // window.localStorage.setItem("token",result.jwt_token)
-                this.$router.push({name:"tenderadd",params:result[0]})
+                window.localStorage.setItem("token",result.jwt_token)
+                this.$router.push({name:"tenderadd",params:result.loginData[0]})
               }
           }
           })

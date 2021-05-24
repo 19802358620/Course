@@ -100,12 +100,12 @@
                   v-for="(item,i) in demandlist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>{{item.titme}}</td>
+                      <td>{{item.titme.slice(0,10)}}</td>
                       <td style="color:red">{{item.status}}</td>
                       <td>{{item.contract}}</td>
                       <td>{{item.statusquo}}</td>
                       <td>{{item.budget}}</td>
-                      <td style="color:red">200次</td>
+                      <td style="color:red">{{item.view}}</td>
                       <td style="width: 140px;">
                           <a class="btn" @click.stop="Details(item)">查看详情</a>
                       </td>
@@ -143,10 +143,11 @@ export default {
             this.users = this.$route.params;
             console.log(this.users)
             this.$Axios({
-             url:'/users/login',
+             url:'/users/userlist',
              method:'POST',
              data:this.users,
              success:(result=>{
+                 console.log(result)
                  this.user = result[0]
                  if(this.user.userpic==''){
                      this.url=''
@@ -165,6 +166,7 @@ export default {
             method:'GET',
             data:{userid:this.users.id},
             success:(result)=>{
+                console.log(result)
                 if(result.length===0){
                     this.isShow=true
                 }else{

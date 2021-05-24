@@ -7,7 +7,7 @@
                       <td colspan="5"><h1>{{list.province}}·{{list.city}}·{{list.adder}}·{{list.title}}</h1></td>
                   </tr>
                   <tr>
-                      <td>投标编号：{{list.id}}</td>
+                      <td style="color:red;">招标编号：第{{list.id}}号</td>
                       <td>发布时间：{{list.titme}}</td>
                       <td>订单状态：<span class="span">{{list.status}}</span></td>
                       <td>承包方式：{{list.contract}}</td>

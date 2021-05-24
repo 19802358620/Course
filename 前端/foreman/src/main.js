@@ -37,6 +37,7 @@ axios.defaults.baseURL = 'http://localhost:3000';
 /**
  * 封装axios方法
  */
+axios.defaults.headers.common['token'] = window.localStorage.getItem('token')
 let futurAxios = (options) => {
   options.data.token = window.localStorage.token;
   axios({
@@ -74,13 +75,13 @@ let Axios=(options)=>{
         }
     }).catch(err => {
       console.log(err)
-        let msg = err.response ? err.response.data:'请求异常'
-        if (options.error){
-            options.error(msg)
-            Message.error({message: msg, offset: 150});
-        }else {
-            Message.error({message: msg, offset: 150});
-        }
+        // let msg = err.response ? err.response.data:'请求异常'
+        // if (options.error){
+        //     options.error(msg)
+        //     Message.error({message: msg, offset: 150});
+        // }else {
+        //     Message.error({message: msg, offset: 150});
+        // }
     })
 }
 //需要添加拦截器的

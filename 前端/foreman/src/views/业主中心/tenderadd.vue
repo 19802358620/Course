@@ -16,9 +16,9 @@
         <div class="titname" >我的装修</div>
         <a @click="bidd"  :class="{clactive:id==2}">发布装修招标</a>
         <a @click="manage" :class="{clactive:id==4}">管理装修招标</a>
-        <a @click="visit" :class="{clactive:id==6}" >项目投标情况</a>
+        <!-- <a @click="vist" :class="{clactive:id==6}" >项目投标情况</a> -->
         <a @click="reser" :class="{clactive:id==7}">我预约的工长</a>
-        <a @click="project" :class="{clactive:id==8}">我的装修进程</a>
+        <a @click="vist" :class="{clactive:id==8}">我的装修项目</a>
         <a href="">已申请参观工地</a>
       </div>
       <div class="item">
@@ -78,19 +78,19 @@ export default {
       this.$router.push({name:"changpwd",params:this.user})
     },
     //投标情况
-    visit(){
-      this.id =6;
-      this.$router.push({name:"visit",params:this.user})
-    },
+    // vist(){
+    //   this.id =6;
+    //   this.$router.push({name:"vist",params:this.user})
+    // },
     //我的预约记录
     reser(){
       this.id =7;
       this.$router.push({name:"reser",params:this.user})
     },
     //我的装修项目
-    project(){
+    vist(){
       this.id =8;
-      this.$router.push({name:"project",params:this.user})
+      this.$router.push({name:"vist",params:this.user})
     },
     //管理我的评价
     usereval(){

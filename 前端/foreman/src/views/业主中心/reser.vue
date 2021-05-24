@@ -12,6 +12,7 @@
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
                       <th>工长姓名</th>
+                       <th>招标编号</th>
                       <th>性别</th>
                       <th>联系电话</th>
                       <th>微信</th>
@@ -27,6 +28,7 @@
                   >
                       <td>{{i+1}}</td>
                       <td>{{item.name}}</td>
+                       <td style="color:red">{{item.demandid}}</td>
                       <td>{{item.sex}}</td>
                       <td >{{item.phone}}</td>
                       <td>{{item.wei}}</td>
@@ -143,14 +145,16 @@ export default {
         //获取预约信息
         getreslist(){
             this.$Axios({
-                url:'/users/getreslist',
+                url:'/users/resforeman',
                 method:'GET',
                 data:{userid:this.$store.state.user.id},
                 success:(result=>{
                     console.log(result)
                     for(let i in result){
-                        if(result[i].cancel==null){
+                        result[i].demandid = '第'+result[i].demandid +'号'
+                        if(result[i].cancel==''){
                             result[i].istrue= false;
+                            this.getreslist()
                         }else{
                             result[i].istrue = true
                         }
@@ -158,7 +162,6 @@ export default {
                     this.reslist = result
                 })
             })
-
         },
         open(msg,type) {
         this.$notify({

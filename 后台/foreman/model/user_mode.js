@@ -189,9 +189,9 @@ module.exports = class user_mod extends require('./model'){
      * @param id
      * @returns {Promise<unknown>}
      */
-    static stenderlist(id){
+    static stenderlist(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql= 'select foreman.*,foreman.id foremanid,pmstender.*,pmstender.id pmstenderid FROM pmstender LEFT JOIN foreman ON pmstender.foremanid = foreman.id where pmstender.userid = '+'"'+id+'"';
+            let sql= 'select foreman.*,foreman.id foremanid,pmstender.*,pmstender.id pmstenderid FROM pmstender LEFT JOIN foreman ON pmstender.foremanid = foreman.id where pmstender.userid = '+'"'+id+'" and demandid ='+'"'+demandid+'" ';
             console.log(sql)
             this.query(sql).then((result)=>{
                 resolve(result)
@@ -261,7 +261,22 @@ module.exports = class user_mod extends require('./model'){
      * @param id
      * @returns {Promise<unknown>}
      */
-    static reslist(id){
+    static reslist(id,demandid){
+        return new Promise((resolve,reject)=>{
+            let sql= 'SELECT foreman.*, `order`.* ,`order`.id orderid FROM `order` LEFT JOIN foreman ON foreman.id = order.foremanid WHERE `order`.userid = '+'"'+id+'" and demandid = '+'"'+demandid+'"'
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('fasle')
+            })
+        })
+    }
+
+    /**
+     * 业主获取所有的预约信息
+     * @param id
+     */
+    static resforemanlist(id){
         return new Promise((resolve,reject)=>{
             let sql= 'SELECT foreman.*, `order`.* ,`order`.id orderid FROM `order` LEFT JOIN foreman ON foreman.id = order.foremanid WHERE `order`.userid = '+'"'+id+'"'
             this.query(sql).then((result)=>{
@@ -314,9 +329,9 @@ module.exports = class user_mod extends require('./model'){
      * 获取业主上传的预约记录图片
      * @param id
      */
-    static resimg(id){
+    static resimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,resimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,resimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -462,9 +477,9 @@ module.exports = class user_mod extends require('./model'){
      * 业主获取订单记录
      * @param id
      */
-   static orderlistmsg(id){
+   static orderlistmsg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = 'SELECT `order`.*, foreman.*  FROM  `order`  LEFT JOIN foreman ON foreman.id = `order`.foremanid WHERE `order`.isres = 2 and `order`.userid ='+'"'+id+'"';
+            let sql = 'SELECT `order`.*, foreman.*  FROM  `order`  LEFT JOIN foreman ON foreman.id = `order`.foremanid WHERE `order`.isres = 2 and `order`.userid ='+'"'+id+'" and demandid ='+'"'+demandid+'" ';
             console.log(sql)
             this.query(sql).then((result)=>{
                 resolve(result)
@@ -526,6 +541,20 @@ module.exports = class user_mod extends require('./model'){
             }).catch(err=>{
                 reject('false')
             })
+        })
+    }
+
+    /**
+     * 改变游览量
+     * @param id
+     */
+    static setviewlist(id,view){
+        let sql = "update  `demand` set `view` = "+"'"+view+"'"+" where `id` = "+"'"+id+"'"+"";
+        console.log(sql)
+        this.query(sql).then((reult)=>{
+            resolve(reult)
+        }).catch(err=>{
+            reject('false')
         })
     }
 }

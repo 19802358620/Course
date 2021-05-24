@@ -65,7 +65,7 @@ const routes = [
       //发布装修招标
       { path: '/bidd', name: 'bidd', component: () => import('../views/业主中心/Bidding.vue') },
       //参与项目工长
-      { path: '/visit', name: 'visit', component: () => import('../views/业主中心/Visit.vue') },
+      { path: '/Visitlist', name: 'Visitlist', component: () => import('../views/业主中心/Visitlist.vue') },
       //修改密码
       { path: '/changpwd', name: 'changpwd', component: () => import('../views/业主中心/password.vue') },
       //管理需求招标
@@ -73,6 +73,10 @@ const routes = [
       //我的预约记录
       { path: '/reser', name: 'reser', component: () => import('../views/业主中心/reser.vue') },
       //我的装修项目
+      { path: '/project', name: 'project', component: () => import('../views/业主中心/project.vue') },
+      //我的装修项目
+      { path: '/vist', name: 'vist', component: () => import('../views/业主中心/vist.vue') },
+      //装修工程
       { path: '/project', name: 'project', component: () => import('../views/业主中心/project.vue') },
       //管理我的评价
       { path: '/usereval', name: 'usereval', component: () => import('../views/业主中心/usereval.vue') },

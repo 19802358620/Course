@@ -11,6 +11,7 @@
               <tbody>
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
+                       <th>招标编号</th>
                       <th>发布时间</th>
                       <th>招标状态</th>
                       <th>承包方式</th>
@@ -23,22 +24,23 @@
                   v-for="(item,i) in list" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>2021-04-15</td>
+                      <td style="color:red">{{item.id}}</td>
+                      <td>{{item.titme.slice(0,10)}}</td>
                       <td style="color:red">{{item.status}}</td>
                       <td>{{item.contract}}</td>
                       <td>{{item.statusquo}}</td>
                       <td>{{item.budget}}</td>
-                      <td style="color:red">200次</td>
-                      <td style="width: 140px;">
+                      <td>{{item.view}}</td>
+                      <td style="width: 150px;">
                           <a class="btn" @click.stop="Details(item)">详情/</a>
                           <a class="btn" @click="modify(item)">修改/</a>
                           <el-popconfirm
                              title="您确定要删除这条招标需求吗？"
                              @confirm="deletelist(item)"
                             >
-                           <a slot="reference">删除</a>
-                             </el-popconfirm>
-                          <!-- <a class="btn" style="color:red" slot="reference">删除</a> -->
+                           <a slot="reference"  style="color:red">删除</a>
+                             </el-popconfirm>/
+                          <a class="btn" @click="demandlist(item)" >投标情况</a>
                       </td>
                   </tr>
               </tbody>
@@ -58,12 +60,17 @@ export default {
         }
     },
     methods:{
+        //查看该条招标的投标信息
+        demandlist(data){
+            this.$router.push({name:'Visitlist',params:data})
+        },
         //删除记录
         deletelist(item){
+            let id = item.id.slice(1,4)
             this.$Axios({
                 url:'/users/deledemand',
                 method:'DELETE',
-                data:{id:item.id},
+                data:{id:id},
                 success:(result=>{
                     if(result){
                         this.open1()
@@ -82,6 +89,10 @@ export default {
             method:'GET',
             data:{userid:id},
             success:(result)=>{
+                console.log(result)
+                for(let i in result){
+                     result[i].id = '第'+result[i].id +'号'
+                }
                 this.number= result.length
                 this.list = result
                 console.log(result)

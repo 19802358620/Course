@@ -18,9 +18,16 @@
       </div>
       <div class="content">
           <div class="block">
-  <el-timeline  >
+              <div class="cent" v-if="isflag===0">
+                  <div class="msg">
+                      <i class="megi"></i>
+                      此条招标还没有预约信息哦~
+                  </div>
+                  <div style="color: #a1a1a1;padding-top: 10px;font-size:12px;margin-top: -10px;">现在预约工长，免费获得1-3位工长提供的设计和报价方案服务</div>
+              </div>
+  <el-timeline  v-else>
     <!-- 签订合同开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary">
+    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary" >
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">签订合同</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -337,6 +344,8 @@
 export default {
     data(){
         return{
+          isflag:'',//判断
+          demanditme:{},//单条招标信息
         iseval:true,//评价控制
         eval:{//业主评价信息
         time:'',
@@ -404,6 +413,12 @@ export default {
       
     },
     methods: {
+      //获取单条招标信息
+      getdemad(){
+        this.$route.params.id = this.$route.params.id.slice(1,4)
+        this.demanditme = this.$route.params
+        console.log(this.demanditme)
+      },
       //提交评价
       submiteval(name){
         var d = new Date();
@@ -460,15 +475,19 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:1},
+          data:{userid:this.$store.state.user.id,typeimg:1,demandid:this.demanditme.id},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+              for(let i in result){
               let img = result[i].url.slice(42)
               result[i].url = `${url}`+'resimg&img='+`${img}`
             }
             this.list = result
             console.log(result)
+            }
           })
         })
       },
@@ -481,12 +500,16 @@ export default {
           data:{userid:this.$store.state.user.id,typeimg:2},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+              for(let i in result){
               let img = result[i].url.slice(45)
               result[i].url = `${url}`+'dismanimg&img='+`${img}`
             }
             this.distmanimg = result
             console.log(result)
+            }
           })
         })
       },
@@ -499,12 +522,16 @@ export default {
           data:{userid:this.$store.state.user.id,typeimg:3},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+               for(let i in result){
               let img = result[i].url.slice(43)
               result[i].url = `${url}`+'hydimg&img='+`${img}`
             }
             this.hydimglist = result
             console.log(result)
+            }
           })
         })
       },
@@ -517,12 +544,16 @@ export default {
           data:{userid:this.$store.state.user.id,typeimg:4},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+              for(let i in result){
               let img = result[i].url.slice(43)
               result[i].url = `${url}`+'woodimg&img='+`${img}`
             }
             this.woodimglist = result
             console.log(result)
+            }
           })
         })
       },
@@ -535,12 +566,16 @@ export default {
           data:{userid:this.$store.state.user.id,typeimg:5},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+              for(let i in result){
               let img = result[i].url.slice(44)
               result[i].url = `${url}`+'paintimg&img='+`${img}`
             }
             this.paintimglist = result
             console.log(result)
+            }
           })
         })
       },
@@ -553,12 +588,16 @@ export default {
           data:{userid:this.$store.state.user.id,typeimg:6},
           success:(result=>{
             console.log(result)
-            for(let i in result){
+            if(result.length===0){
+              url=''
+            }else{
+              for(let i in result){
               let img = result[i].url.slice(46)
               result[i].url = `${url}`+'acceptimg&img='+`${img}`
             }
             this.acceptimglist = result
             console.log(result)
+            }
           })
         })
       },
@@ -611,10 +650,16 @@ export default {
          this.$Axios({
                 url:'/users/getreslist',
                 method:'GET',
-                data:{userid:this.$store.state.user.id},
+                data:{userid:this.$store.state.user.id,demandid:this.demanditme.id},
                 success:(result=>{
                     console.log(result)
-                    this.foreman = result
+                    if(result.length==0){
+                      console.log(result)
+                      this.isflag =0
+                    }else{
+                      this.foreman = result
+                    }
+                    
                 })
             })
       },
@@ -623,7 +668,7 @@ export default {
         this.$Axios({
           url:'/users/userorderlist',
           method:'GET',
-          data:{userid:this.$store.state.user.id},
+          data:{userid:this.$store.state.user.id,demandid:this.demanditme.id},
           success:(result=>{
             this.reslist = result[0].fileList
             console.log(result)
@@ -652,7 +697,8 @@ export default {
         });
         }
     },
-    created(){
+    mounted () {
+      this.getdemad()
       this.getfroeman()
       this.getresimg()
       this.getordermsg()
@@ -667,6 +713,23 @@ export default {
 </script>
 
 <style scoped>
+.cent .msg .megi{
+    display: inline-block;
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    background: url('../../assets/imgs/登录/user.png') no-repeat -78px 0;
+}
+.cent .msg{
+    font-family: 微软雅黑, 黑体, 宋体 !important;
+    height: 62px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #333333;
+    margin-top: -50px;
+}
 .play{
   width: 200px;
   height: 200px;
@@ -679,7 +742,6 @@ export default {
   width: 100%;
   border: 1px dashed #eee;
   margin-top: -25px;
-  
 }
 .btn{
   float: right;

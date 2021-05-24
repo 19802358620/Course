@@ -330,7 +330,6 @@ input:focus{
     top: 15px;
     z-index: 9999;
     height: 178px;
-    z-index: 0;
 }
 .img .avatar{
     width: 178px;

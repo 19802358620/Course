@@ -16,7 +16,7 @@
           <h5 class="xian">房屋现状：<em>{{item.statusquo}}</em></h5>
           <h5 class="name">小区名称：<em>{{item.communityname}}</em></h5>
            <h5 class="adder">所在地区：<em>{{item.province}}·{{item.city}}·{{item.adder}}</em></h5>
-          <i class=" icon" >游览量：<em style="font-weight: bold;">123</em></i>
+          <i class=" icon" >游览量：<em style="font-weight: bold;">{{item.view}}</em></i>
           <a href="#" class="right1" @click="hand(item)">查看详情>></a>
           </div>
       </div>
@@ -50,6 +50,15 @@ export default {
         },
         //查看详情
         hand(item){
+            console.log(item)
+            this.$Axios({
+                url:'/users/view',
+                method:'GET',
+                data:{id:item.id,view:Number(item.view)+1},
+                success:(result=>{
+                    console.log(result)
+                })
+            })
             this.$router.push({name:'bidding',params:item})
         }
     },

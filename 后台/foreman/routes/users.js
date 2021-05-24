@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const user = require('../dao/user_dao')
+const jwt = require('jsonwebtoken')
 const multer = require('multer')
 let upload = multer({dest:'public/images/userinfo/'}).single('file');
 let resimg = multer({dest:'public/images/resimg/'}).array('file',6);
@@ -12,8 +13,17 @@ let acceptimg = multer({dest:'public/images/acceptimg/'}).array('file',6);
 let huximg = multer({dest:'public/images/huximg/'}).array('file',6);
 let designimg = multer({dest:'public/images/designimg/'}).array('file',6);
 let fs = require('fs')
-
-
+function  tokenCheck(req,res,next){
+  let token = req.headers.token;
+  console.log(token)
+  try{
+    let detoken = jwt.verify(token,'123456');
+    console.log(detoken)
+    next()
+  }catch (e){
+    res.send(false)
+  }
+}
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   user.Login(req,res)
@@ -23,8 +33,12 @@ router.post('/login',function (req,res){
   // res.send(req.body)
   user.Login(req,res)
 })
+//获取用户详细信息
+router.post('/userlist',tokenCheck,function (req,res){
+  user.userlist(req,res)
+})
 //用户发布装修需求接口
-router.post('/bidd',function (req,res){
+router.post('/bidd',tokenCheck,function (req,res){
   user.insterbid(req,res)
 })
 //用户注册接口
@@ -32,27 +46,27 @@ router.post('/reg',function (req,res){
   user.userreg(req,res)
 })
 //业主完善个人信息接口
-router.post('/perfectInfo',function (req,res){
+router.post('/perfectInfo',tokenCheck,function (req,res){
   user.perfect(req,res)
 })
 //业主招标管理接口
-router.get('/meang',function (req,res){
+router.get('/meang',tokenCheck,function (req,res){
   user.meang(req,res)
 })
 //用户头像上传接口
-router.post('/img',upload,function (req,res){
+router.post('/img',tokenCheck,upload,function (req,res){
   user.upimg(req,res)
 })
 //业主删除需求接口
-router.delete('/deledemand',function (req,res){
+router.delete('/deledemand',tokenCheck,function (req,res){
   user.deledemand(req,res)
 })
 //业主修改密码接口
-router.post('/updatapwd',function (req,res){
+router.post('/updatapwd',tokenCheck,function (req,res){
   user.updatapwd(req,res)
 })
 //用户修改招标需求接口
-router.post('/modifyde',function (req,res){
+router.post('/modifyde',tokenCheck,function (req,res){
   user.modifyde(req,res)
 })
 //获取用户头像接口
@@ -72,7 +86,7 @@ router.get('/getstenderlist',function (req,res){
   user.getstenderlist(req,res)
 })
 //业主预约工长
-router.post('/setorder',function (req,res){
+router.post('/setorder',tokenCheck,function (req,res){
   user.setorder(req,res)
 })
 //修改工长的投标状态
@@ -147,5 +161,12 @@ router.get('/getusereval',function (req,res){
 router.get('/getallusereval',function (req,res){
   user.getallusereval(req,res)
 })
-
+//游览量改变
+router.get('/view',function (req,res){
+  user.setview(req,res)
+})
+//业主获取所有的预约工长
+router.get('/resforeman',function (req,res){
+  user.resforeman(req,res)
+})
 module.exports = router;
