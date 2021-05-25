@@ -61,4 +61,17 @@ module.exports = class foreman_dao extends require('../model/index_mode'){
         res.send(result)
     }
 
+    /**
+     * 首页根据地区获取工长信息
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async foremanlist(req,res){
+        let city = req.query.city
+        console.log(city)
+        let result = await this.getforemanlist(city)
+        res.send(result)
+    }
+
 }

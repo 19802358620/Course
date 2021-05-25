@@ -12,6 +12,7 @@ import axios from 'axios'
 import vGallery from 'v-gallery'
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css';
+import VueAxios from 'vue-axios'
 
 
 Vue.use(Viewer)
@@ -19,6 +20,7 @@ Vue.use(vRegion)
 Vue.use(vGallery)
 Vue.component('v-distpicker', VDistpicker)
 Vue.use(ElementUI);
+Vue.use(VueAxios);
 
 Vue.config.productionTip = false
 //页面跳转后回到顶部

@@ -23,7 +23,7 @@
             </div>
             <el-popconfirm
              title="您确定要删除这条评论吗？"
-             @confirm="deletelist(item)"
+             @confirm="delereval(item)"
             >
             <a slot="reference" class="edit" style="color: red;">删除</a>
             </el-popconfirm>
@@ -117,6 +117,30 @@ export default {
             console.log(item)
             this.eval = item;
 
+        },
+        delereval(item){
+            console.log(item)
+            this.$Axios({
+                url:'/users/deletereal',
+                method:'DELETE',
+                data:{id:item.evalid},
+                success:(result=>{
+                    if(result){
+                        this.open('删除成功','success')
+                        this.getusereval()
+                    }else{
+                        this.open('删除失败','error')
+                    }
+
+                })
+            })
+        },
+        open(msg,type) {
+        this.$notify({
+          title: msg,
+          type: type,
+          offset:100,
+        });
         }
     },
     created(){

@@ -80,4 +80,20 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+
+    /**
+     * 首页根据地区获取工长信息
+     * @param city
+     */
+    static getforemanlist(city){
+        return  new Promise((resolve,reject)=>{
+            let sql =  this.Geshi('select','foreman','*',{city:city})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('该地区暂无招标信息')
+            })
+        })
+    }
 }

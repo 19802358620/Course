@@ -11,9 +11,10 @@
               <tbody>
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
+                      <th>招标编号</th>
                       <th>投标时间</th>
-                      <th>当前状态</th>
                       <th>业主姓名</th>
+                      <th>当前状态</th>
                       <th>投标价</th>
                       <th>操作</th>
                   </tr>
@@ -21,13 +22,13 @@
                   v-for="(item,i) in stenderlist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>{{item.time}}</td>
+                      <td style="color:red;">{{'第'+item.demandid+'号'}}</td>
+                      <td>{{item.time.slice(0,10)}}</td>
+                       <td>{{item.name}}</td>
                       <td style="color:red">{{item.stutas}}</td>
-                      <td>{{item.name}}</td>
                       <td style="color:red">{{item.price}}</td>
                       <td style="width: 140px;">
                           <a class="btn" @click.stop="Details(item)">详情</a>
-                          
                       </td>
                   </tr>
               </tbody>
@@ -81,10 +82,11 @@ export default {
                 data:{id:this.$store.state.foreman.id},
                 success:(result=>{
                     console.log(result)
-                    for(let i in result){
-                        result[i].time = result[i].time.slice(0,10)
-                    }
+                    // for(let i in result){
+                    //     result[i].time = result[i].time.slice(0,10)
+                    // }
                     this.stenderlist=result;
+                    console.log(this.stenderlist)
                 })
             })
         }

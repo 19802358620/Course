@@ -23,20 +23,20 @@
                   <tr 
                   v-for="(item,i) in reslist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;"
+                  class="color"
                   :class="{calan:item.istrue}"
-
                   >
                       <td>{{i+1}}</td>
                       <td>{{item.name}}</td>
-                       <td style="color:red">{{item.demandid}}</td>
+                      <td style="color:red">{{item.demandid}}</td>
                       <td>{{item.sex}}</td>
                       <td >{{item.phone}}</td>
                       <td>{{item.wei}}</td>
                       <em style="color:red">{{item.status}}</em>
-                      <td>2021-04-15</td>
+                      <td>{{item.cantime.slice(0,10)}}</td>
                       <td style="width: 140px;">
                           <a class="btn" @click.stop="resinfo(item)">详情/</a>
-                          <a class="btn" @click.stop="cancl(item)"><em style="color:red">取消预约</em></a>
+                          <a class="btn" @click.stop="cancl(item)"><em style="color:red">{{item.istrue?'预约已取消':'取消预约'}}</em></a>
                       </td>
                   </tr>
               </tbody>
@@ -97,6 +97,7 @@
 export default {
     data(){
         return{
+
             istrue:false,//状态判断
             isstatus:false,//状态判断
             reslist:[],
@@ -134,6 +135,7 @@ export default {
                 success:(result=>{
                     if(result){
                         this.open('取消成功','success')
+                        this.getreslist()
                     }else{
                         this.open('取消失败','error')
                     }
@@ -154,7 +156,7 @@ export default {
                         result[i].demandid = '第'+result[i].demandid +'号'
                         if(result[i].cancel==''){
                             result[i].istrue= false;
-                            this.getreslist()
+                            // this.getreslist()
                         }else{
                             result[i].istrue = true
                         }
@@ -193,6 +195,7 @@ export default {
         }
 .calan{
     text-decoration:line-through;
+     color: black;
 }
 .table{
     width: 100%;

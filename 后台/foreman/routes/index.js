@@ -25,4 +25,9 @@ router.get('/gettypeimglist',function (req,res){
 router.get('/getcommunitylist',function (req,res){
   index.getcommunitylist(req,res)
 })
+//首页根据地区获取工长信息
+router.get('/foemanlist',function (req,res){
+  index.foremanlist(req,res)
+})
+
 module.exports = router;

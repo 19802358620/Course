@@ -24,7 +24,6 @@
      </el-header>
      <!-- 导航栏完 -->
      <el-main>
-        <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
        <!-- 视图渲染 -->
        <router-view></router-view>
      </el-main>
@@ -33,7 +32,6 @@
        <Fotter></Fotter>
      </el-footer>
   </el-container>
-  <router-view name="login"></router-view>
 </div>
 </template>
 <script>

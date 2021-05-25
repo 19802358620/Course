@@ -358,19 +358,19 @@ module.exports = class user_dao extends require('../model/user_mode'){
             let result1 = await this.resimg(userid,demandid);
             res.send(result1)
         }else if(typeimg==2){//拆改
-            let result2 = await this.dismanimg(userid)
+            let result2 = await this.dismanimg(userid,demandid)
             res.send(result2)
         }else if(typeimg==3){//水电
-            let result3 = await this.hydimg(userid)
+            let result3 = await this.hydimg(userid,demandid)
             res.send(result3)
         }else if(typeimg==4){//木工
-            let result4 = await this.woodimg(userid)
+            let result4 = await this.woodimg(userid,demandid)
             res.send(result4)
         }else if(typeimg==5){//漆工
-            let result5 = await this.paintimg(userid)
+            let result5 = await this.paintimg(userid,demandid)
             res.send(result5)
         }else if(typeimg==6){//验收
-            let result6 = await this.acceptimg(userid)
+            let result6 = await this.acceptimg(userid,demandid)
             res.send(result6)
         }else if(typeimg==7){//首页招标详细信息户型图
             let result7 = await this.huximglist(demandid)
@@ -427,9 +427,9 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let impression = req.body.impression;
         let username = req.body.username;
         let content = req.body.content;
-        let result = await this.foremaneval(userid,foremanid,time,grade,impression,content,username);
+        let demandid = req.body.demandid
+        let result = await this.foremaneval(userid,foremanid,time,grade,impression,content,username,demandid);
         res.send(result)
-
     }
 
     /**
@@ -448,7 +448,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
     }
 
     /**
-     * 业主获取自己所有的哦评价
+     * 业主获取自己所有的评价
      * @param req
      * @param res
      * @returns {Promise<void>}
@@ -469,6 +469,30 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let id= req.query.id;
         let view = req.query.view
         let result = await this.setviewlist(id,view);
+        res.send(result)
+    }
+
+    /**
+     * 业主删除评价
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async deletereal(req,res){
+        let id= req.query.id;
+        let result = await this.deletere(id);
+        res.send(result)
+    }
+
+    /**
+     * 项目中获取评价内容
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async eval(req,res){
+        let id = req.query.id;
+        let result = await this.foremanelval(id);
         res.send(result)
     }
 

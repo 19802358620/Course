@@ -73,7 +73,6 @@
                       :data='reslist'
                       :on-success='successimg'
                       :auto-upload="false"
-                      :disabled='ishyd'
                       >
                       <el-button slot="trigger" size="small" type="primary">上传拆改资料</el-button>
                       <div slot="tip" class="el-upload__tip">上传拆改图片文件，不超过6张</div>
@@ -93,7 +92,7 @@
           </el-col>
         </el-row>
         <div class="btn">
-          <el-button type="success"  @click="dialogVisible=true" style="background-color: #01af69;" :disabled='ishyd'>{{distitle}}</el-button>
+          <el-button type="success"  @click="dialogVisible=true" style="background-color: #01af69;" >{{distitle}}</el-button>
         </div>
       </el-card>
     </el-timeline-item>
@@ -221,7 +220,7 @@
           </el-col>
         </el-row>
         <div class="btn">
-          <el-button type="success" @click="dispaint=true" style="background-color: #01af69;" :disabled='ispaint'>{{paintitle}}</el-button>
+          <el-button type="success" @click="dispaint=true" style="background-color: #01af69;" >{{paintitle}}</el-button>
         </div>
       </el-card>
     </el-timeline-item>
@@ -291,7 +290,7 @@
   </span>
     </el-dialog>
     <!-- 水电 -->
-        <el-dialog title="支付"
+   <el-dialog title="支付"
     :visible.sync="disman"
     width="30%"
     append-to-body=true
@@ -428,6 +427,7 @@ export default {
             dismanimg:0,
             hydimg:0,
             woodimg:1,
+            huximg:0,
             paintimg:0,
             acceptimg:0,
             designimg:0
@@ -441,6 +441,7 @@ export default {
             dismanimg:0,
             hydimg:0,
             woodimg:0,
+            huximg:0,
             paintimg:1,
             acceptimg:0,
             designimg:0
@@ -454,6 +455,7 @@ export default {
             dismanimg:0,
             hydimg:0,
             woodimg:0,
+            huximg:0,
             paintimg:0,
             acceptimg:1,
             designimg:0
@@ -733,7 +735,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:1},
+          data:{userid:this.orderlist.userid,typeimg:1,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){
@@ -752,7 +754,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:2},
+          data:{userid:this.orderlist.userid,typeimg:2,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){
@@ -770,7 +772,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:3},
+          data:{userid:this.orderlist.userid,typeimg:3,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){
@@ -788,7 +790,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:4},
+          data:{userid:this.orderlist.userid,typeimg:4,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){
@@ -806,7 +808,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:5},
+          data:{userid:this.orderlist.userid,typeimg:5,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){
@@ -824,7 +826,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.orderlist.userid,typeimg:6},
+          data:{userid:this.orderlist.userid,typeimg:6,demandid:this.orderlist.demandid},
           success:(result=>{
             console.log(result)
             for(let i in result){

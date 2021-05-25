@@ -347,9 +347,9 @@ module.exports = class user_mod extends require('./model'){
      * @param id
      * @returns {Promise<unknown>}
      */
-    static dismanimg(id){
+    static dismanimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,dismanimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,dismanimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -363,9 +363,9 @@ module.exports = class user_mod extends require('./model'){
      * 获取水电图片
      * @param id
      */
-    static hydimg(id){
+    static hydimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,hydimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,hydimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -375,14 +375,13 @@ module.exports = class user_mod extends require('./model'){
         })
 
     }
-
     /**
      * 获取木工图片
      * @param id
      */
-    static woodimg(id){
+    static woodimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,woodimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,woodimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -396,9 +395,9 @@ module.exports = class user_mod extends require('./model'){
      * 获取漆工图片
      * @param id
      */
-    static paintimg(id){
+    static paintimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,paintimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,paintimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -412,9 +411,9 @@ module.exports = class user_mod extends require('./model'){
      * 获取验收图片
      * @param id
      */
-    static  acceptimg(id){
+    static  acceptimg(id,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = this.Geshi('select','imglist','*',{userid:id,acceptimg:1});
+            let sql = this.Geshi('select','imglist','*',{userid:id,acceptimg:1,demandid:demandid});
             console.log(sql)
             this.query(sql).then((reult)=>{
                 resolve(reult)
@@ -498,11 +497,11 @@ module.exports = class user_mod extends require('./model'){
      * @param impression
      * @param content
      */
-    static foremaneval(userid,foremanid,time,grade,impression,content,username){
+    static foremaneval(userid,foremanid,time,grade,impression,content,username,demandid){
         return new Promise((resolve,reject)=>{
-            let sql = "insert into `evaluation` (userid,foremanid,time,grade,impression,content,username) values (?,?,?,?,?,?,?)";
+            let sql = "insert into `evaluation` (userid,foremanid,time,grade,impression,content,username,demandid) values (?,?,?,?,?,?,?,?)";
             console.log(sql)
-            this.query(sql,this.formatParams(userid,foremanid,time,grade,impression,content,username)).then((result)=>{
+            this.query(sql,this.formatParams(userid,foremanid,time,grade,impression,content,username,demandid)).then((result)=>{
                 resolve('true')
             }).catch(err=>{
                 reject('false')
@@ -533,7 +532,7 @@ module.exports = class user_mod extends require('./model'){
      */
     static allusereval(userid){
         return new Promise((resolve,reject)=>{
-            let sql = 'SELECT `evaluation`.*, foreman.* FROM  `evaluation` LEFT JOIN foreman ON foreman.id = `evaluation`.foremanid WHERE `evaluation`.userid ='+'"'+userid+'" '
+            let sql = 'SELECT `evaluation`.*,`evaluation`.id `evalid`, foreman.*, foreman.id foremanid  FROM  `evaluation` LEFT JOIN foreman ON foreman.id = `evaluation`.foremanid WHERE `evaluation`.userid ='+'"'+userid+'" '
             // let sql = this.Geshi('select','evaluation','*',{userid:userid});
             console.log(sql)
             this.query(sql).then((reult)=>{
@@ -549,12 +548,45 @@ module.exports = class user_mod extends require('./model'){
      * @param id
      */
     static setviewlist(id,view){
-        let sql = "update  `demand` set `view` = "+"'"+view+"'"+" where `id` = "+"'"+id+"'"+"";
-        console.log(sql)
-        this.query(sql).then((reult)=>{
-            resolve(reult)
-        }).catch(err=>{
-            reject('false')
+        return new Promise((resolve,reject)=> {
+            let sql = "update  `demand` set `view` = " + "'" + view + "'" + " where `id` = " + "'" + id + "'" + "";
+            console.log(sql)
+            this.query(sql).then((reult) => {
+                resolve(reult)
+            }).catch(err => {
+                reject('false')
+            })
+        })
+    }
+    /**
+     * 业主删除评价
+     * @param id
+     */
+    static deletere(id){
+        return new Promise((resolve,reject)=> {
+            let sql = this.Geshi('delete', 'evaluation', '*', {id: id});
+            console.log(sql)
+            this.query(sql).then((reult) => {
+                resolve('true')
+            }).catch(err => {
+                reject('false')
+            })
+        })
+    }
+
+    /**
+     * 装修项目中获取评价内容
+     * @param id
+     */
+    static foremanelval(id){
+        return new Promise((resolve,reject)=> {
+            let sql = this.Geshi('select', 'evaluation', '*',{demandid:id});
+            console.log(sql)
+            this.query(sql).then((reult) => {
+                resolve(reult)
+            }).catch(err => {
+                reject('false')
+            })
         })
     }
 }

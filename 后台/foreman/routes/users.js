@@ -169,4 +169,12 @@ router.get('/view',function (req,res){
 router.get('/resforeman',function (req,res){
   user.resforeman(req,res)
 })
+//业主删除评价
+router.delete('/deletereal',function (req,res){
+  user.deletereal(req,res)
+})
+//装修项目中获取评价内容
+router.get('/eval',function (req,res){
+  user.eval(req,res)
+})
 module.exports = router;

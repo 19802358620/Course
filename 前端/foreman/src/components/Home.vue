@@ -69,6 +69,9 @@ export default {
                 {
                   url:require('../assets/imgs/lunbo/banle_1022.jpg')
                 },
+                {
+                  url:require('../assets/imgs/lunbo/11.jpg')
+                },
             ],
             width:document.documentElement.clientWidth,
         }

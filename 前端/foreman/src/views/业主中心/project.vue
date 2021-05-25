@@ -156,7 +156,7 @@
     </el-timeline-item>
     <!-- 木工结束 -->
     <!-- 漆工开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"   icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.painting==1'>
       <el-card style="width:97%">
         <h4 style="line-height: 20px;">当前阶段：<strong style="color:red;font-weight: bold;">漆工</strong></h4>
         <el-form :model="reslist" :rules="rules1">
@@ -208,7 +208,7 @@
     </el-timeline-item>
     <!-- 验收结束 -->
     <!-- 对工长进行评价开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='order.accept==1'>
+    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if="order.eval">
       <el-card style="width:97%">
         <el-form :model="eval" :rules="rules2" ref="eval">
           <el-row>
@@ -248,10 +248,10 @@
     </el-timeline-item>
     <!-- 评价结束 -->
     <!-- 评价控制开始 -->
-    <!-- <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='iseval'>
+    <!-- <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" >
       <el-card style="width:97%">
         <el-form :model="eval" :rules="rules2" ref="eval">
-          <el-row>
+          <el-row> 
             <el-col :span="8">
               <el-form-item label="星级：" label-width="100px" prop="grade">
                 <div style="margin-top: 10px;">
@@ -346,7 +346,7 @@ export default {
         return{
           isflag:'',//判断
           demanditme:{},//单条招标信息
-        iseval:true,//评价控制
+        iseval:false,//评价控制
         eval:{//业主评价信息
         time:'',
         grade:'',
@@ -411,8 +411,27 @@ export default {
            }
         }
       
-    },
+    }, 
     methods: {
+      //获取评价信息
+      getevlalist(){
+        console.log(this.demanditme)
+        this.$Axios({
+          url:'users/eval',
+          method:'GET',
+          data:{id:this.demanditme.id},
+          success:(result=>{
+            console.log(result)
+            if(result.length===0){
+              this.iseval=false
+            }else{
+              this.iseval=true
+              this.eval = result[0]
+            }
+          })
+        })
+
+      },
       //获取单条招标信息
       getdemad(){
         this.$route.params.id = this.$route.params.id.slice(1,4)
@@ -428,6 +447,7 @@ export default {
         this.eval.impression = this.eval.impression.join(',')
         this.eval.time = str;
         this.eval.username = this.$store.state.user.name;
+        this.eval.demandid = this.order.demandid
          this.$refs[name].validate((valid) => {
           if (valid) {
            this.$Axios({
@@ -456,15 +476,11 @@ export default {
 
       },
       chanvalue(data){
-        console.log(data)
         this.foremanid =data
 
       },
       //图片上传成功
-      successimg(response, file, fileList){
-        console.log(response)
-        console.log(file)
-        console.log(fileList)
+      successimg(response){
         if(response.protocol41){
           this.open('操作成功','success')
         }
@@ -497,9 +513,8 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:2},
+          data:{userid:this.$store.state.user.id,typeimg:2,demandid:this.demanditme.id},
           success:(result=>{
-            console.log(result)
             if(result.length===0){
               url=''
             }else{
@@ -508,7 +523,6 @@ export default {
               result[i].url = `${url}`+'dismanimg&img='+`${img}`
             }
             this.distmanimg = result
-            console.log(result)
             }
           })
         })
@@ -519,7 +533,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:3},
+          data:{userid:this.$store.state.user.id,typeimg:3,demandid:this.demanditme.id},
           success:(result=>{
             console.log(result)
             if(result.length===0){
@@ -541,9 +555,8 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:4},
+          data:{userid:this.$store.state.user.id,typeimg:4,demandid:this.demanditme.id},
           success:(result=>{
-            console.log(result)
             if(result.length===0){
               url=''
             }else{
@@ -552,7 +565,6 @@ export default {
               result[i].url = `${url}`+'woodimg&img='+`${img}`
             }
             this.woodimglist = result
-            console.log(result)
             }
           })
         })
@@ -563,7 +575,7 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:5},
+          data:{userid:this.$store.state.user.id,typeimg:5,demandid:this.demanditme.id},
           success:(result=>{
             console.log(result)
             if(result.length===0){
@@ -585,9 +597,8 @@ export default {
         this.$Axios({
           url:'/users/getresimg',
           method:'GET',
-          data:{userid:this.$store.state.user.id,typeimg:6},
+          data:{userid:this.$store.state.user.id,typeimg:6,demandid:this.demanditme.id},
           success:(result=>{
-            console.log(result)
             if(result.length===0){
               url=''
             }else{
@@ -596,23 +607,9 @@ export default {
               result[i].url = `${url}`+'acceptimg&img='+`${img}`
             }
             this.acceptimglist = result
-            console.log(result)
             }
           })
         })
-      },
-      //获取评价列表
-      getusereval(){
-        let foremanid = this.reslist.foremanid
-        console.log(foremanid)
-        // this.$Axios({
-        //   url:'/users/getusereval',
-        //   method:'GET',
-        //   data:{userid:this.$store.state.user.id,foremanid:foremanid},
-        //   success:(result=>{
-
-        //   })
-        // })
       },
       //上传
       sumbit(ruleForm){
@@ -654,7 +651,6 @@ export default {
                 success:(result=>{
                     console.log(result)
                     if(result.length==0){
-                      console.log(result)
                       this.isflag =0
                     }else{
                       this.foreman = result
@@ -671,7 +667,6 @@ export default {
           data:{userid:this.$store.state.user.id,demandid:this.demanditme.id},
           success:(result=>{
             this.reslist = result[0].fileList
-            console.log(result)
             this.order = result[0]
             console.log(result)
             if(result[0].isres ==2){
@@ -707,7 +702,8 @@ export default {
       this.getwoodimg()
       this.getpaintimg()
       this.getacceptimg()
-      this.getusereval()
+      this.getevlalist()
+
     }
 }
 </script>
