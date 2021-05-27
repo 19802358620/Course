@@ -118,6 +118,44 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
     }
 
     /**
+     * 批量上传案例图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static  async setcaseimgs(req,res){
+        let caseid = req.body.caseid;
+        let foremanid = req.body.foremanid
+        console.log(caseid)
+        let effid = 0;
+        if(req.files.length===0){
+            res.send('error',{message:'上传文件不能为空'})
+        }else{
+            let sql = `insert into effimg (caseid,foremanid,effid,src) values `;
+            let sqlArr = [];
+            for(let i in req.files){
+                res.set({
+                    'content-type':'application/json; charset=utf8'
+                });
+                let file = req.files[i];
+                console.log(file)
+                fs.renameSync('public/images/caseimgs/'+file.filename,'public/images/caseimgs/'+file.originalname);
+                let url = 'http://localhost:3000/public/images/caseimgs/'+file.originalname;
+                if(req.files.length-1==i){
+                    sql+=`(${caseid},${foremanid},${effid},?)`
+                }else{
+                    sql+=`(${caseid},${foremanid},${effid},?)`
+                }
+                console.log(sql)
+                sqlArr.push([url])
+                console.log(sqlArr)
+                let result = await  this.morecaselist( sql,sqlArr)
+                res.send(result)
+            }
+        }
+    }
+
+    /**
      * 批量上传设计方案图片
      * @param req
      * @param res
@@ -302,6 +340,46 @@ module.exports = class foreman_dao extends require('../model/foremain_mode'){
         let foremanid = req.body.foremanid
         let result = await this.changstage(dismantle,hyd,wood,painting,accept,foremanid);
         res.send(result)
+    }
+
+    /**
+     * 工长获取案例封面图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getforemancase(req,res){
+        let id = req.query.id;
+        let foremanid = req.query.foremanid;
+        let result = await this.formancaseimg(id,foremanid);
+        res.send(result)
+    }
+
+    /**
+     * 首页获取案例图片
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async getcaseimg(req,res){
+        let foremanid = req.query.foremanid;
+        let caseid = req.query.caseid;
+        let result = await this.caseimgs(foremanid,caseid);
+        res.send(result)
+    }
+
+    /**
+     * 案例游览量
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    static async casevisit(req,res){
+        let id= req.query.id;
+        let visits = req.query.visits;
+        let result = await this.updatevisits(id,visits);
+        res.send(result)
+
     }
 
 }

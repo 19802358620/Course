@@ -19,32 +19,39 @@ export default {
     data(){
         return{
             index:'',
-            id:1
+            id:1,
+            foreman:{},//工长信息
         }
     },
     created(){
-        this.$router.push({name:'index'})
+        this.getforeman()
+        this.home()
     },
     methods:{
+        //获取工长信息
+        getforeman(){
+            this.foreman = this.$route.params;
+            console.log(this.foreman)
+        },
         home(){
             this.id=1
-             this.$router.push({name:"index"})
+             this.$router.push({name:"index",params:this.foreman})
         },
         frominfo(){
             this.id=2
-             this.$router.push({name:"frominfo"})
+             this.$router.push({name:"frominfo",params:this.foreman})
         },
         study(){
              this.id=3
-             this.$router.push({name:"study"})
+             this.$router.push({name:"study",params:this.foreman})
         },
         order(){
             this.id=4
-            this.$router.push({name:"order"})
+            this.$router.push({name:"order",params:this.foreman})
         },
         evaluation(){
             this.id=5
-            this.$router.push({name:"evaluation"})
+            this.$router.push({name:"evaluation",params:this.foreman})
         }
 
     }
@@ -55,7 +62,6 @@ export default {
 .body{
     width: 1200px;
     height: auto;
-    border: 1px solid red;
     margin: 20px auto;
     overflow: hidden;
 }

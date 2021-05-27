@@ -1,29 +1,29 @@
 <template>
   <div>
-      <left></left>
+      <left :foremanitem ='foreman'></left>
       <div class="right">
           <div class="tit">
-              <h2>伟清博客 谭鹏 100</h2>
+              <h2>{{foreman.name}}</h2>
           </div>
           <div style="padding: 35px 0;">
               <div class="p-left">
-                  工长：<span style="color: #8e8e8e;">张三三</span><br>
-                  开工日期：<span>2017-12-08</span>
-              </div>
-              <div class="p-right">
-                  <a href="">预约参观</a>
+                  工长：<span style="color: #8e8e8e;">{{foreman.name}}</span><br>
+                  开工日期：<span>{{caselist.time.slice(0,10)}}</span>
               </div>
           </div>
           <div class="ji">
-              <a href="">水电阶段</a>
+              <a href="">{{caselist.status}}</a>
           </div>
-          <div class="ngz-jl-pic-w">
+          <!-- <div class="ngz-jl-pic-w">
               <img src="../../assets/imgs/工长/公地详情.jpg" alt="">
               <p style="line-height: 60px;">施工现场</p>
           </div>
            <div class="ngz-jl-pic-w">
               <img src="../../assets/imgs/工长/工地详情01jpg.jpg" alt="">
               <p style="line-height: 60px;">施工现场</p>
+          </div> -->
+          <div>
+               <v-gallery :images="caseimgs"></v-gallery>
           </div>
       </div>
   </div>
@@ -35,6 +35,44 @@ export default {
     name:'Sitedetails',
     components:{
         left
+    },
+    data () {
+        return {
+            foreman:{},//工长信息
+            caselist:{},//单条案例信息
+            caseimgs:[],//案例展示图片
+            url:'http://localhost:3000/getimg/?name='
+            
+        }
+    },
+    methods:{
+        //获取工长信息和单条案例信息
+         getforman(){
+            this.foreman = this.$route.params.foreman;
+            this.caselist = this.$route.params.item
+        },
+        //获取工长案例展示图片
+        getcaseimgs(){
+            let url = 'http://localhost:3000/getimg/?name='
+            this.$Axios({
+                url:'/foreman/getcaseimg',
+                method:'GET',
+                data:{caseid:this.caselist.id,foremanid:this.foreman.id},
+                success:(result=>{
+                    for(let i in result){
+                        let img = result[i].src.slice(45)
+                        result[i].url = `${url}`+'caseimgs&img='+`${img}`
+                    }
+                    this.caseimgs = result
+                    console.log(result)
+                })
+            })
+
+        }
+    },
+    created(){
+        this.getforman()
+        this.getcaseimgs()
     }
 
 }

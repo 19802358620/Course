@@ -69,7 +69,7 @@
               <li v-for="(item,i) in foremanlist" :key="i">
                   <div class="item">
                       <img :src="item.header" alt="">
-                      <a  class="sp" @click.stop="shop">进入店铺</a>
+                      <a  class="sp" @click.stop="shop(item)">进入店铺</a>
                   </div>
                   <h4>
                       <a href="">{{item.name}}</a>
@@ -102,8 +102,9 @@ export default {
         }
     },
     methods:{
-        shop(){
-            this.$router.push({name:'shop',params:{id:2}})
+        //进入工长店铺
+        shop(item){
+            this.$router.push({name:'shop',params:item})
         },
         more(){
             this.$router.push({name:'foremin'})

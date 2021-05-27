@@ -275,5 +275,57 @@ module.exports = class user_mod extends require('./model'){
         })
     }
 
+    /**
+     * 工长获取案例封面图片
+     * @param id
+     * @param foremanid
+     */
+    static formancaseimg(id,foremanid){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','case','*',{id:id,foremanid:foremanid})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无案例信息')
+            })
+        })
+    }
+
+    /**
+     * 首页获取工长案例图片
+     * @param foremanid
+     * @param caseid
+     */
+    static caseimgs(foremanid,caseid){
+        return new Promise((resolve,reject)=>{
+            let sql = this.Geshi('select','effimg','*',{caseid:caseid,foremanid:foremanid})
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve(result)
+            }).catch(err=>{
+                reject('无案例信息')
+            })
+        })
+    }
+
+    /**
+     * 案例游览量
+     * @param id
+     * @param visits
+     */
+    static updatevisits(id,visits){
+        return new Promise((resolve,reject)=>{
+            let sql = "update  `case` set `visits` = "+"'"+visits+"'"+" where `id` = "+"'"+id+"'"+"";
+            console.log(sql)
+            this.query(sql).then((result)=>{
+                resolve('true')
+            }).catch(err=>{
+                reject('无案例信息')
+            })
+        })
+    }
+
+
 
 }

@@ -8,6 +8,7 @@ let caseimgs = multer({dest:'public/images/caseimgs/'}).array('file',5)
 // let huxing = multer({dest:'public/images/huxing/'}).array('file',5)
 let design = multer({dest:'public/images/designimg/'}).array('file',5)
 let demand = multer({dest:'public/images/demandimg/'}).array('file',5)
+let calselistimg = multer({dest:'public/images/caseimgs/'}).array('file',5)
 let fs = require('fs')
 //业主发布招标时上传的户型图
 //工长注册接口
@@ -45,6 +46,10 @@ router.get('/getforamnimg',function (req,res){
 //工长上传案例封面图片
 router.post('/caseimg',caseimg,function (req,res){
     foreman.upcaseimg(req,res)
+})
+//批量上传案例图片
+router.post('/caselistimgs',calselistimg,function (req,res){
+    foreman.setcaseimgs(req,res)
 })
 //批量上传图片
 router.post('/caseimgs',caseimgs,function (req,res){
@@ -90,12 +95,18 @@ router.get('/getforemanorder',function (req,res){
 router.post('/foremanstage',function (req,res){
     foreman.foremanstage(req,res)
 })
-//工长获拆改阶段的图片
-// router.get('/getdismanimg',function (req,res){
-//
-// })
-
-
+//工长获取案例封面图片
+router.get('/getforemancase',function (req,res){
+    foreman.getforemancase(req,res)
+})
+//首页获取工长案例展示图片
+router.get('/getcaseimg',function (req,res){
+    foreman.getcaseimg(req,res)
+})
+//案例游览量
+router.get('/casevisit',function (req,res){
+    foreman.casevisit(req,res)
+})
 
 
 

@@ -3,11 +3,11 @@
 <div class="contert">
   <div class="left">
       <div class="person">
-          <img src="../../assets/imgs/工长/工长02.png" alt="">
+          <img :src="foreman.header" alt="">
       </div>
       <div class="info_first">
           <div class="item">
-              <h2>张三三</h2>
+              <h2>{{foreman.name}}</h2>
               <i class="rz"></i>
               已认证
               <i class="rc"></i>
@@ -16,17 +16,17 @@
           <p class="p">
               <i class="p_er"></i>
               籍贯：
-              <em>重庆</em>
+              <em>{{foreman.city}}</em>
           </p>
           <p class="p" style="float: right;">
               <i class="p_err"></i>
               从业：
-              <em>10年以上</em>
+              <em>{{foreman.experience}}</em>
           </p>
           <p class="p" style="margin-top: -38px;">
               <i class="qu"></i>
               接单区域：
-              <em>全境</em>
+              <em>{{foreman.city}}</em>
           </p>
 
       </div>
@@ -121,6 +121,32 @@
 
 <script>
 export default {
+    props:['foremanitem'],
+    data(){
+        return{
+            foreman:{},//工长信息
+        }
+    },
+    methods:{
+        //获取工长信息
+        getforman(){
+            this.foreman = this.$route.params;
+        },
+        obj(){
+            for(var key in this.foremanitem) {
+           return false;
+           }
+           return true;
+        }
+    },
+    created(){
+        let res = this.obj()
+        if(res){
+            this.getforman()
+        }else{
+            this.foreman = this.foremanitem
+        }
+    }
 
 }
 </script>

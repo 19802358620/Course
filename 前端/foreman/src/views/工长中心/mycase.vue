@@ -87,7 +87,7 @@
             <el-col :span="12">
                 <el-form-item label="是否完工：" label-width="100px" prop="status">
                   <el-select v-model="cases.status"   placeholder="是否完工">
-                          <el-option label="是" value="是"></el-option>
+                          <el-option label="已完工" value="已完工"></el-option>
                           <el-option label="进行中" value="进行中"></el-option>
                   </el-select>
               </el-form-item>
@@ -115,10 +115,13 @@
                     <el-upload
                          class="upload-demo"
                          list-type="picture"
-                         action="http://localhost:3000/foreman/caseimgs"
+                         ref="upload"
+                         action="http://localhost:3000/foreman/caselistimgs"
                          multiple
+                         :data='caselistimgs'
+                         :auto-upload="false"
                          :file-list="fileList">
-                         <el-button size="small" type="primary">点击上传</el-button>
+                         <el-button size="small" type="primary">选择图片</el-button>
                          <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                     </el-upload>
           </div>
@@ -148,6 +151,10 @@ export default {
                  stage:'',
                  price:'',
                  status:'',
+             },
+             caselistimgs:{
+               caseid:0,
+               foremanid:0,
              },
              indexid:'',
              imageUrl:'',
@@ -211,7 +218,8 @@ export default {
          this.$refs[form].validate((valid) => {
            this.cases.id = this.indexid;
            this.cases.foremanid = this.$store.state.foreman.id
-           console.log(this.cases)
+           this.$refs.upload.submit();
+           console.log(this.caselistimgs)
           if (valid) {
             this.$Axios({
               url:'/foreman/setcase',
@@ -243,17 +251,18 @@ export default {
             for(let i in this.caselist){
               let url = 'http://localhost:3000/getimg?';
               let name = 'caseimg'
-              let img = this.caselist[i].img.slice(-6)
+              let img = this.caselist[i].img.slice(-8)
               this.caselist[i].img = `${url}`+'name='+`${name}`+'&img='+`${img}`
             }
             console.log(this.caselist)
           })
         })
-
       },
         //封面图片上传成功时的处理函数
          handleAvatarSuccess(res, file) {
            this.indexid = res.insertId;
+          this.caselistimgs.caseid = this.indexid;
+          this.caselistimgs.foremanid = this.$store.state.foreman.id
              console.log(this.indexid)
          this.imageUrl = URL.createObjectURL(file.raw);
          console.log(this.imageUrl)

@@ -16,7 +16,7 @@
                       <div class="lis">
                           <p class="k">籍贯：{{foreman.province}}</p>
                           <p class="ki">从业：{{foreman.experience}}</p>
-                          <p class="kj">入驻时间：2017-9-12</p>
+                          <p class="kj">入驻时间：{{foreman.createtime.slice(0,10)}}</p>
                           <p class="kl">接单区域：{{foreman.province}}</p>
                       </div>
                   </div>
@@ -71,7 +71,7 @@
               </div>
               <div class="jian">
                   <h6 class="g">工长简介</h6>
-                  <p class="n">各位业主大家好，我是好工长网认证的钻石工长汤汉清，大家可以叫我汤工。本人从事装修行业十年，自己有长期稳定专业的施工团队！精通室内设计施工各个环节，本人诚实守信，为客户节约成本。设计施工一条龙服务。先做人后做事，用良心做工程。免费上门量房，出基础方案，做装修预算，解答装修常识。自觉做到重合同，守信用！</p>
+                  <p class="n">{{foreman.Introduction}}</p>
               </div>
           </div>
       </div>
@@ -137,15 +137,15 @@
               <h2>工地案例</h2>
               <router-link class="a" to="/" style="float: right;margin-right: 10px;font-size: 14px;color: #505050;">更多>></router-link>
           </div>
-          <div class="w">
+          <div class="w" v-for="(item,i) in caselist" :key="i">
               <a class="img">
-                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
+                  <img :src="item.img" alt="">
               </a>
               <div class="cl">
                   <a href="#" class="bb">
-                     星海虹城
+                     {{item.name}}
                   </a>
-                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
+                  <p>合同价：{{item.price}}万<span style="padding-left: 10px;">开工日期：{{item.time.slice(0,10)}}</span></p>
                   <div class="li_w">
                     <ul class="ul_w">
                         <li><i></i>水电阶段</li>
@@ -155,7 +155,7 @@
                     </ul>
                   </div>
                   <div class="btn_w">
-                    <a href="#" class="ww">查看工地详情</a>
+                    <a href="#" class="ww" @click="detail">查看工地详情</a>
                     <a href="#" class="ww01">申请参观工地</a>
                     <span class="btn3">
                         已有<em>466</em>查看
@@ -163,58 +163,7 @@
                   </div>
               </div>
           </div>
-          <div class="w">
-              <a class="img">
-                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
-              </a>
-              <div class="cl">
-                  <a href="#" class="bb">
-                     星海虹城
-                  </a>
-                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
-                  <div class="li_w">
-                    <ul class="ul_w">
-                        <li><i></i>水电阶段</li>
-                        <li><i></i>泥木阶段</li>
-                        <li><i></i>油漆阶段</li>
-                        <li><i></i>完美竣工</li>
-                    </ul>
-                  </div>
-                  <div class="btn_w">
-                    <a href="#" class="ww">查看工地详情</a>
-                    <a href="#" class="ww01">申请参观工地</a>
-                    <span class="btn3">
-                        已有<em>466</em>查看
-                    </span>
-                  </div>
-              </div>
-          </div>
-          <div class="w">
-              <a class="img">
-                  <img src="../../assets/imgs/详情/xiang03.png" alt="">
-              </a>
-              <div class="cl">
-                  <a href="#" class="bb">
-                     星海虹城
-                  </a>
-                  <p>合同价：20<span style="padding-left: 10px;">开工日期：2021-2-2</span></p>
-                  <div class="li_w">
-                    <ul class="ul_w">
-                        <li><i></i>水电阶段</li>
-                        <li><i></i>泥木阶段</li>
-                        <li><i></i>油漆阶段</li>
-                        <li><i></i>完美竣工</li>
-                    </ul>
-                  </div>
-                  <div class="btn_w">
-                    <a href="#" class="ww">查看工地详情</a>
-                    <a href="#" class="ww01">申请参观工地</a>
-                    <span class="btn3">
-                        已有<em>466</em>查看
-                    </span>
-                  </div>
-              </div>
-          </div>
+         
           <div style="height: 46px;margin-top: 10px;">
             <el-pagination
            background
@@ -232,18 +181,41 @@ export default {
     data(){
         return{
             foreman:'',//工长信息
-
+            caselist:[],//工长案例列表
         }
     },
     methods:{
+        //查看工地详情
+        detail(){
+            this.$router.push({name:'study',params:this.foreman})
+        },
+        //获取工长信息
         getforeman(){
             this.foreman = this.$route.params;
             console.log(this.foreman)
-        }
-         
+        },
+        //获取案例列表
+      getcaselist(){
+        this.$Axios({
+          url:'/foreman/getcaselist',
+          method:'GET',
+          data:{foremanid:this.foreman.id},
+          success:(result=>{
+            this.caselist= result
+            for(let i in this.caselist){
+              let url = 'http://localhost:3000/getimg?';
+              let name = 'caseimg'
+              let img = this.caselist[i].img.slice(-8)
+              this.caselist[i].img = `${url}`+'name='+`${name}`+'&img='+`${img}`
+            }
+            console.log(this.caselist)
+          })
+        })
+      },
     },
     created(){
         this.getforeman()
+        this.getcaselist()
     }
 
 
