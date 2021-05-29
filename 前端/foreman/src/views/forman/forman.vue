@@ -5,22 +5,22 @@
       </div>
       <div class="right">待设计</div>
       <div class="b">
-          <div class="item">
+          <div class="item" v-for="(item,i) in froemanlist" :key="i">
               <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
+                  <img :src="item.header" alt="">
                   <div class="name">
-                      <span class="i">张三三</span>
+                      <span class="i">{{item.name}}</span>
                       <span class="icon"></span>
                       <span class="icon01"></span>
                       <span class="icon02"></span>
                   </div>
                   <div class="it">
                       <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
+                      <span class="bt">{{item.numberord}}</span>
                   </div>
                   <div class="it01">
                       <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
+                      <span class="bt">{{item.reservation}}</span>
                   </div>
                   <div class="it02">
                       <h6 class="h">业主评价：</h6>
@@ -28,225 +28,10 @@
                   </div>
                   <div class="it03">
                       <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
+                      <span class="bt">{{item.site}}</span>
                   </div>
               </a>
-              <div class="btnn" @click="hand">了解详情</div>
-              <!-- <el-button class="btn">默认按钮</el-button> -->
-              <a href="" class="an">
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-              </a>
-          </div>
-          <div class="item">
-              <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
-                  <div class="name">
-                      <span class="i">张三三</span>
-                      <span class="icon"></span>
-                      <span class="icon01"></span>
-                      <span class="icon02"></span>
-                  </div>
-                  <div class="it">
-                      <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
-                  </div>
-                  <div class="it01">
-                      <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it02">
-                      <h6 class="h">业主评价：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it03">
-                      <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
-                  </div>
-              </a>
-              <div class="btnn" @click="hand">了解详情</div>
-              <!-- <el-button class="btn">默认按钮</el-button> -->
-              <a href="" class="an">
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-              </a>
-          </div>
-          <div class="item">
-              <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
-                  <div class="name">
-                      <span class="i">张三三</span>
-                      <span class="icon"></span>
-                      <span class="icon01"></span>
-                      <span class="icon02"></span>
-                  </div>
-                  <div class="it">
-                      <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
-                  </div>
-                  <div class="it01">
-                      <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it02">
-                      <h6 class="h">业主评价：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it03">
-                      <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
-                  </div>
-              </a>
-              <div class="btnn">了解详情</div>
-              <!-- <el-button class="btn">默认按钮</el-button> -->
-              <a href="" class="an">
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-              </a>
-          </div>
-          <div class="item">
-              <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
-                  <div class="name">
-                      <span class="i">张三三</span>
-                      <span class="icon"></span>
-                      <span class="icon01"></span>
-                      <span class="icon02"></span>
-                  </div>
-                  <div class="it">
-                      <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
-                  </div>
-                  <div class="it01">
-                      <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it02">
-                      <h6 class="h">业主评价：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it03">
-                      <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
-                  </div>
-              </a>
-              <div class="btnn">了解详情</div>
-              <!-- <el-button class="btn">默认按钮</el-button> -->
-              <a href="" class="an">
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-              </a>
-          </div>
-          <div class="item">
-              <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
-                  <div class="name">
-                      <span class="i">张三三</span>
-                      <span class="icon"></span>
-                      <span class="icon01"></span>
-                      <span class="icon02"></span>
-                  </div>
-                  <div class="it">
-                      <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
-                  </div>
-                  <div class="it01">
-                      <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it02">
-                      <h6 class="h">业主评价：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it03">
-                      <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
-                  </div>
-              </a>
-              <div class="btnn">了解详情</div>
-              <!-- <el-button class="btn">默认按钮</el-button> -->
-              <a href="" class="an">
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-                  <div class="xiang">
-                      <img src="../../assets/imgs/详情/详情1.png" alt="">
-                      <h4>海星虹城</h4>
-                  </div>
-              </a>
-          </div>
-          <div class="item">
-              <a class="login">
-                  <img src="../../assets/imgs/工长/工长01.png" alt="">
-                  <div class="name">
-                      <span class="i">张三三</span>
-                      <span class="icon"></span>
-                      <span class="icon01"></span>
-                      <span class="icon02"></span>
-                  </div>
-                  <div class="it">
-                      <h6 class="h">签单总数：</h6>
-                      <span class="bt">1</span>
-                  </div>
-                  <div class="it01">
-                      <h6 class="h">预约总数：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it02">
-                      <h6 class="h">业主评价：</h6>
-                      <span class="bt">66</span>
-                  </div>
-                  <div class="it03">
-                      <h6 class="h">在建工地：</h6>
-                      <span class="bt">66</span>
-                  </div>
-              </a>
-              <div class="btnn">了解详情</div>
+              <div class="btnn" @click="deit(item)">了解详情</div>
               <!-- <el-button class="btn">默认按钮</el-button> -->
               <a href="" class="an">
                   <div class="xiang">
@@ -280,12 +65,52 @@ export default {
     data(){
         return{
             height:document.documentElement.clientHeight,
+            froemanlist:[],//工长列表
+            caselist:[],//工长案例列表
         }
     },
     methods:{
-        hand(){
-            this.$router.push({name:'shop',params:{id:2}})
-        }
+        //了解工长详情
+        deit(item){
+            this.$router.push({name:'shop',params:item})
+        },
+        //获取工长列表
+        getforemanlist(){
+            this.$Axios({
+                url:'/foemanlist',
+                method:'GET',
+                data:{city:'重庆市'},
+                success:(result=>{
+                    console.log(result)
+                    for(let i in result){
+                        result[i].header = 'http://localhost:3000/foreman/getforamnimg/?img='+result[i].header.slice(-6)
+                    }
+                    this.froemanlist = result.slice(10,15)
+                })
+            })
+        },
+    //获取案例列表
+      getcaselist(){
+        this.$Axios({
+          url:'/foreman/getcaselist',
+          method:'GET',
+          data:{foremanid:this.foreman.id},
+          success:(result=>{
+            this.caselist= result
+            for(let i in this.caselist){
+              let url = 'http://localhost:3000/getimg?';
+              let name = 'caseimg'
+              let img = this.caselist[i].img.slice(-8)
+              this.caselist[i].img = `${url}`+'name='+`${name}`+'&img='+`${img}`
+            }
+            console.log(this.caselist)
+          })
+        })
+      },
+    },
+    created(){
+        this.getforemanlist()
+        this.getcaselist()
     }
 }
 </script>

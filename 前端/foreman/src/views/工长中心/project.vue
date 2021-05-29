@@ -376,6 +376,7 @@
     <el-button type="primary" @click="acceptinfo">确 定</el-button>
   </span>
     </el-dialog>
+    
 
     <!-- 验收结束 -->
   </div>
@@ -502,6 +503,7 @@ export default {
     methods: {
       //结尾验收
       acceptinfo(){
+        this.getorder()
         this.acceptlist.userid = this.orderlist.userid;
         this.acceptlist.demandid = this.orderlist.demandid;
         this.acceptlist.title = 'acceptimg'
@@ -526,6 +528,7 @@ export default {
       },
       //验收
       paintinfo(){
+        this.getorder()
         this.paintlist.userid = this.orderlist.userid;
         this.paintlist.demandid = this.orderlist.demandid;
         this.paintlist.title = 'paintimg'
@@ -560,11 +563,13 @@ export default {
       },
       //进入漆工
       woodinfo(){
+        this.getorder()
         this.woodlist.userid = this.orderlist.userid;
         this.woodlist.demandid = this.orderlist.demandid;
         this.woodlist.title = 'woodimg'
         this.woodlist.foremanid = this.$store.state.foreman.id
          this.$refs.upload2.submit();
+         this.woodprice = this.price.woodprice
         this.woodtitle='该阶段已完成'
         this.iswood = true
         this.$Axios({
@@ -596,13 +601,15 @@ export default {
       },
       //进入木工阶段
       hyd(){
+        this.getorder()
         this.hydlist.userid = this.orderlist.userid;
         this.hydlist.demandid = this.orderlist.demandid;
         this.hydlist.title = 'hydimg'
         this.hydlist.foremanid = this.$store.state.foreman.id
          this.$refs.upload1.submit();
-        this.hydprice = this.price.hydprice;
+         this.hydprice = this.price.hydprice;
         this.hydtitle='该阶段已完成'
+        console.log(this.price)
         this.$Axios({
           url:'/foreman/foremanstage',
           method:'POST',
@@ -634,6 +641,7 @@ export default {
       },
       //进入水电阶段
       dismantle(){
+        this.getorder()
         this.reslist.userid = this.orderlist.userid;
         this.reslist.demandid = this.orderlist.demandid;
         this.reslist.title = 'dismanimg'
@@ -675,6 +683,7 @@ export default {
       },
       //进入拆改
       chai(){
+        this.getorder()
         this.title='该阶段已完成',
         this.isdis = true;
         this.ischai=true
@@ -890,7 +899,6 @@ export default {
       this.getwoodimg()
       this.getpaintimg()
       this.getacceptimg()
-      
     }
 }
 </script>

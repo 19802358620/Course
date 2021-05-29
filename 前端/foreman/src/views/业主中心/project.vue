@@ -45,7 +45,7 @@
                       :auto-upload="false"
                       :disabled="disba"
                       >
-                      <el-button slot="trigger" size="small" type="primary">上传看房资料</el-button>
+                      <el-button slot="trigger" size="small" type="primary">上传合同资料</el-button>
                       <div slot="tip" class="el-upload__tip">上传合同图片文件，不超过6张</div>
                     </el-upload>
             </el-col>
@@ -247,48 +247,6 @@
       </el-card>
     </el-timeline-item>
     <!-- 评价结束 -->
-    <!-- 评价控制开始 -->
-    <!-- <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" >
-      <el-card style="width:97%">
-        <el-form :model="eval" :rules="rules2" ref="eval">
-          <el-row> 
-            <el-col :span="8">
-              <el-form-item label="星级：" label-width="100px" prop="grade">
-                <div style="margin-top: 10px;">
-                  <el-rate
-                    v-model="usereval.grade"
-                    show-text>
-                  </el-rate>
-                </div>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="您对工长的印象：" prop="impression">
-                <div>{{usereval.impression}}</div>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="评价时间">
-                <div>
-                {{usereval.time}}
-              </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-            <el-row>
-            <el-col :span="24">
-             <el-form-item label="评价内容：" label-width="100px" prop="content">
-               <p>{{usereval.content}}</p>
-             </el-form-item>
-            </el-col>
-        </el-row>
-        </el-form>
-        <div class="btn">
-          <el-button type="success"  style="background-color: #01af69;" @click="submiteval('eval')">提交评价</el-button>
-        </div>
-      </el-card>
-    </el-timeline-item> -->
-    <!-- 评价控制结束 -->
   </el-timeline>
 </div>
     </div>

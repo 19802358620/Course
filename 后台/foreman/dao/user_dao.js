@@ -396,6 +396,7 @@ module.exports = class user_dao extends require('../model/user_mode'){
         let woodprice = req.query.woodprice;
         let painprice = req.query.painprice;
         let acceptprice = req.query.acceptprice;
+        console.log(hydprice)
         let result = await this.userorder(foremanid,stageprice,dismantleprice,hydprice,woodprice,painprice,acceptprice)
         res.send(result)
     }

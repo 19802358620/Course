@@ -21,9 +21,13 @@
                   <span style="color: #fff;font-size: 14px;">发布招标信息</span>
               </li>
           </ul>
-          <a href="#" class="yuyue">立即预约工长</a>
-
-
+          <ul class="time">
+              <li>Lorem, ipsum dolor.</li>
+              <li>Soluta, maiores ab?</li>
+              <li>Quis, quasi ea.</li>
+              <li>Nam, nihil consequuntur!</li>
+          </ul>
+          <a  class="yuyue" @click="setforeman">立即预约工长</a>
       </div>
       <div style="margin-bottom: -20px;">
           <img src="../../assets/imgs/流程01.gif" alt="" style="width: 1220px;height: 245px;">
@@ -36,11 +40,45 @@
 
 <script>
 export default {
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+        //预约工长
+        setforeman(){
+            this.$router.push('foremin')
+        },
+        //循环滚动列表
+         doscroll(){
+             let ul = document.getElementById('#time');
+             let first = ul.find('li:first');
+             let height = first.height();
+         first.animate({
+         height: 0 //或者改成： marginTop: -height + 'px'
+         }, 500, function() {// 动画结束后，把它插到最后，形成无缝
+         first.css('height', height).appendTo(ul);
+         // $first.css('marginTop', 0).appendTo($parent);
+         });
+         },
+        //  setInterval(function(){doscroll()}, 3000);
+    },
+    created(){
+        setInterval(this.doscroll(),3000)
+    }
 
 }
 </script>
 
 <style scoped>
+.time{
+    float: left;
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 14px;
+    margin-left: 60px;
+}
 .yuyue{
     display: block;
     width: 243px;

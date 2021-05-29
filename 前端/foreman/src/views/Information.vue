@@ -18,37 +18,37 @@
               <el-col :span='8' >
                     <div class="item" >
                         <el-carousel height="412px" style="width:320px;" indicator-position='none'>
-                            <el-carousel-item v-for="item in 4" :key="item">
-                              <img src="../assets/imgs/qwe66.png"  alt="">
+                            <el-carousel-item v-for="(item,i) in imglist" :key="i">
+                              <img :src="item.src"  alt="" style="width:100%;height:100%">
                             </el-carousel-item>
                         </el-carousel>
                     </div>
               </el-col>
               <el-col :span='16'>
                   <div class="b">
-                      <a class="i">
-                          <img src="../assets/imgs/10.png" alt="">
-                          <span>风格</span>
+                      <a class="i" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201802/hVen7A2smG8D9.jpg!xgt.middle" alt="">
+                          <span>客厅</span>
                       </a>
-                      <a class="i">
-                          <img src="../assets/imgs/10.png" alt="">
-                          <span>风格</span>
+                      <a class="i" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201801/4GLeaKfqF4YDP.jpg!xgt.middle  " alt="">
+                          <span>背景墙</span>
                       </a>
-                      <a class="i">
-                          <img src="../assets/imgs/10.png" alt="">
-                          <span>风格</span>
+                      <a class="i" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201801/U2tNnLqEX9BvV.jpg!xgt.middle" alt="">
+                          <span>简约</span>
                       </a>
-                      <a class="i act">
-                          <img src="../assets/imgs/10.png" alt="">
-                          <span>风格</span>
+                      <a class="i act" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201801/j79WEGrp48zld.jpg!xgt.middle  " alt="">
+                          <span>一室</span>
                       </a>
-                      <a class="i">
-                          <img src="../assets/imgs/10.png" alt="">
-                          <span>风格</span>
+                      <a class="i" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201801/fuVQzkVInruV5.jpg!xgt.middle" alt="">
+                          <span>客厅</span>
                       </a>
-                      <a class="i">
-                          <img src="../assets/imgs/index/立即前往.png" alt="">
-                          <span>风格</span>
+                      <a class="i" @click="getimginfo">
+                          <img src="http://image.haogongzhang.com/case/201801/OBEX9dQX3Fbcg.jpg!xgt.middle" alt="">
+                          <span>查看跟多</span>
                       </a>
                   </div>
               </el-col>
@@ -59,6 +59,23 @@
 
 <script>
 export default {
+    data(){
+        return{
+            imglist:[
+                {src:'http://image.haogongzhang.com/case/201801/m0bZaxtoMVKfm.jpg!xgt.middle'},
+                {src:'http://image.haogongzhang.com/case/201801/UldctmVa7yMFe.jpg!xgt.middle'},
+                {src:'http://image.haogongzhang.com/case/201801/glTZZCF4ZAtb2.jpg!xgt.middle'},
+                {src:'http://image.haogongzhang.com/case/201712/eoAN7MgJBUPqL.jpg!xgt.middle'},
+                {src:'http://image.haogongzhang.com/case/201712/gfVF9rTraLC8E.jpg!xgt.middle'}
+            ],
+        }
+    },
+    methods:{
+        //查看装修效果图详情
+        getimginfo(){
+            this.$router.push('effect')
+        }
+    }
 
 }
 </script>

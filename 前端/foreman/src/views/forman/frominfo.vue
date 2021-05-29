@@ -52,9 +52,6 @@
                       <p class="newcont">Lorem ipsum dolor sit amet consectetur adipisicing elitfgfgfgfgfgf.</p>
                   </div>
               </div>
-            
-            
-              
           </div>
           <div class="send">
                <el-carousel indicator-position="outside" class="banner">
@@ -92,8 +89,10 @@ export default {
     data(){
         return{
             imglist:[
-               {url:require('../../assets/imgs/lunbo/03.jpg')},
-               {url:require('../../assets/imgs/lunbo/01.png')},
+               {url:'http://image.haogongzhang.com/case/201802/djQLmfHBXAOh7.jpg!xgt.middle'},
+               {url:'http://image.haogongzhang.com/case/201802/gsiG41JuKZlaY.jpg!xgt.middle'},
+               {url:'http://image.haogongzhang.com/case/201802/kMWRNNzdaudNr.jpg!xgt.middle'},
+               {url:'http://image.haogongzhang.com/case/201801/5lSLkFtyeB5T8.jpg!xgt.middle'}
             ],
             APPCODE:"287dcfc8e154421797746496aa87db5c",
             newlist:[],//新闻列表
@@ -142,7 +141,7 @@ export default {
                     this.foremanlist = result
                 })
             })
-        }
+        },
 
     },
     created(){
