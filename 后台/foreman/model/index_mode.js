@@ -6,7 +6,8 @@ module.exports = class user_mod extends require('./model'){
      */
     static biding(area){
     return new Promise((resolve,reject)=>{
-        let sql='select * from `demand` where city = '+'"'+area+'"'+'';
+        let sql =  this.Geshi('select','demand','*',{city:area,status:'招标中'})
+        // let sql='select * from `demand` where city = '+'"'+area+'"'+'';
         console.log(sql)
         this.query(sql).then((result)=>{
         resolve(result)

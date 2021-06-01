@@ -168,7 +168,7 @@ export default {
       this.order.userid = this.item.userid;
       this.order.demandid = this.item.demandid;
       this.order.isres = 1;
-      this.order.status= '已预约'
+      this.order.status= '预约成功'
       console.log(this.order)
       this.$Axios({
         url:'/users/setorder',

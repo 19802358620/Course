@@ -13,17 +13,17 @@
          </el-col>
          <el-col :span="10" type="flex">
            <ul class="felx">
-           <li class="na">
-             <router-link :to="{name:'home'}"   class="a" >首页</router-link>
+           <li class="na" @click="home" :class="{active:id==0}">
+             <a   class="a" >首页</a>
            </li>
-           <li class="na">
-             <router-link :to="{name:'foremin'}" class="a">诚信工长</router-link>
+           <li class="na" @click="foreman" :class="{active:id==1}">
+             <a  class="a" >诚信工长</a>
            </li>
-           <li class="na">
-             <router-link :to="{name:'incenter'}"  class="a">信息中心</router-link>
+           <li class="na" @click="incenter" :class="{active:id==2}">
+             <a   class="a">信息中心</a>
            </li>
-           <li class="na">
-             <router-link :to="{name:'effect'}" class="a">效果图</router-link>
+           <li class="na" @click="effect" :class="{active:id==3}">
+             <a  class="a">效果图</a>
            </li>
            <li class="na">
              <p :to="{name:'QA'}" class="a b">同城装修</p>
@@ -66,17 +66,41 @@ export default {
     return{
       input3:'',
       city:'重庆',
-
+      id:0,//导航演示判断
     }
   },
   methods:{
-    hand(){
+    //首页
+    home(){
+      this.id =0
       this.$router.push({ name: 'home'})
+    },
+    //工长
+    foreman(){
+      this.id=1;
+       this.$router.push({ name: 'foremin'})
+    },
+    //信息中心
+    incenter(){
+      this.id=2;
+       this.$router.push({ name: 'incenter'})
+    },
+    //效果图
+    effect(){
+      this.id=3
+       this.$router.push({ name: 'effect'})
     }
+  },
+  created(){
+    this.home()
   }
 }
 </script>
 <style scoped>
+.active{
+   background-color: #d20a05;
+   color: #ff7d44;
+}
 .area{
   width: 32%;
   border: 1px solid;
@@ -143,7 +167,8 @@ p:hover{
 .disc:hover{
   color: #9c0c0c;
   font-weight: bold;
-  background-color: #9c0c0c;
+  background-color: #d20a05;
+
 } 
 .user{
 position:fixed; 
@@ -165,9 +190,15 @@ z-index: 9999;
    color: white;
 }
 .na{
-  float: left;
+  /* float: left; */
   list-style: none;
   position: relative;
+  display: inline-block;
+  width: 80px;
+}
+.na:hover{
+  background-color: #d20a05;
+  color: #ff7d44;
 }
 .na li{
   transition: all 0.4s ease;
@@ -175,7 +206,7 @@ z-index: 9999;
   font-size: 24px;
   padding-left: 80px;
 }
-.a:hover{
+/* .a:hover{
   color: #ff7d44;
-}
+} */
 </style>

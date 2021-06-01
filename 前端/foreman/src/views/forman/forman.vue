@@ -3,7 +3,7 @@
       <div class="head">
           <img src="../../assets/imgs/好工长2.jpg" alt="">
       </div>
-      <div class="right">待设计</div>
+      <div class="right"></div>
       <div class="b">
           <div class="item" v-for="(item,i) in froemanlist" :key="i">
               <a class="login">
@@ -56,7 +56,7 @@
             </el-pagination>
           </div>
       </div>
-      <div class="rh">待设计</div>
+      <div class="rh"></div>
   </div>
 </template>
 
@@ -120,7 +120,7 @@ export default {
     width: 250px;
     float: right;
     height: 600px;
-    border: 1px solid;
+    border: 1px solid #eee;
     margin-top: -60px;
 }
 h4{
@@ -302,7 +302,7 @@ span{
 .right{
     width: 250px;
     margin-left: 5px;
-    border: 1px solid;
+    border: 1px solid #eee;
     height: 292px;
     float: right;
 }

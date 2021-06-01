@@ -208,7 +208,7 @@
     </el-timeline-item>
     <!-- 验收结束 -->
     <!-- 对工长进行评价开始 -->
-    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if="order.eval">
+    <el-timeline-item  placement="top" style="text-align: left;"    icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if="order.accept==1">
       <el-card style="width:97%">
         <el-form :model="eval" :rules="rules2" ref="eval">
           <el-row>
@@ -594,6 +594,14 @@ export default {
             this.dialogVisible=false;
           })
         })
+        this.$Axios({
+          url:'/users/demandstatus',
+          method:'GET',
+          data:{id: this.foreman[0].demandid},
+          success:(result=>{
+            console.log(result)
+          })
+        })
           } else {
             console.log('error submit!!');
             return false;
@@ -627,6 +635,19 @@ export default {
             this.reslist = result[0].fileList
             this.order = result[0]
             console.log(result)
+            if(result[0].painprice == 'undefined'){
+              result[0].painprice=0
+            }if(result[0].stageprice == 'undefined'){
+              result[0].stageprice=0
+            }if(result[0].woodprice == 'undefined'){
+              result[0].woodprice=0
+            }if(result[0].dismantleprice == 'undefined'){
+              result[0].dismantleprice=0
+            }if(result[0].hydprice == 'undefined'){
+              result[0].hydprice=0
+            }if(result[0].acceptprice == 'undefined'){
+              result[0].acceptprice=0
+            }
             if(result[0].isres ==2){
                this.prices = result[0].stageprice;
               this.reslist = result[0];

@@ -138,7 +138,7 @@ export default {
                     for(let i in result){
                         result[i].header = 'http://localhost:3000/foreman/getforamnimg/?img='+result[i].header.slice(-6)
                     }
-                    this.foremanlist = result
+                    this.foremanlist = result.slice(1,16)
                 })
             })
         },

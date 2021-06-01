@@ -266,6 +266,41 @@
       </el-card>
     </el-timeline-item>
     <!-- 验收结束 -->
+    <!-- 评价控制 -->
+    <el-timeline-item  placement="top" style="text-align: left;" :key="index" icon="el-icon-more" timestamp="2018/4/12"  type="primary" v-if='foremaneval.length!= 0'>
+      <el-card style="width:97%">
+        <el-form :model="eval" :rules="rules2" ref="eval">
+          <el-row>
+            <el-col :span="10">
+              <el-form-item label="星级：" label-width="100px" prop="grade">
+                <div style="margin-top: 10px;">
+                  <el-rate
+                    v-model="eval.grade"
+                    show-text>
+                  </el-rate>
+                </div>
+              </el-form-item>
+            </el-col>
+            
+            <el-col :span="14">
+              <el-form-item label="您对工长的印象：" prop="impression">
+               <p>{{eval.impression}}</p>
+              </el-form-item>
+            </el-col>
+          </el-row>
+            <el-row>
+            <el-col :span="24">
+             <el-form-item label="评价内容：" label-width="100px" prop="content">
+               <p>{{eval.content}}</p>
+               
+             </el-form-item>
+            </el-col>
+        </el-row>
+        </el-form>
+        
+      </el-card>
+    </el-timeline-item>
+    <!-- 评价控制结束 -->
   </el-timeline>
 </div>
     </div>
@@ -388,6 +423,9 @@ export default {
 
     data(){
         return{
+          eval:{},
+          grade:0,//星级
+          foremaneval:[],//评价列表
           disaccept:false,
           dispaint:false,
           diawood:false,
@@ -492,15 +530,28 @@ export default {
           accept:false
         },
         price:{
-          dismantleprice:'',
-          hydprice:'',
-          woodprice:'',
-          paintprice:'',
-          acceptprice:''
+          dismantleprice:0,
+          hydprice:0,
+          woodprice:0,
+          paintprice:0,
+          acceptprice:0
         },
         }
     },
     methods: {
+      //工长获取评价列表
+      getusereval(){
+        this.$Axios({
+          url:'/users/getusereval',
+          method:'GET',
+          data:{userid:this.orderlist.userid,foremanid:this.orderlist.foremanid},
+          success:(result)=>{
+            this.foremaneval=result
+            this.eval=this.foremaneval[0]
+          }
+        })
+
+      },
       //结尾验收
       acceptinfo(){
         this.getorder()
@@ -726,6 +777,19 @@ export default {
           this.ispaint =true;
           this.paintitle='该阶段已完成'
         }
+         if(this.orderlist.painprice == 'undefined'){
+              this.orderlist.painprice=0
+            }if(this.orderlist.stageprice == 'undefined'){
+             this.orderlist.stageprice=0
+            }if(this.orderlist.woodprice == 'undefined'){
+              this.orderlist.woodprice=0
+            }if(this.orderlist.dismantleprice == 'undefined'){
+              this.orderlist.dismantleprice=0
+            }if(this.orderlist.hydprice == 'undefined'){
+              this.orderlist.hydprice=0
+            }if(this.orderlist.acceptprice == 'undefined'){
+              this.orderlist.acceptprice=0
+            }
         console.log(this.orderlist)
 
       },
@@ -899,6 +963,7 @@ export default {
       this.getwoodimg()
       this.getpaintimg()
       this.getacceptimg()
+      this.getusereval()
     }
 }
 </script>

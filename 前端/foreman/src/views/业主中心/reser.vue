@@ -17,7 +17,6 @@
                       <th>联系电话</th>
                       <th>微信</th>
                       <th>预约状态</th>
-                      <th>看房时间</th>
                       <th>操作</th>
                   </tr>
                   <tr 
@@ -33,10 +32,9 @@
                       <td >{{item.phone}}</td>
                       <td>{{item.wei}}</td>
                       <em style="color:red">{{item.status}}</em>
-                      <td>{{item.cantime.slice(0,10)}}</td>
                       <td style="width: 140px;">
                           <a class="btn" @click.stop="resinfo(item)">详情/</a>
-                          <a class="btn" @click.stop="cancl(item)"><em style="color:red">{{item.istrue?'预约已取消':'取消预约'}}</em></a>
+                          <a class="btn" @click.stop="cancl(item)"><em style="color:red">{{item.istrue?'取消预约':'业主已取消'}}</em></a>
                       </td>
                   </tr>
               </tbody>

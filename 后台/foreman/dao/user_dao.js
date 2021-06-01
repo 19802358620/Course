@@ -497,5 +497,16 @@ module.exports = class user_dao extends require('../model/user_mode'){
         res.send(result)
     }
 
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    static async updatestatus(req,res){
+        let id = req.query.id;
+        let result = await  this.updatestat(id);
+        res.send(result)
+    }
+
+
 
 }

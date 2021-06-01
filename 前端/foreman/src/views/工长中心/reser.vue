@@ -11,8 +11,9 @@
               <tbody>
                   <tr style=" line-height: 70px; border-bottom: 1px solid #eee;font-weight: bold;">
                       <th>序号</th>
-                      <th>业主姓名</th>
+                      <th>招标编号</th>
                       <th>小区名称</th>
+                      <th>业主姓名</th>
                       <th>性别</th>
                       <th>预约状态</th>
                       <th>量房时间</th>
@@ -22,8 +23,9 @@
                   v-for="(item,i) in reslist" :key="i"
                   style="line-height: 60px;color: #01af63; font-weight: bold;border-bottom: 1px solid #eee;">
                       <td>{{i+1}}</td>
-                      <td>{{item.name}}</td>
+                      <td>第{{item.demandid}}号</td>
                       <td style="color:red">{{item.communityname}}</td>
+                      <td>{{item.name}}</td>
                       <td>{{item.sex}}</td>
                       <td><em style="color:red">{{item.status}}</em></td>
                       <td>2021-04-15</td>
@@ -99,7 +101,6 @@ export default {
         base(item){
             this.dia=true;
             this.baselist =item
-
         },
         //同意预约
         agreeres(){
@@ -129,7 +130,7 @@ export default {
                 success:(result=>{
                     console.log(result)
                     for(let i in result){
-                        if(result[i].status == '已预约'){
+                        if(result[i].status == '预约成功'){
                             result[i].istrue = true;
                         }else{
                               result[i].istrue = false;

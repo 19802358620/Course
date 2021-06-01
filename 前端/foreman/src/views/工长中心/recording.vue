@@ -51,7 +51,7 @@
               <el-col :span="6"><div>城市：{{list.city}}</div></el-col>
               <el-col :span="6"><div>地区：{{list.area}}</div></el-col>
               <el-col :span="6"><div>状态：<em style="color: red;font-weight: bold;">{{list.stutas}}</em></div></el-col>
-              <el-col :span="6"><div>投标价：<em style="color: red;font-weight: bold;">{{list.price}}</em></div></el-col>
+              <el-col :span="6"><div>投标价：<em style="color: red;font-weight: bold;">{{list.price}}万</em></div></el-col>
       </el-row>
       </div>
     </el-dialog>

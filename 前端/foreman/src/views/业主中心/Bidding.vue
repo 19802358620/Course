@@ -67,16 +67,23 @@
                  <el-col :span="6">
                     <el-form-item label="房屋结构" prop='structure' label-width='80px'>
                         <el-select v-model="demand.structure" placeholder="请选择房屋结构">
-                          <el-option label="单层" value="单层"></el-option>
-                          <el-option label="复式" value="复式"></el-option>
+                          <el-option label="木结构(住宅)" value="木结构(住宅)"></el-option>
+                          <el-option label="砖混结构(住宅)" value="砖混结构(住宅)"></el-option>
+                          <el-option label="钢筋混泥土(住宅)" value="钢筋混泥土(住宅)"></el-option>
+                          <el-option label="钢结构(住宅)" value="钢结构(住宅)"></el-option>
+                          <el-option label="剪力墙结构(住宅)" value="剪力墙结构(住宅)"></el-option>
                         </el-select>
                   </el-form-item>
                 </el-col>
                  <el-col :span="6">
                      <el-form-item label="装修风格" prop='style' label-width='80px'>
                         <el-select v-model="demand.style" placeholder="装修风格">
+                          <el-option label="中式" value="中式"></el-option>
+                          <el-option label="欧式" value="欧式"></el-option>
+                          <el-option label="简约" value="简约"></el-option>
+                          <el-option label="田园" value="田园"></el-option>
+                          <el-option label="乡村" value="乡村"></el-option>
                           <el-option label="现代" value="现代"></el-option>
-                          <el-option label="复古" value="复古"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
@@ -86,6 +93,7 @@
                           <el-option label="租赁" value="租赁"></el-option>
                           <el-option label="住宅" value="住宅"></el-option>
                           <el-option label="店铺" value="店铺"></el-option>
+                          <el-option label="写字楼" value="写字楼"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
@@ -94,6 +102,7 @@
                         <el-select v-model="demand.contract" placeholder="承包方式">
                           <el-option label="全包" value="全包"></el-option>
                           <el-option label="半包" value="半包"></el-option>
+                          <el-option label="清包" value="清包"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
@@ -110,6 +119,9 @@
                         <el-select v-model="demand.budget" placeholder="填写装修预算">
                           <el-option label="10万以下" value="10万以下"></el-option>
                           <el-option label="10到20万" value="10到20万"></el-option>
+                          <el-option label="20到30万" value="20到30万"></el-option>
+                          <el-option label="30到50万" value="30到50万"></el-option>
+                          <el-option label="50万以上" value="50万以上"></el-option>
                         </el-select>
                   </el-form-item>
                  </el-col>
@@ -205,9 +217,9 @@ data(){
           suoarea:'',
           ltitme:'',
           dotime:'',
-          remarks:'',
+          remarks:'百度搜索无异常,微信搜索无异常,已告知保险服务',
           content:'',
-          claim:'',
+          claim:'1、经工商注册的正规本地公司,2、已通过诚信工长认证的无业主投诉与差评的优秀工长',
           userid:'',
           communityname:'',
           province:'',
@@ -280,6 +292,10 @@ data(){
         {
           value: '二手',
           label: '二手'
+        },
+        {
+          value: '租赁翻修',
+          label: '租赁翻修'
         },
         ],
         demands:{

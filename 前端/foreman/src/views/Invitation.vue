@@ -10,8 +10,8 @@
                      </div>
                      <div class="cont" >
                          <div class="ie"  v-for="(item,i) in bidlist" :key="i" >
-                             <a  @click="hand(item)">{{item.title}}</a>
-                             <span>01.10</span>
+                             <a  @click="hand(item)">{{item.city}}{{item.adder}}{{item.area}}平米{{item.statusquo}}{{item.style}}{{item.contract}}装修</a>
+                             <span style="margin-top: -20px;">{{item.titme.slice(0,10)}}</span>
                          </div>
                      </div>
                  </div>
@@ -162,10 +162,11 @@ export default {
     line-height: 20px;
     height: 20px;
 }
-.cont .ie:hover{
+/* .item .cont .ie:hover{
     background-color: hotpink;
     opacity: 0.9;
-}
+    color: white;
+} */
 .cont .ie a{
     float: left;
     width: 80%;

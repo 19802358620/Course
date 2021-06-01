@@ -46,27 +46,27 @@ router.post('/reg',function (req,res){
   user.userreg(req,res)
 })
 //业主完善个人信息接口
-router.post('/perfectInfo',tokenCheck,function (req,res){
+router.post('/perfectInfo',function (req,res){
   user.perfect(req,res)
 })
 //业主招标管理接口
-router.get('/meang',tokenCheck,function (req,res){
+router.get('/meang',function (req,res){
   user.meang(req,res)
 })
 //用户头像上传接口
-router.post('/img',tokenCheck,upload,function (req,res){
+router.post('/img',upload,function (req,res){
   user.upimg(req,res)
 })
 //业主删除需求接口
-router.delete('/deledemand',tokenCheck,function (req,res){
+router.delete('/deledemand',function (req,res){
   user.deledemand(req,res)
 })
 //业主修改密码接口
-router.post('/updatapwd',tokenCheck,function (req,res){
+router.post('/updatapwd',function (req,res){
   user.updatapwd(req,res)
 })
 //用户修改招标需求接口
-router.post('/modifyde',tokenCheck,function (req,res){
+router.post('/modifyde',function (req,res){
   user.modifyde(req,res)
 })
 //获取用户头像接口
@@ -86,7 +86,7 @@ router.get('/getstenderlist',function (req,res){
   user.getstenderlist(req,res)
 })
 //业主预约工长
-router.post('/setorder',tokenCheck,function (req,res){
+router.post('/setorder',function (req,res){
   user.setorder(req,res)
 })
 //修改工长的投标状态
@@ -176,5 +176,9 @@ router.delete('/deletereal',function (req,res){
 //装修项目中获取评价内容
 router.get('/eval',function (req,res){
   user.eval(req,res)
+})
+//修改标书状态
+router.get('/demandstatus',function (req,res){
+  user.updatestatus(req,res)
 })
 module.exports = router;

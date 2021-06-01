@@ -589,4 +589,22 @@ module.exports = class user_mod extends require('./model'){
             })
         })
     }
+
+    /**
+     * 修改状态
+     * @param id
+     */
+    static updatestat(id){
+        let str= '招标完成'
+        return new Promise((resolve,reject)=> {
+            let sql = "update  `demand` set `status` = " + "'" + str + "'" + " where `id` = " + "'" + id + "'" + "";
+            console.log(sql)
+            this.query(sql).then((reult) => {
+                resolve(reult)
+            }).catch(err => {
+                reject('false')
+            })
+        })
+    }
+
 }

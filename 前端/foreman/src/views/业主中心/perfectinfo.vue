@@ -201,6 +201,7 @@ export default {
             // var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
             // this.user.modftime = str;
             this.user.userid = this.users.id;
+            console.log(this.user)
             this.$Axios({
                 url:'/users/perfectInfo',
                 method:'POST',
