@@ -22,7 +22,7 @@
            </div>
            <div class="left">
           25
-          <b>亿</b>
+          <b>亿个人</b>
           <br>
           <span>2019年平台交易额超</span>
            </div>
