@@ -16,7 +16,7 @@
            </div>
            <div class="left">
           500
-          <b>万</b>
+          <b>万个</b>
           <br>
           <span>已服务业主数超</span>
            </div>
